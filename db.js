@@ -98,3 +98,26 @@ function updateUser(updatedUser, callback) {
       callback(null);
     });
 }
+
+function addWishlistItem(userId, itemId, itemType, callback) {
+  db.run('INSERT INTO wishlist (user_id, item_id, item_type) VALUES (?, ?, ?)',
+      [userId, itemId, itemType],
+      function (err) {
+          if (err) {
+              callback(err);
+              return;
+          }
+          callback(null, { lastInsertId: this.lastID });
+      });
+}
+
+function getAllWishlistItemsForUser(userId, callback) {
+  db.all('SELECT item_id FROM wishlist WHERE user_id = ?', [userId], callback);
+}
+
+
+function getUserByEmail(email, callback) {
+  db.get('SELECT * FROM users WHERE email = ?', [email], callback);
+}
+
+
