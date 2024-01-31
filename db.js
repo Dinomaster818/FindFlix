@@ -20,7 +20,11 @@ const db = new sqlite3.Database(dbPath, (err) => {
         console.log(rows);
       }
 
+<<<<<<< Updated upstream
       // Insert a new user into the database
+=======
+      // Insert a new user 
+>>>>>>> Stashed changes
       const newUser = {
         full_name: 'New User',
         email: 'newuser@example.com',
@@ -34,7 +38,11 @@ const db = new sqlite3.Database(dbPath, (err) => {
           console.log('New user added with ID:', result.lastInsertId);
         }
 
+<<<<<<< Updated upstream
         // Update a user in the database
+=======
+        // Update a user in the database by email address
+>>>>>>> Stashed changes
         const updatedUser = {
           user_id: 1,
           full_name: 'Updated User',
@@ -91,7 +99,12 @@ const db = new sqlite3.Database(dbPath, (err) => {
   }
 });
 
+<<<<<<< Updated upstream
 // Function to fetch all users from the database
+=======
+
+
+>>>>>>> Stashed changes
 function getAllUsers(callback) {
   db.all('SELECT * FROM users', callback);
 }
