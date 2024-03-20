@@ -8,6 +8,7 @@
   "dependencies": {
     "axios": "^1.6.2",
     "body-parser": "^1.20.2",
+    "bootstrap": "^5.3.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "^3.1.9",
@@ -17,5 +18,13 @@
     "morgan": "~1.9.1",
     "serve-index": "^1.9.1",
     "sqlite3": "^5.1.6"
-  }
+  },
+  "description": "A description of the Findflix application",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
