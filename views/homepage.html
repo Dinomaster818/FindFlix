@@ -5,36 +5,46 @@
     <meta http-equiv="X-UA-Comptible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="homepage.css">
 
     <script src="/bootstrap.bundle.min.js"></script>
     <title>Home</title>
 </head>
-<body>
+<body class="vh-100 overflow-hidden">
 
-  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-transparent">
 
+    <!-- Brand -->
     <a href="#" class="navbar-brand mb-0 h1">FindFlix</a>
-    <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" cla class="navbar-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 
+    <!-- Toggle Button -->
+    <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" class="navbar-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active"><a href="" class="nav-link active">
-            Home
-          </a>
-        </li>
-        <li class="nav-item active"><a href="" class="nav-link">
-          Account
-          </a>
-        </li>
-      </ul>
-    </div>
+    <!-- Navbar Collapse -->
+    <div class="collapse navbar-collapse fs-5 flex-grow-1 pe-3 gap-3" id="navbarNav">
+      <!-- Home & other links -->
+        <ul class="navbar-nav mx-auto align-items-center">
+          <li class="nav-item ">
+            <a href="homepage.html" class="nav-link active">Home</a>
+          </li>
+        </ul>
+        <!-- Login and Sign Up Links -->
+        <ul class="navbar-nav align-items-center gap-3">
+          <li class="nav-item">
+            <a href="#login" class="nav-link text-white">Login</a>
+          </li>
+          <li class="nav-item">
+            <a href="#signup" class="text-white text-decoration-none px-3 py-1 rounded-4" style="background-color: blueviolet;">Sign Up</a>
+          </li>
+        </ul>
+      </div>
+        
+
+    
   </nav>
 
-
-
-
 </body>
+
 </html>
