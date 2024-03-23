@@ -131,4 +131,5 @@ dist
 
 .json
 
-.db*
+*.db
+
