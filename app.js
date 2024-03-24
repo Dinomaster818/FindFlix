@@ -14,6 +14,7 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
+app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
