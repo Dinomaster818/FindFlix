@@ -1,13 +1,14 @@
-const tmdbApiKey = "29ec8add73f1144a141e713a791aa2df";
-const googleBooksApiKey = "AIzaSyBDOY1VMSEjrmxbaz0dsKESUIm7xhLMBJE";
+const fetchModule = import('node-fetch');
 
 async function fetchTMDBData(movieName) {
+    const fetch = (await fetchModule).default; // Use `default` property for ES module
+    const tmdbApiKey = process.env.TMDB_API_KEY;
     const tmdbUrl = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${encodeURIComponent(movieName)}`;
 
     try {
         const response = await fetch(tmdbUrl);
-        const { results } = await response.json(); // Destructure to get results directly
-        return results; // Return only results
+        const { results } = await response.json();
+        return results;
     } catch (error) {
         console.error("Error fetching data from TMDB:", error);
         return null;
@@ -15,16 +16,18 @@ async function fetchTMDBData(movieName) {
 }
 
 async function fetchGoogleBooksData(bookTitle) {
+    const fetch = (await fetchModule).default; // Use `default` property for ES module
+    const googleBooksApiKey = process.env.GOOGLE_BOOKS_API_KEY;
     const googleBooksUrl = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(bookTitle)}&key=${googleBooksApiKey}`;
 
     try {
         const response = await fetch(googleBooksUrl);
-        const { items } = await response.json(); // Destructure to get items directly
-        return items; // Return only items
+        const { items } = await response.json();
+        return items;
     } catch (error) {
         console.error("Error fetching data from Google Books:", error);
         return null;
     }
 }
 
-export { fetchTMDBData, fetchGoogleBooksData };
+module.exports = { fetchTMDBData, fetchGoogleBooksData };
