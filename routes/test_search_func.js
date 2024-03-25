@@ -24,17 +24,21 @@ async function searchMovie() {
         rl.question("Enter the name of the movie you want to search for: ", async (movieName) => {
             const movieData = await fetchTMDBData(movieName);
             console.log("Movie Data:", movieData);
-            resolve(); // Resolve the Promise to indicate completion
+            resolve(); 
         });
     });
 }
 
 
 async function searchBook() {
-    rl.question("Enter the title of the book you want to search for: ", async (bookTitle) => {
-        const bookData = await fetchGoogleBooksData(bookTitle);
-        console.log("Book Data:", bookData);
+    return new Promise((resolve) => {
+        rl.question("Enter the title of the book you want to search for: ", async (bookTitle) => {
+            const bookData = await fetchGoogleBooksData(bookTitle);
+            console.log("Book Data:", bookData);
+            resolve(); 
+        });
     });
+
 }
 
 
