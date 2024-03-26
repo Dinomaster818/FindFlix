@@ -1,5 +1,5 @@
 const readline = require('readline');
-const { fetchTMDBData, fetchGoogleBooksData } = require('./search_function.js');
+const { fetchOMDBData, fetchGoogleBooksData } = require('./search_function.js');
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -22,22 +22,51 @@ function search() {
 async function searchMovie() {
     return new Promise((resolve) => {
         rl.question("Enter the name of the movie you want to search for: ", async (movieName) => {
-            const movieData = await fetchTMDBData(movieName);
-            console.log("Movie Data:", movieData);
+            const movieData = await fetchOMDBData(movieName);
+            console.log(""); 
+            
+            if (movieData) {
+                console.log(`Title: ${movieData.title}`);
+                console.log(`Year: ${movieData.year}`);
+                console.log(`Rated: ${movieData.rated}`);
+                console.log(`Released: ${movieData.released}`);
+                console.log(`Runtime: ${movieData.runtime}`);
+                console.log(`Genre: ${movieData.genre}`);
+                console.log(`Director: ${movieData.director}`);
+                console.log(`Writer: ${movieData.writer}`);
+                console.log(`Actors: ${movieData.actors}`);
+                console.log(`Plot: ${movieData.plot}`);
+                console.log(`Language: ${movieData.language}`);
+                console.log(`Country: ${movieData.country}`);
+                console.log(`Awards: ${movieData.awards}`);
+                console.log(`Poster: ${movieData.poster}`);
+                console.log(`Metascore: ${movieData.metascore}`);
+                console.log(`IMDB Rating: ${movieData.imdbRating}`);
+                console.log(`IMDB Votes: ${movieData.imdbVotes}`);
+                console.log(`IMDB ID: ${movieData.imdbID}`);
+                console.log(`Type: ${movieData.type}`);
+                console.log(`DVD: ${movieData.DVD}`);
+                console.log(`Box Office: ${movieData.boxOffice}`);
+                console.log(`Production: ${movieData.production}`);
+                console.log(`Website: ${movieData.website}`);
+            } else {
+                console.log("No data found for the given movie title.");
+            }
+            
             resolve(); 
         });
     });
 }
 
 
+
 async function searchBook() {
     return new Promise((resolve) => {
         rl.question("Enter the title of the book you want to search for: ", async (bookTitle) => {
             const bookData = await fetchGoogleBooksData(bookTitle);
-            console.log(""); // Add a line break for clarity
+            console.log("");
             
             if (bookData) {
-                // Print each book's details
                 bookData.forEach(book => {
                     console.log(`Title: ${book.title}`);
                     console.log(`Authors: ${book.authors}`);
@@ -58,7 +87,7 @@ async function searchBook() {
                     console.log(`Saleability: ${book.saleability}`);
                     console.log(`Is Ebook: ${book.isEbook}`);
                     console.log(`Buy Link: ${book.buyLink}`);
-                    console.log(""); // Add a line break between each book
+                    console.log(""); 
                 });
             } else {
                 console.log("No data found for the given book title.");

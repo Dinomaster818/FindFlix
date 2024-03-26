@@ -1,29 +1,63 @@
-const fetchModule = import('node-fetch'); // Changed to require
+const fetchModule = import('node-fetch');
 require('dotenv').config();
 
-async function fetchTMDBData(movieName) {
+async function fetchOMDBData(movieName) {
     const fetch = (await fetchModule).default; 
-    const tmdbApiKey = process.env.TMDB_API_KEY;
-    const tmdbUrl = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${encodeURIComponent(movieName)}`;
+    const omdbApiKey = process.env.OMDB_API_KEY; 
+    const omdbUrl = `http://www.omdbapi.com/?t=${encodeURIComponent(movieName)}&apikey=${omdbApiKey}`;
 
     try {
-        const response = await fetch(tmdbUrl);
-        const { results } = await response.json();
+        const response = await fetch(omdbUrl);
+        const movieData = await response.json();
 
-        // Parse and format the data
-        const formattedResults = results.map(result => ({
-            title: result.title,
-            releaseDate: result.release_date,
-            overview: result.overview
-            // Add more fields as needed
-        }));
 
-        return formattedResults;
+        if (movieData.Response === 'True') {
+
+            return await formatOMDBData(movieData);
+        } else {
+            console.error("Movie not found.");
+            return null;
+        }
     } catch (error) {
-        console.error("Error fetching data from TMDB:", error);
+        console.error("Error fetching data from OMDB:", error);
         return null;
     }
 }
+
+async function formatOMDBData(movieData) {
+    return {
+        title: movieData.Title,
+        year: movieData.Year,
+        rated: movieData.Rated || 'N/A',
+        released: movieData.Released || 'N/A',
+        runtime: movieData.Runtime || 'N/A',
+        genre: movieData.Genre || 'N/A',
+        director: movieData.Director || 'N/A',
+        writer: movieData.Writer || 'N/A',
+        actors: movieData.Actors || 'N/A',
+        plot: movieData.Plot || 'N/A',
+        language: movieData.Language || 'N/A',
+        country: movieData.Country || 'N/A',
+        awards: movieData.Awards || 'N/A',
+        poster: movieData.Poster || 'N/A',
+        ratings: movieData.Ratings || [],
+        metascore: movieData.Metascore || 'N/A',
+        imdbRating: movieData.imdbRating || 'N/A',
+        imdbVotes: movieData.imdbVotes || 'N/A',
+        imdbID: movieData.imdbID || 'N/A',
+        type: movieData.Type || 'N/A',
+        DVD: movieData.DVD || 'N/A',
+        boxOffice: movieData.BoxOffice || 'N/A',
+        production: movieData.Production || 'N/A',
+        website: movieData.Website || 'N/A'
+    };
+}
+
+
+
+
+
+
 
 async function formatGoogleBooksData(items) {
     return items.map(item => ({
@@ -70,4 +104,4 @@ async function fetchGoogleBooksData(bookTitle) {
 }
 
 
-module.exports = { fetchTMDBData, fetchGoogleBooksData,formatGoogleBooksData };
+module.exports = { fetchOMDBData, fetchGoogleBooksData,formatGoogleBooksData };
