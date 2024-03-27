@@ -52,6 +52,15 @@ async function searchMovie() {
             } else {
                 console.log("No data found for the given movie title.");
             }
+
+            const movieRelatedBooks = await fetchGoogleBooksData(movieName);
+            console.log(" ");
+            if(movieRelatedBooks){
+                console.log("Books related to the book:");
+                console.log(`Title: ${movieRelatedBooks.title}`);
+            }else{
+                console.log("No book related data found!");
+            }
             
             resolve(); 
         });
