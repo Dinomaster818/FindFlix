@@ -1,19 +1,18 @@
 const fetchModule = import('node-fetch');
 require('dotenv').config();
 
-async function fetchOMDBData(movieName) {
+async function fetchMovieData(movieName) {
     const fetch = (await fetchModule).default; 
     const omdbApiKey = process.env.OMDB_API_KEY; 
     const omdbUrl = `http://www.omdbapi.com/?t=${encodeURIComponent(movieName)}&apikey=${omdbApiKey}`;
 
     try {
         const response = await fetch(omdbUrl);
-        const movieData = await response.json();
+        const movieData = await response.json(); 
 
-
-        if (movieData.Response === 'True') {
-
-            return await formatOMDBData(movieData);
+        if (movieData.Response === 'True') { 
+            const formattedItems = await formatMovieData([movieData]); 
+            return formattedItems;
         } else {
             console.error("Movie not found.");
             return null;
@@ -24,8 +23,47 @@ async function fetchOMDBData(movieName) {
     }
 }
 
-async function formatOMDBData(movieData) {
-    return {
+async function fetchMovieDetailsById(imdbId) {
+    const fetch = (await fetchModule).default;
+    const omdbApiKey = process.env.OMDB_API_KEY;
+    const omdbUrl = `http://www.omdbapi.com/?i=${encodeURIComponent(imdbId)}&apikey=${omdbApiKey}`;
+
+    try {
+        const response = await fetch(omdbUrl);
+        const movieData = await response.json();
+
+        console.log(movieData);
+
+        if (movieData.Response === 'True') {
+            const formattedItem = await formatMovieDetails([movieData]);
+            return formattedItem;
+        } else {
+            console.error("Movie not found.");
+            return null;
+        }
+    } catch (error) {
+        console.error("Error fetching data from OMDB:", error);
+        return null;
+    }
+}
+
+async function formatMovieData(movieDataArray) {
+    return movieDataArray.map(movieData => ({
+        title: movieData.Title || 'N/A',
+        year: movieData.Year || 'N/A',
+        imdbID: movieData.imdbID || 'N/A',
+        type: movieData.Type || 'N/A',
+        poster: movieData.Poster || 'N/A'
+    }));
+}
+
+
+
+
+
+
+async function formatMovieDetails(movieDataArray) {
+    return movieDataArray.map(movieData => ({
         title: movieData.Title,
         year: movieData.Year,
         rated: movieData.Rated || 'N/A',
@@ -50,8 +88,9 @@ async function formatOMDBData(movieData) {
         boxOffice: movieData.BoxOffice || 'N/A',
         production: movieData.Production || 'N/A',
         website: movieData.Website || 'N/A'
-    };
+    }));
 }
+
 
 
 
@@ -87,7 +126,7 @@ async function formatGoogleBooksData(items) {
 async function fetchGoogleBooksData(bookTitle) {
     const fetch = (await fetchModule).default;
     const googleBooksApiKey = process.env.GOOGLE_BOOKS_API_KEY;
-    const googleBooksUrl = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(bookTitle)}&key=${googleBooksApiKey}&maxResults=1`;
+    const googleBooksUrl = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(bookTitle)}&key=${googleBooksApiKey}`;//&maxResults=vilken siffra som helst beroende på hur många requests du vill ha. Lägg till detta efter {googleBooksApiKey}
 
 
     try {
@@ -104,4 +143,4 @@ async function fetchGoogleBooksData(bookTitle) {
 }
 
 
-module.exports = { fetchOMDBData, fetchGoogleBooksData,formatGoogleBooksData };
+module.exports = { fetchMovieData, fetchGoogleBooksData,formatGoogleBooksData, fetchMovieDetailsById, formatMovieData,formatMovieDetails };

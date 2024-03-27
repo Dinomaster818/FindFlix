@@ -1,5 +1,5 @@
 const readline = require('readline');
-const { fetchOMDBData, fetchGoogleBooksData } = require('./search_function.js');
+const { fetchMovieData, fetchGoogleBooksData } = require('./search_function.js');
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -22,36 +22,22 @@ function search() {
 async function searchMovie() {
     return new Promise((resolve) => {
         rl.question("Enter the name of the movie you want to search for: ", async (movieName) => {
-            const movieData = await fetchOMDBData(movieName);
+            const movieDataSet = await fetchMovieData(movieName);
             console.log(""); 
             
-            if (movieData) {
-                console.log(`Title: ${movieData.title}`);
-                console.log(`Year: ${movieData.year}`);
-                console.log(`Rated: ${movieData.rated}`);
-                console.log(`Released: ${movieData.released}`);
-                console.log(`Runtime: ${movieData.runtime}`);
-                console.log(`Genre: ${movieData.genre}`);
-                console.log(`Director: ${movieData.director}`);
-                console.log(`Writer: ${movieData.writer}`);
-                console.log(`Actors: ${movieData.actors}`);
-                console.log(`Plot: ${movieData.plot}`);
-                console.log(`Language: ${movieData.language}`);
-                console.log(`Country: ${movieData.country}`);
-                console.log(`Awards: ${movieData.awards}`);
-                console.log(`Poster: ${movieData.poster}`);
-                console.log(`Metascore: ${movieData.metascore}`);
-                console.log(`IMDB Rating: ${movieData.imdbRating}`);
-                console.log(`IMDB Votes: ${movieData.imdbVotes}`);
-                console.log(`IMDB ID: ${movieData.imdbID}`);
-                console.log(`Type: ${movieData.type}`);
-                console.log(`DVD: ${movieData.DVD}`);
-                console.log(`Box Office: ${movieData.boxOffice}`);
-                console.log(`Production: ${movieData.production}`);
-                console.log(`Website: ${movieData.website}`);
+            if (movieDataSet) {
+                movieDataSet.forEach(movieData => {
+                    console.log(`Title: ${movieData.title}`);
+                    console.log(`Year: ${movieData.year}`);
+                    console.log(`IMDB ID: ${movieData.imdbID}`);
+                    console.log(`Type: ${movieData.type}`);
+                    console.log(`Poster: ${movieData.poster}`);
+                    console.log("----------------------------------"); 
+                });
             } else {
                 console.log("No data found for the given movie title.");
             }
+            
 
             const movieRelatedBooks = await fetchGoogleBooksData(movieName);
             console.log(" ");
@@ -108,17 +94,18 @@ async function searchBook() {
                 console.log("No data found for the given book title.");
             }
 
-            const movieData = await fetchOMDBData(bookTitle);
+            const movieDataSet = await fetchMovieData(bookTitle);
             console.log(""); 
             
-            if (movieData) {
-                console.log("Movies related to the book: ");
-                console.log(`Title: ${movieData.title}`);
-                console.log(`Genre: ${movieData.genre}`);
-                console.log(`Director: ${movieData.director}`);
-                console.log(`Actors: ${movieData.actors}`);
-                console.log(`Plot: ${movieData.plot}`);
-
+            if (movieDataSet) {
+                movieDataSet.forEach(movieData => {
+                    console.log(`Title: ${movieData.title}`);
+                    console.log(`Year: ${movieData.year}`);
+                    console.log(`IMDB ID: ${movieData.imdbID}`);
+                    console.log(`Type: ${movieData.type}`);
+                    console.log(`Poster: ${movieData.poster}`);
+                    console.log("----------------------------------"); 
+                });
             } else {
                 console.log("No data found for the given movie title.");
             }
