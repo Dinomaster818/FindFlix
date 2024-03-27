@@ -55,11 +55,17 @@ async function searchMovie() {
 
             const movieRelatedBooks = await fetchGoogleBooksData(movieName);
             console.log(" ");
-            if(movieRelatedBooks){
-                console.log("Books related to the book:");
-                console.log(`Title: ${movieRelatedBooks.title}`);
-            }else{
-                console.log("No book related data found!");
+            if (movieRelatedBooks) {
+                movieRelatedBooks.forEach(book => {
+                    console.log("Books related to the movie");
+                    console.log(`Title: ${book.title}`);
+                    console.log(`Authors: ${book.authors}`);
+                    console.log(`Publisher: ${book.publisher}`);
+                    console.log(`Published Date: ${book.publishedDate}`);
+                    console.log(`Description: ${book.description}`);
+                });
+            } else {
+                console.log("No data found for the given book title.");
             }
             
             resolve(); 
@@ -100,6 +106,21 @@ async function searchBook() {
                 });
             } else {
                 console.log("No data found for the given book title.");
+            }
+
+            const movieData = await fetchOMDBData(bookTitle);
+            console.log(""); 
+            
+            if (movieData) {
+                console.log("Movies related to the book: ");
+                console.log(`Title: ${movieData.title}`);
+                console.log(`Genre: ${movieData.genre}`);
+                console.log(`Director: ${movieData.director}`);
+                console.log(`Actors: ${movieData.actors}`);
+                console.log(`Plot: ${movieData.plot}`);
+
+            } else {
+                console.log("No data found for the given movie title.");
             }
             
             
