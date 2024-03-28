@@ -1,12 +1,11 @@
 
-
 "use strict";
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const primaryResults = document.getElementById('primaryResults');
 const similarResults = document.getElementById('similarResults');
-const searchBar = document.querySelector('.search-bar'); // Make sure this selector exists in your HTML
-let currentCategory = ''; // Define currentCategory to store the current search category
+const searchBar = document.querySelector('.search-bar'); 
+let currentCategory = '';
 
 const API_KEY_OMDB = '61efabcc'; // OMDb API key
 const API_KEY_GOOGLE_BOOKS = 'AIzaSyBDOY1VMSEjrmxbaz0dsKESUIm7xhLMBJE'; // Google Books API key
@@ -62,8 +61,6 @@ async function searchMovies(query, isRecommended = false) {
 }
 
 
-
-
 // Function to handle book search
 async function searchBooks(query, isRecommended = false) {
     try {
@@ -72,7 +69,6 @@ async function searchBooks(query, isRecommended = false) {
 
         if (data.items) {
             displayResults(data.items, 'book', isRecommended ? 'similarResults' : 'primaryResults');
-            // After displaying books, if not a recommended search, then fetch recommended movies
             if (!isRecommended && currentCategory === 'books') {
                 searchMovies(query, true); // Trigger recommended movies search
             }
@@ -85,24 +81,19 @@ async function searchBooks(query, isRecommended = false) {
     }
 }
 
-
+// Display the results
 function displayResults(results, type, targetId) {
     const target = document.getElementById(targetId);
     let headingText = targetId === 'primaryResults' ? `${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1)}` : `Recommended ${currentCategory === 'movies' ? 'Books' : 'Movies'}`;
 
-    // Create the heading outside of the card container
     target.innerHTML = `<h2 class="results-heading">${headingText}</h2>`;
 
-    // Create a container for the cards
     const cardsContainer = document.createElement('div');
     cardsContainer.className = 'cards-container';
 
-    // Append new results to the cards container
     results.forEach(item => {
         cardsContainer.innerHTML += createCard(item, type);
     });
-
-    // Append the cards container to the target element
     target.appendChild(cardsContainer);
 }
 
@@ -110,7 +101,6 @@ function displayResults(results, type, targetId) {
 // Create HTML card for each result
 function createCard(item, type) {
     if (type === 'movie') {
-        // Use the Plot property and limit the description to 20 words
         const movieDescription = item.Plot ? item.Plot.split(' ').slice(0, 10).join(' ') + '...' : 'No description available.';
         return `
             <div class="card">
