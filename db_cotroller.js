@@ -105,7 +105,6 @@ function removeMovieFromWishlist(movie_id, callback) {
 
 
 
-
 module.exports = {
     login,
     createAccount,

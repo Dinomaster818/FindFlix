@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Error</title>
+    </head>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: #878787;
+            height: 100%;
+            overflow: hidden;
+            font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+        }
+
+        .bg-mask {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background: linear-gradient(45deg, rgb(42, 42, 42) 0, rgba(70, 61, 61, 0.7) 100%);
+            color: antiquewhite;
+        }
+
+    </style>
+
+
+    <body>
+        <div class="bg-mask"><h1>Error</h1></div>
+    </body>
+
+    <script>
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+        }
+        function draw() {
+            background(150);
+            noStroke();
+            for (let i = 0; i < 14000; i++) {
+                rect(random(width), random(height), 1, 1);
+            }
+        }
+    </script>
+</html>
