@@ -85,23 +85,10 @@ async function searchBooks(query, isRecommended = false) {
     }
 }
 
-// Display search results
+
 function displayResults(results, type, targetId) {
     const target = document.getElementById(targetId);
-    // Determine the content type and heading based on the targetId
     let headingText = targetId === 'primaryResults' ? `${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1)}` : `Recommended ${currentCategory === 'movies' ? 'Books' : 'Movies'}`;
-    target.innerHTML = `<h2>${headingText}</h2>`; // Set the heading dynamically
-
-    // Create and append new results
-    results.forEach(item => {
-        target.innerHTML += createCard(item, type);
-    });
-}
-
-
-function displayResults(results, type, targetId) {
-    const target = document.getElementById(targetId);
-    let headingText = targetId === 'primaryResults' ? `Primary Results for ${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1)}` : `Recommended ${currentCategory === 'movies' ? 'Books' : 'Movies'}`;
 
     // Create the heading outside of the card container
     target.innerHTML = `<h2 class="results-heading">${headingText}</h2>`;
