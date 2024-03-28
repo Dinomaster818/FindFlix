@@ -99,7 +99,6 @@ function displayResults(results, type, targetId) {
 }
 
 
-
 function displayResults(results, type, targetId) {
     const target = document.getElementById(targetId);
     let headingText = targetId === 'primaryResults' ? `Primary Results for ${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1)}` : `Recommended ${currentCategory === 'movies' ? 'Books' : 'Movies'}`;
