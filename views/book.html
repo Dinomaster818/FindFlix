@@ -1,32 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link rel="icon" type="image/x-icon" href="/images/play-circle-outline.svg">
-        <title>Book</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="/images/play-circle-outline.svg">
+    <title>book details</title>
 
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
-            <div class="container px-6">
-                <h1 class="fw-bolder">
-                    <a class="navbar-brand" href="#page-top">FindFlix</a>
-                </h1>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                    aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="login.html">Log in</a></li>
-                        <li class="nav-item"><a class="nav-link" href="signup.html">Sign up</a></li>
-                    </ul>
+    <link rel="stylesheet" href="/public/stylesheets/movie.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent" id="mainNav">
+        <div class="container px-6">
+            <h1 class="fw-bolder">
+                <a class="navbar-brand" href="#page-top">FindFlix</a>
+            </h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="login.html">Log in</a></li>
+                    <li class="nav-item"><a class="nav-link" href="signup.html">Sign up</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+            <div class="container py-5">
+                <div class="container px-5">
+                    <div class="row gx-5 align-items-center justify-content-center">
+                        <div class="col-lg-8 col-xl-7 col-xxl-6">
+                            <div class="my-5 text-center text-xl-start">
+                                <h1 id="book-title" class="display-5 fw-bolder text-white mb-2">Book title</h1>
+                                <div class="technical-details d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                                    <img src="\public\images\star-rating.svg" alt="Star Rating" class="star-rating">
+                                    <p id="ratings" class="lead text-white-50 mb-4 ">Ratings</a>
+                                    <p id="runtime" class="lead text-white-50 mb-4 ">Runtime</a>
+                                    <p id="release" class="lead text-white-50 mb-4 ">Release</a>
+                                </div>
+                                <p id="tags" class="lead fw-normal text-white-50 mb-4">Movie tags</p>
+                                <p id="description" class="lead fw-normal text-white mb-4">Movie description goes here</p>
+                                <p id="actors" class=" lead fw-normal text-white-50 mb-4">Starring</p>
+                                <p id="director" class="lead fw-normal text-white-50 mb-4">Directed by</p>
+                                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                                    <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#watchlist">Add to watchlist</a>
+                                    <a class="btn btn-outline-light btn-lg px-4" href="#!">Buy now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+                            <img id="cover" class="rounded-4 my-5" src="\public\images\placeholder.svg" alt="..." style="width: 500px; height: auto;" />
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
-        </nav>
-    </body>
+</body>
 
 </html>
