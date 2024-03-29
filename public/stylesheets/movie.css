@@ -1,9 +1,46 @@
+
+body {
+    background-color: #151515;
+  }
+  
+
+
 .movie-details{
-    margin: 5% 0;
+    margin: 3% 0;
 
     
 }
 
 .left-box{
-    color: #fff;;
+    color: #fff;
+    margin: 15px 0;
+    padding: 20px;
 }
+
+.poster{
+    width: 100px;
+    height: 100px;
+}
+
+.technical-details p {
+    font-size: 15px;
+    
+}
+
+.technical-details p:not(:last-child)::after{
+    content: "•";
+    margin-left: 5px;
+    
+}
+
+
+
+.star-rating {
+    width: 1em; /* Set width to 1em to match the font size */
+    height: 1em; /* Let the browser calculate the height to maintain aspect ratio */
+    margin-right: 5px; /* Adjust margin as needed */
+
+
+}
+
+
