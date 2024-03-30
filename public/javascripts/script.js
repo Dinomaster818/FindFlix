@@ -6,6 +6,7 @@ const primaryResults = document.getElementById('primaryResults');
 const similarResults = document.getElementById('similarResults');
 const searchBar = document.querySelector('.search-bar'); 
 let currentCategory = '';
+import { fetchMovieData, fetchGoogleBooksData } from 'search_function.js';
 
 const API_KEY_OMDB = '61efabcc'; // OMDb API key
 const API_KEY_GOOGLE_BOOKS = 'AIzaSyBDOY1VMSEjrmxbaz0dsKESUIm7xhLMBJE'; // Google Books API key

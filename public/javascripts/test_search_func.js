@@ -1,5 +1,5 @@
 const readline = require('readline');
-const { fetchMovieData, fetchGoogleBooksData } = require('./search_function.js');
+//const { fetchMovieData, fetchGoogleBooksData } = require('./search_function.js');
 
 const rl = readline.createInterface({
     input: process.stdin,
