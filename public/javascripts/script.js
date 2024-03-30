@@ -6,7 +6,6 @@ const primaryResults = document.getElementById('primaryResults');
 const similarResults = document.getElementById('similarResults');
 const searchBar = document.querySelector('.search-bar'); 
 let currentCategory = '';
-import { fetchMovieData, fetchGoogleBooksData } from 'search_function.js';
 
 const API_KEY_OMDB = '61efabcc'; // OMDb API key
 const API_KEY_GOOGLE_BOOKS = 'AIzaSyBDOY1VMSEjrmxbaz0dsKESUIm7xhLMBJE'; // Google Books API key
@@ -112,8 +111,9 @@ function displayResults(results, type, targetId) {
 function createCard(item, type, link) {
     if (type === 'movie') {
         const movieDescription = item.Plot ? item.Plot.split(' ').slice(0, 10).join(' ') + '...' : 'No description available.';
+        const movieLink = `${link}?movie-title=${encodeURIComponent(item.Title)}&ratings=${encodeURIComponent(item.Ratings)}&runtime=&release=${encodeURIComponent(item.Year)}&tags=&description=&actors=&director=`;
         return `
-            <a href="${link}" class="card-link">
+            <a href="${movieLink}" class="card-link">
                 <div class="card">
                     <img src="${item.Poster}" alt="Movie Poster" class="card-poster" />
                     <div class="card-info">

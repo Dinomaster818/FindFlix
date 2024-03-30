@@ -59,6 +59,25 @@
                     </div>
                 </div>
             </div>
+
+            <script>
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+            
+                document.getElementById('movie-title').innerText = urlParams.get('movie-title') || 'Movie title';
+                document.getElementById('ratings').innerText = urlParams.get('ratings') || 'Ratings';
+                document.getElementById('runtime').innerText = urlParams.get('runtime') || 'Runtime';
+                document.getElementById('release').innerText = urlParams.get('release') || 'Release';
+                document.getElementById('tags').innerText = urlParams.get('tags') || 'Movie tags';
+                document.getElementById('description').innerText = urlParams.get('description') || 'Movie description goes here';
+                document.getElementById('actors').innerText = urlParams.get('actors') || 'Starring';
+                document.getElementById('director').innerText = urlParams.get('director') || 'Directed by';
+
+                const posterSrc = urlParams.get('poster');
+                if (posterSrc) {
+                    document.getElementById('poster').src = posterSrc;
+                }
+            </script>
 </body>
 
 </html>
