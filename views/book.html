@@ -62,6 +62,33 @@
                     </div>
                 </div>
             </div>
+
+            <script>
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+        
+                document.getElementById('book-title').innerText = urlParams.get('book-title') || 'Book title';
+                document.getElementById('ratings').innerText = urlParams.get('ratings') || 'Ratings';
+                document.getElementById('pages').innerText = urlParams.get('pages') || 'Pages';
+                document.getElementById('release').innerText = urlParams.get('release') || 'Release';
+                document.getElementById('genre').innerText = urlParams.get('genre') || 'Book tags';
+                document.getElementById('description').innerText = urlParams.get('description') || 'Book description goes here';
+                document.getElementById('format').innerText = urlParams.get('format') || 'Book format';
+                document.getElementById('author').innerText = urlParams.get('author') || 'Author';
+                document.getElementById('isbn').innerText = urlParams.get('isbn') || 'ISBN';
+                document.getElementById('publisher').innerText = urlParams.get('publisher') || 'Publisher';
+                document.getElementById('language').innerText = urlParams.get('language') || 'Language';
+        
+                const coverSrc = urlParams.get('cover');
+                if (coverSrc) {
+                    const encodedCoverSrc = encodeURIComponent(coverSrc);
+                    document.getElementById('cover').src = encodedCoverSrc;
+                }
+        
+                const watchlistBtn = document.getElementById('watchlistbtn');
+                const buyLink = document.getElementById('buylink');
+
+            </script>
 </body>
 
 </html>

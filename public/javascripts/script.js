@@ -142,15 +142,18 @@ async function createCard(item, type, link) {
         const movieDetails = await fetchMovieDetailsById(movieID);
 
         if (movieDetails) {
-            const { Title = 'N/A', Ratings = [], Runtime = 'N/A', Released = 'N/A', Genre = 'N/A', Plot = 'N/A', Actors = 'N/A', Director = 'N/A', Poster = '/images/placeholder.svg' } = movieDetails;
+            const { Title = 'N/A', Ratings = [], Runtime = 'N/A', Released = 'N/A', Genre = 'N/A', Plot = 'N/A', Actors = 'N/A', Director = 'N/A' } = movieDetails;
+            const posterUrl = (movieDetails.Poster && movieDetails.Poster.includes("N%2FA")) ? null : movieDetails.Poster || 'images/placeholder.svg';
+
+
             const imdbRating = Ratings.find(rating => rating.Source === "Internet Movie Database")?.Value || 'N/A';
             const movieDescription = Plot ? Plot.split(' ').slice(0, 10).join(' ') + '...' : 'No description available.';
-            const movieLink = `${link}?movie-title=${encodeURIComponent(Title)}&ratings=${encodeURIComponent(imdbRating)}&runtime=${encodeURIComponent(Runtime)}&release=${encodeURIComponent(Released)}&tags=${encodeURIComponent(Genre)}&description=${encodeURIComponent(Plot)}&actors=Actors: ${encodeURIComponent(Actors)}&director=Director(s): ${encodeURIComponent(Director)}&poster=${encodeURIComponent(Poster)}`;
+            const movieLink = `${link}?movie-title=${encodeURIComponent(Title)}&ratings=${encodeURIComponent(imdbRating)}&runtime=${encodeURIComponent(Runtime)}&release=${encodeURIComponent(Released)}&tags=${encodeURIComponent(Genre)}&description=${encodeURIComponent(Plot)}&actors=Actors: ${encodeURIComponent(Actors)}&director=Director(s): ${encodeURIComponent(Director)}&poster=${encodeURIComponent(posterUrl)}`;
 
             return `
                 <a href="${movieLink}" class="card-link">
                     <div class="card">
-                        <img src="${Poster}" alt="Movie Poster" class="card-poster" />
+                        <img src="${posterUrl}" alt="Movie Poster" class="card-poster" />
                         <div class="card-info">
                             <h2 class="card-title">${Title}</h2>
                             <p class="card-plot">${Released}</p>
@@ -165,15 +168,29 @@ async function createCard(item, type, link) {
 
         } else if (type === 'book') {
             const bookInfo = item.volumeInfo;
-            const bookDescription = bookInfo.description ? bookInfo.description.split(' ').slice(0, 10).join(' ') + '...' : 'No description available.';
+            const bookTitle = bookInfo.title || 'N/A';
+            const averageRating = bookInfo.averageRating + '/5' || 'N/A';
+            const pageCount = bookInfo.pageCount || 'N/A';
+            const releaseDate = bookInfo.publishedDate || 'N/A';
+            const genre = bookInfo.mainCategory || 'N/A';
+            const description = bookInfo.description || 'N/A';
+            const format = bookInfo.printType || 'N/A';
+            const authors = bookInfo.authors ? bookInfo.authors.join(', ') : 'N/A';
+            const isbn = bookInfo.industryIdentifiers ? bookInfo.industryIdentifiers[0].identifier  : 'N/A';
+            const publisher = bookInfo.publisher || 'N/A';
+            const language = bookInfo.language || 'N/A';
+            const cover = bookInfo.imageLinks.extraLarge || 'N/A';
+            const buyLink = bookInfo.buyLink || 'N/A';
+            //const bookDescription = bookInfo.description ? bookInfo.description.split(' ').slice(0, 10).join(' ') + '...' : 'No description available.';
+            const bookLink = `${link}?book-title=${bookTitle}&ratings=${averageRating}&pages=${pageCount} pages&release=${releaseDate}&genre=${genre}&description=${description}&format=Format: ${format}&author=Author(s): ${authors}&isbn=ISBN: ${isbn}&publisher=Publisher: ${publisher}&language=Language(s): ${language}&cover=${cover}&buylink=${buyLink}`;
             return `
-                <a href="${link}" class="card-link">
+                <a href="${bookLink}" class="card-link">
                     <div class="card">
                         <img src="${bookInfo.imageLinks?.thumbnail || ''}" alt="Book Cover" class="card-poster" />
                         <div class="card-info">
                             <h2 class="card-title">${bookInfo.title}</h2>
                             <p class="card-plot">Author: ${bookInfo.authors?.join(', ') || 'Unknown author'}</p>
-                            <p class="card-description">${bookDescription}</p>
+                            <p class="card-plot">${bookInfo.publishedDate || 'Unknown date'}</p>
                         </div>
                     </div>
                 </a>

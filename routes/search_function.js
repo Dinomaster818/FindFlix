@@ -9,7 +9,7 @@ async function fetchMovieData(movieName) {
     try {
         const response = await fetch(omdbUrl);
         const movieData = await response.json(); 
-        console.log(movieData);
+        //console.log(movieData);
 
         if (movieData.Response === 'True') { 
             const formattedItems = await formatMovieData([movieData]); 
@@ -133,6 +133,7 @@ async function fetchGoogleBooksData(bookTitle) {
     try {
         const response = await fetch(googleBooksUrl);
         const { items } = await response.json();
+        console.log(response.json);
 
         const formattedItems = await formatGoogleBooksData(items);
 
