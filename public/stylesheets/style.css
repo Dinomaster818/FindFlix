@@ -162,6 +162,11 @@ html {
     transform: scale(1.05);
 }
 
+a.card-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Use the default text color */
+}
+
 .card img.card-poster {
     width: 100%;
     height: auto;

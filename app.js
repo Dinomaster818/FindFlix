@@ -22,9 +22,15 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
+// Serve movie.html from the 'views' directory
+app.get('/movie.html', function (req, res) {
+  res.sendFile(path.join(__dirname, 'views/movie.html'));
+});
+
 // Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use(express.static('views'));
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {

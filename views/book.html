@@ -9,14 +9,14 @@
     <link rel="icon" type="image/x-icon" href="/images/play-circle-outline.svg">
     <title>book details</title>
 
-    <link rel="stylesheet" href="/public/stylesheets/movie.css">
+    <link rel="stylesheet" href="/stylesheets/book.css">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-transparent" id="mainNav">
         <div class="container px-6">
             <h1 class="fw-bolder">
-                <a class="navbar-brand" href="#page-top">FindFlix</a>
+                <a class="navbar-brand" href="index.html">FindFlix</a>
             </h1>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span
@@ -37,23 +37,26 @@
                             <div class="my-5 text-center text-xl-start">
                                 <h1 id="book-title" class="display-4 fw-bolder text-white mb-2">Book title</h1>
                                 <div class="technical-details d-grid gap-2 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                                    <img src="\public\images\star-rating.svg" alt="Star Rating" class="star-rating">
+                                    <img src="\images\star-rating.svg" alt="Star Rating" class="star-rating">
                                     <p id="ratings" class="lead text-white-50 mb-4 ">Ratings</a>
-                                    <p id="runtime" class="lead text-white-50 mb-4 ">Runtime</a>
+                                    <p id="pages" class="lead text-white-50 mb-4 ">Pages</a>
                                     <p id="release" class="lead text-white-50 mb-4 ">Release</a>
                                 </div>
-                                <p id="tags" class="lead fw-normal text-white-50 mb-4">Movie tags</p>
-                                <p id="description" class="lead fw-normal text-white mb-4">Movie description goes here</p>
-                                <p id="actors" class=" lead fw-normal text-white-50 mb-4">Starring</p>
-                                <p id="director" class="lead fw-normal text-white-50 mb-4">Directed by</p>
+                                <p id="genre" class="lead fw-normal text-white-50 mb-4">Book tags</p>
+                                <p id="description" class="lead fw-normal text-white mb-4">Book description goes here</p>
+                                <p id="format" class=" lead fw-normal text-white-50 mb-4">Book format</p>
+                                <p id="author" class="lead fw-normal text-white-50 mb-4">Author</p>
+                                <p id="isbn" class="lead fw-normal text-white-50 mb-4">ISBN</p>
+                                <p id="publisher" class="lead fw-normal text-white-50 mb-4">Publisher</p>
+                                <p id="language" class="lead fw-normal text-white-50 mb-4">Publisher</p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                                    <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#watchlist">Add to watchlist</a>
-                                    <a class="btn btn-outline-light btn-lg px-4" href="#!">Buy now</a>
+                                    <a id="watchlistbtn" class="btn btn-primary btn-lg px-4 me-sm-3" href="#watchlist">Add to watchlist</a>
+                                    <a id="buylink" class="btn btn-outline-light btn-lg px-4" href="#!">Buy now</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
-                            <img id="cover" class="rounded-4 my-5" src="\public\images\placeholder.svg" alt="..." style="width: 500px; height: auto;" />
+                            <img id="cover" class="rounded-4 my-5" src="\images\placeholder.svg" alt="..." style="width: 500px; height: auto;" />
                         </div>
                         
                     </div>

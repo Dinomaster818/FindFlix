@@ -40,6 +40,7 @@ searchBtn.addEventListener('click', function () {
 });
 
 
+
 // Function to handle movie search
 async function searchMovies(query, isRecommended = false) {
     try {
@@ -91,40 +92,52 @@ function displayResults(results, type, targetId) {
     const cardsContainer = document.createElement('div');
     cardsContainer.className = 'cards-container';
 
+    let link;
+    if (type === 'movie') {
+        link = 'movie.html'; // Link for movies
+    } else if (type === 'book') {
+        link = 'book.html'; // Link for books
+    }
+
     results.forEach(item => {
-        cardsContainer.innerHTML += createCard(item, type);
+        cardsContainer.innerHTML += createCard(item, type, link);
     });
     target.appendChild(cardsContainer);
 }
 
 
+
 // Create HTML card for each result
-function createCard(item, type) {
+function createCard(item, type, link) {
     if (type === 'movie') {
         const movieDescription = item.Plot ? item.Plot.split(' ').slice(0, 10).join(' ') + '...' : 'No description available.';
         return `
-            <div class="card">
-                <img src="${item.Poster}" alt="Movie Poster" class="card-poster" />
-                <div class="card-info">
-                    <h2 class="card-title">${item.Title}</h2>
-                    <p class="card-plot">${item.Year}</p>
-                    <p class="card-description">${movieDescription}</p>
+            <a href="${link}" class="card-link">
+                <div class="card">
+                    <img src="${item.Poster}" alt="Movie Poster" class="card-poster" />
+                    <div class="card-info">
+                        <h2 class="card-title">${item.Title}</h2>
+                        <p class="card-plot">${item.Year}</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         `;
 
     } else if (type === 'book') {
         const bookInfo = item.volumeInfo;
         const bookDescription = bookInfo.description ? bookInfo.description.split(' ').slice(0, 10).join(' ') + '...' : 'No description available.';
         return `
-            <div class="card">
-                <img src="${bookInfo.imageLinks?.thumbnail || ''}" alt="Book Cover" class="card-poster" />
-                <div class="card-info">
-                    <h2 class="card-title">${bookInfo.title}</h2>
-                    <p class="card-plot">Author: ${bookInfo.authors?.join(', ') || 'Unknown author'}</p>
-                    <p class="card-description">${bookDescription}</p>
+            <a href="${link}" class="card-link">
+                <div class="card">
+                    <img src="${bookInfo.imageLinks?.thumbnail || ''}" alt="Book Cover" class="card-poster" />
+                    <div class="card-info">
+                        <h2 class="card-title">${bookInfo.title}</h2>
+                        <p class="card-plot">Author: ${bookInfo.authors?.join(', ') || 'Unknown author'}</p>
+                        <p class="card-description">${bookDescription}</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         `;
     }
 }
+
