@@ -7,7 +7,7 @@ const similarResults = document.getElementById('similarResults');
 const searchBar = document.querySelector('.search-bar'); 
 let currentCategory = '';
 
-const API_KEY_OMDB = '61efabcc'; // OMDb API key
+const API_KEY_OMDB = 'cacfeca0'; // OMDb API key
 const API_KEY_GOOGLE_BOOKS = 'AIzaSyBDOY1VMSEjrmxbaz0dsKESUIm7xhLMBJE'; // Google Books API key
 
 document.querySelectorAll('.category-btn').forEach(btn => {
@@ -133,6 +133,26 @@ async function fetchMovieDetailsById(imdbId) {
     }
 }
 
+async function fetchBookDetailsById(volumeId) {
+    const googleBooksUrl = `https://www.googleapis.com/books/v1/volumes/${encodeURIComponent(volumeId)}`;
+
+    try {
+        const response = await fetch(googleBooksUrl);
+        const bookData = await response.json();
+
+        if (bookData.error) {
+            console.error("Book not found.");
+            return null;
+        } else {
+            return bookData; // Return the book data
+        }
+    } catch (error) {
+        console.error("Error fetching data from Google Books API:", error);
+        return null;
+    }
+}
+
+
 
 
 // Create HTML card for each result
@@ -168,11 +188,13 @@ async function createCard(item, type, link) {
 
         } else if (type === 'book') {
             const bookInfo = item.volumeInfo;
+            const bookDetails = await fetchBookDetailsById(bookInfo.id);
+            
             const bookTitle = bookInfo.title || 'N/A';
             const averageRating = bookInfo.averageRating + '/5' || 'N/A';
             const pageCount = bookInfo.pageCount || 'N/A';
             const releaseDate = bookInfo.publishedDate || 'N/A';
-            const genre = bookInfo.mainCategory || 'N/A';
+            const genre = bookInfo.categories ? bookInfo.categories.join(', ') : 'N/A';
             const description = bookInfo.description || 'N/A';
             const format = bookInfo.printType || 'N/A';
             const authors = bookInfo.authors ? bookInfo.authors.join(', ') : 'N/A';
