@@ -111,7 +111,7 @@ function displayResults(results, type, targetId) {
 function createCard(item, type, link) {
     if (type === 'movie') {
         const movieDescription = item.Plot ? item.Plot.split(' ').slice(0, 10).join(' ') + '...' : 'No description available.';
-        const movieLink = `${link}?movie-title=${encodeURIComponent(item.Title)}&ratings=${encodeURIComponent(item.Ratings)}&runtime=&release=${encodeURIComponent(item.Year)}&tags=&description=&actors=&director=`;
+        const movieLink = `${link}?movie-title=${encodeURIComponent(item.Title)}&ratings=${encodeURIComponent(item.Ratings)}&runtime=&release=${encodeURIComponent(item.Year)}&tags=&description=&actors=&director=&poster=${encodeURIComponent(item.Poster)}`;
         return `
             <a href="${movieLink}" class="card-link">
                 <div class="card">

@@ -9,7 +9,7 @@ async function fetchMovieData(movieName) {
     try {
         const response = await fetch(omdbUrl);
         const movieData = await response.json(); 
-        //console.log(movieData);
+        console.log(movieData);
 
         if (movieData.Response === 'True') { 
             const formattedItems = await formatMovieData([movieData]); 
