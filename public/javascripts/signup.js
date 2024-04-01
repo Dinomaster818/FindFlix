@@ -38,8 +38,38 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     passwordInput.classList.remove('is-invalid');
 
-    // Here you can submit the form if all inputs are valid
-    alert('Sign up successful!');
+    // Proceed with form submission if all inputs are valid
+    fetch('/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        firstName: firstNameInput.value,
+        lastName: lastNameInput.value,
+        email: emailInput.value,
+        password: passwordInput.value
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text();
+    })
+    .then(data => {
+      if (data.includes('already exists')) {
+        alert(data); 
+      } else {
+        alert('Sign up successful!');
+        form.reset(); 
+      }
+    })
+    .catch(error => {
+      console.error('There was an error with the fetch operation:', error);
+      alert('Sign up failed. Please try again later.');
+      form.reset()
+    });
   });
 
   function validateFirstName(firstName) {
