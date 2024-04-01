@@ -70,6 +70,7 @@ app.post('/signup', function(req, res, next) {
     }
     console.log('Account created successfully. User ID:', userId);
     res.sendStatus(200); // Send success response
+    res.redirect('/views/index.html');
   });
 });
 

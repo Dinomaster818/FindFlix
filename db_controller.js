@@ -3,7 +3,7 @@ const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database('usersdb.db');
 
  function login(email, password, callback) {
-    const sql = 'SELECT * FROM users WHERE email = ? AND password = ?';
+    const sql = 'SELECT * FROM user WHERE email = ? AND password = ?';
     db.get(sql, [email, password], (err, row) => {
         if (err) {
             console.error('Error during login:', err.message);
@@ -21,7 +21,7 @@ const db = new sqlite3.Database('usersdb.db');
 
 
 function createAccount(email, password, fullName, callback) {
-    const sql = 'INSERT INTO users (email, password, full_name) VALUES (?, ?, ?)';
+    const sql = 'INSERT INTO user (email, password, full_name) VALUES (?, ?, ?)';
     db.run(sql, [email, password, fullName], function(err) {
         if (err) {
             console.error('Error creating account:', err.message);
@@ -35,7 +35,7 @@ function createAccount(email, password, fullName, callback) {
 function addBookToWishlist(user_id, title, ratings, pageCount, publishedDate, genre, 
     description, format, author, isbn, publisher, 
     language, cover, buylink, callback) {
-const sql = `INSERT INTO user_wishlist 
+const sql = `INSERT INTO user_books 
 (user_id, title, ratings, pageCount, publishedDate, genre, 
     description, format, author, isbn, publisher, 
     language, cover, buylink) 
@@ -57,7 +57,7 @@ callback(null, this.lastID);
 
 function addMovieToWishlist(user_id, title, year, ratings, runtime, release, genre, 
     description, actors, director, poster, callback) {
-const sql = `INSERT INTO user_wishlist 
+const sql = `INSERT INTO user_movies
 (user_id, title, year, ratings, runtime, release, genre, 
     description, actors, director, poster) 
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;

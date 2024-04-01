@@ -5,34 +5,38 @@ document.addEventListener('DOMContentLoaded', function() {
   const emailInput = document.getElementById('exampleInputEmail1');
   const passwordInput = document.getElementById('exampleInputPassword1');
 
-  if (!form || !firstNameInput || !lastNameInput || !emailInput || !passwordInput) {
-    console.error('One or more elements not found.');
-    return;
-  }
-
   form.addEventListener('submit', function(event) {
     event.preventDefault();
-    console.log("Form submitted.");
+    event.stopPropagation();
+
+    if (form.checkValidity() === false) {
+      form.classList.add('was-validated');
+      return;
+    }
+
     if (!validateFirstName(firstNameInput.value)) {
-      alert('Please enter a valid first name.');
+      firstNameInput.classList.add('is-invalid');
       return;
     }
-    console.log("First name validated.");
+    firstNameInput.classList.remove('is-invalid');
+
     if (!validateLastName(lastNameInput.value)) {
-      alert('Please enter a valid last name.');
+      lastNameInput.classList.add('is-invalid');
       return;
     }
-    console.log("Last name validated.");
+    lastNameInput.classList.remove('is-invalid');
+
     if (!validateEmail(emailInput.value)) {
-      alert('Please enter a valid email address.');
+      emailInput.classList.add('is-invalid');
       return;
     }
-    console.log("Email validated.");
+    emailInput.classList.remove('is-invalid');
+
     if (!validatePassword(passwordInput.value)) {
-      alert('Password must be 8-20 characters long and include at least one digit and one special character.');
+      passwordInput.classList.add('is-invalid');
       return;
     }
-    console.log("Password validated.");
+    passwordInput.classList.remove('is-invalid');
 
     // Here you can submit the form if all inputs are valid
     alert('Sign up successful!');
@@ -55,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function validatePassword(password) {
     console.log("Validating password: ", password);
-    // Password must be 8-20 characters long, contain at least one digit, and one special character
     return /^(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,20}$/.test(password);
   }
 });
