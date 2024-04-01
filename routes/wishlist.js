@@ -1,9 +1,6 @@
 const express = require('express');
-const { addMovieToWishlist } = require('../db_cotroller');
-const { removeMovieFromWishlist } = require('../db_cotroller');
-const { addBookToWishlist } = require('../db_cotroller');
-const { removeBookFromWishlist } = require('../db_cotroller');
-const { getItemsFromWishlist } = require('../db_cotroller');
+const db_controller = require('../db_cotroller'); // Importing db_controller.js
+
 
 
 
@@ -17,20 +14,45 @@ router.get('/', async (req, res) => {
 
 
 // A POST route to render the wishlist page
-router.post('/add movie', db-cotroller.js, addMovieToWishlist);
+router.post('/add-movie', db_controller.addMovieToWishlist);
 
 // A PUT route to remove movie from wishlist
-router.post('/remove movie', db-cotroller.js, removeMovieFromWishlist);
+router.post('/remove-movie', db_controller.removeMovieFromWishlist);
 
 
 // A  POST route to add a new book to wishlist
-router.post('/add book', db-cotroller.js, addBookToWishlist);
+router.post('/add-book', db_controller.addBookToWishlist);
 
 // A PUT route to remove a book from wishlist
-router.post('/remove book', db-cotroller.js, removeBookFromWishlist);
+router.post('/remove-book', db_controller.removeBookFromWishlist);
 
 // A GET route to fetch wishlist items
-router.get('/items', db-cotroller.js, getItemsFromWishlist);
+// wishlist.js
+
+router.get('/books', async (req, res) => {
+    try {
+        // Fetch data for books
+        const books = await db_controller.getAllBooks();
+        res.render('wishlist_books', { books });
+    } catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+router.get('/movies', async (req, res) => {
+    try {
+        // Fetch data for movies
+        const movies = await db_controller.getAllMovies();
+        res.render('wishlist_movies', { movies });
+    } catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 
 
