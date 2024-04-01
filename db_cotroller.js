@@ -45,6 +45,7 @@ const values = [user_id, title, ratings, pageCount, publishedDate, genre,
     description, format, author, isbn, publisher, 
     language, cover, buylink];
 
+
 db.run(sql, values, function(err) {
 if (err) {
 console.error('Error adding book to wishlist:', err.message);
@@ -54,6 +55,7 @@ console.log('Book added to wishlist successfully. Wishlist ID:', this.lastID);
 callback(null, this.lastID); 
 });
 }
+
 
 function addMovieToWishlist(user_id, title, year, ratings, runtime, release, genre, 
     description, actors, director, poster, callback) {
@@ -74,6 +76,7 @@ console.log('Movie added to wishlist successfully. Wishlist ID:', this.lastID);
 callback(null, this.lastID); 
 });
 }
+
 
 function removeBookFromWishlist(book_id, callback) {
     const sql = 'DELETE FROM user_books WHERE id = ?';

@@ -13,3 +13,33 @@ html {
     text-align: center;
     padding: 20px 0;
 }
+
+.navbar-brand {
+    letter-spacing: 0.1cap;
+    transition: 0.7s;
+}
+
+
+.navbar-brand:hover {
+    letter-spacing: 0.2cap;
+    transition: 0.7s;
+}
+
+.navbar-nav {
+    gap: 1em;
+}
+
+.container-fluid{
+    color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 500px;
+    background-color: #333;
+    padding: 50px;
+    border-radius: 20px;
+}
+
+.container-fluid a{
+    color: rgb(255, 255, 255);
+}
