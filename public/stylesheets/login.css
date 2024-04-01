@@ -14,8 +14,8 @@ body{
 form{
     width: 24%;
     background-color: white;
-    outline: auto;
+    outline: solid 5px;
     padding: 50px;
     border-radius: 20px;
-    margin-top: 150px;
+    margin-top: 60px;
 }
