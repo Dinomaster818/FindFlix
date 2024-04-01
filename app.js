@@ -32,45 +32,37 @@ app.get('/:page.html', function (req, res) {
 });
 
 
-
-app.post('/signup', function(req, res) {
+app.post('/signup', function(req, res, next) {
   const { firstName, lastName, email, password } = req.body;
 
- 
   if (!firstName || !lastName || !email || !password) {
       return res.status(400).send('All fields are required');
   }
 
+  if (!/^[a-zA-Z]+$/.test(firstName)) {
+      return res.status(400).send('Please enter a valid first name');
+  }
+
+  if (!/^[a-zA-Z]+$/.test(lastName)) {
+      return res.status(400).send('Please enter a valid last name');
+  }
 
   if (!/\S+@\S+\.\S+/.test(email)) {
       return res.status(400).send('Please enter a valid email address');
   }
 
-
   if (!/^(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,20}$/.test(password)) {
       return res.status(400).send('Password must be 8-20 characters long and include at least one digit and one special character');
   }
 
-
-  dbController.checkUserExists(email, (err, user) => {
-      if (err) {
-          console.error('Error checking user existence:', err.message);
-          return res.status(500).send('Error checking user existence');
-      }
-      if (user) {
-          console.log('User with this email already exists.');
-          return res.status(409).send('User with this email already exists');
-      } else {
-
-          dbController.createAccount(email, password, `${firstName} ${lastName}`, (err, userId) => {
-              if (err) {
-                  console.error('Error creating account:', err.message);
-                  return res.status(500).send('Error creating account');
-              }
-              console.log('Account created successfully. User ID:', userId);
-              res.status(201).send('Account created successfully');
-          });
-      }
+  dbController.createAccount(email, password, `${firstName} ${lastName}`, (err, userId) => {
+    if (err) {
+      console.error('Error creating account:', err.message);
+      return res.status(500).send('Error creating account');
+    }
+    console.log('Account created successfully. User ID:', userId);
+    res.sendStatus(200); // Send success response
+    res.redirect('/views/index.html');
   });
 });
 

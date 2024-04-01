@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     passwordInput.classList.remove('is-invalid');
 
+    // Proceed with form submission if all inputs are valid
     fetch('/signup', {
       method: 'POST',
       headers: {
@@ -57,17 +58,17 @@ document.addEventListener('DOMContentLoaded', function() {
       return response.text();
     })
     .then(data => {
+      // Check if data contains error message
       if (data.includes('already exists')) {
-        alert(data); 
+        alert(data); // Display error message
       } else {
         alert('Sign up successful!');
-        form.reset(); 
+        form.reset(); // Clear form inputs after successful signup
       }
     })
     .catch(error => {
       console.error('There was an error with the fetch operation:', error);
       alert('Sign up failed. Please try again later.');
-      form.reset()
     });
   });
 
