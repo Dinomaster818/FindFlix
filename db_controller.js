@@ -21,7 +21,7 @@ const db = new sqlite3.Database('usersdb.db');
 
 
 function createAccount(email, password, fullName, callback) {
-    const sql = 'INSERT INTO user (email, password, full_name) VALUES (?, ?, ?)';
+    const sql = 'INSERT INTO user (email, password, fullname) VALUES (?, ?, ?)';
     db.run(sql, [email, password, fullName], function(err) {
         if (err) {
             console.error('Error creating account:', err.message);
@@ -31,6 +31,18 @@ function createAccount(email, password, fullName, callback) {
         callback(null, this.lastID); 
     });
 }
+
+function checkUserExists(email, callback) {
+    const sql = 'SELECT * FROM user WHERE email = ?';
+    db.get(sql, [email], (err, row) => {
+        if (err) {
+            console.error('Error checking user:', err.message);
+            return callback(err);
+        }
+        callback(null, row); 
+    });
+}
+
 
 function addBookToWishlist(user_id, title, ratings, pageCount, publishedDate, genre, 
     description, format, author, isbn, publisher, 
@@ -135,6 +147,7 @@ module.exports = {
     removeBookFromWishlist,
     removeMovieFromWishlist,
     getBooksByUserId,
-    getMoviesByUserId
+    getMoviesByUserId,
+    checkUserExists
 
 };
