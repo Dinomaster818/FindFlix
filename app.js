@@ -27,6 +27,10 @@ app.get('/movie.html', function (req, res) {
   res.sendFile(path.join(__dirname, 'views/movie.html'));
 });
 
+app.get('/signup.html', function (req, res) {
+  res.sendFile(path.join(__dirname, 'views/signup.html'));
+});
+
 // Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

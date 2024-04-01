@@ -1,4 +1,4 @@
-import dbController from './db_controller.js';
+import dbController from '.../db_controller.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const signupForm = document.getElementById('signupForm');
