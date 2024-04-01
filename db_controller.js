@@ -10,7 +10,7 @@ const db = new sqlite3.Database('usersdb.db');
             return callback(err);
         }
         if (row) {
-            console.log('Login successful:', row.username);
+            console.log('Login successful:', row.email);
             callback(null, row); 
         } else {
             console.log('Invalid username or password.');
