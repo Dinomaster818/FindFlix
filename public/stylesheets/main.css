@@ -13,3 +13,30 @@ html {
     text-align: center;
     padding: 20px 0;
 }
+
+.wishlist-card{
+  
+    justify-content: space-around;
+
+  }
+
+.wishlist-h2, .wishlist-h3, .card-title, .card-text {
+    color: white;
+}
+.wishlist-h2{
+    text-align: center;
+}
+
+.wishlist{
+    
+    margin: 3% 5% 1% 5%;
+}
+.card-img-top{
+    padding-bottom: 5px;
+    margin-bottom: 2%;
+    border-radius: 3%;
+}
+.row{
+    align-items: center;
+    justify-content: space-around;
+}

@@ -48,7 +48,7 @@
                                 <p id="actors" class="lead fw-normal text-white-50 mb-4">Starring</p>
                                 <p id="director" class="lead fw-normal text-white-50 mb-4">Directed by</p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                                    <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#watchlist">Add to watchlist</a>
+                                    <a id="addToWishlistBtn" class="btn btn-primary btn-lg px-4 me-sm-3" href="#watchlist">Add to watchlist</a>
                                     <a class="btn btn-outline-light btn-lg px-4" href="#!">TBD</a>
                                 </div>
                             </div>
@@ -78,6 +78,38 @@
                 if (posterSrc) {
                     document.getElementById('poster').src = posterSrc;
                 }
+
+                document.getElementById('addToWishlistBtn').addEventListener('click', function() {
+                    const movieData = {
+                        title: document.getElementById('movie-title').innerText,
+                        ratings: document.getElementById('ratings').innerText,
+                        runtime: document.getElementById('runtime').innerText,
+                        release: document.getElementById('release').innerText,
+                        tags: document.getElementById('tags').innerText,
+                        description: document.getElementById('description').innerText,
+                        actors: document.getElementById('actors').innerText,
+                        director: document.getElementById('director').innerText
+                        
+                    };
+
+                    // A POST request to the route '/add-movie' in the wishlist.js
+                    fetch('/add-movie', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(movieData)
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Movie added to watchlist successfully');
+                        } else {
+                            console.error('Error adding movie to watchlist');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+
             </script>
 
         <footer class="py-4 bg-dark bg-transparent">

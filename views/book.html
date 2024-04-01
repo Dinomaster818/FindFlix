@@ -50,7 +50,7 @@
                                 <p id="publisher" class="lead fw-normal text-white-50 mb-4">Publisher</p>
                                 <p id="language" class="lead fw-normal text-white-50 mb-4">Publisher</p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                                    <a id="watchlistbtn" class="btn btn-primary btn-lg px-4 me-sm-3" href="#watchlist">Add to watchlist</a>
+                                    <a id="addToWishlistBtn" class="btn btn-primary btn-lg px-4 me-sm-3" href="#watchlist">Add to watchlist</a>
                                     <a id="buylink" class="btn btn-outline-light btn-lg px-4" href="#!">Buy now</a>
                                 </div>
                             </div>
@@ -87,7 +87,41 @@
         
                 const watchlistBtn = document.getElementById('watchlistbtn');
                 const buyLink = document.getElementById('buylink');
+                
+                // Adding the book to wishlist
+                document.getElementById('addToWishlistBtn').addEventListener('click', function() {
+                    const bookData = {
+                        title: document.getElementById('book-title').innerText,
+                        ratings: document.getElementById('ratings').innerText,
+                        pages: document.getElementById('pages').innerText,
+                        release: document.getElementById('release').innerText,
+                        genre: document.getElementById('genre').innerText,
+                        description: document.getElementById('description').innerText,
+                        format: document.getElementById('format').innerText,
+                        author: document.getElementById('author').innerText,
+                        isbn: document.getElementById('isbn').innerText,
+                        publisher: document.getElementById('publisher').innerText,
+                        language: document.getElementById('language').innerText
+                        
+                    };
 
+                    //  A POST request to  the route '/add-book' in wishlist.js
+                    fetch('/add-book', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(bookData)
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Book added to watchlist successfully');
+                        } else {
+                            console.error('Error adding book to watchlist');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
             </script>
 
         <footer class="py-4 bg-dark bg-transparent">
