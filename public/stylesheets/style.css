@@ -42,6 +42,7 @@ html {
 .category-btn:hover {
     background-position: right center;
     letter-spacing: 0.5cap;
+    color: #333;
 }
 
 
@@ -139,17 +140,18 @@ html {
 }
 
 .card {
-    max-width: 200px; 
-    height: 450px; 
-    background-color: #ffffff;
+    min-width: 200px;
+    min-height: 500px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     overflow: hidden;
     transition: transform 0.2s;
+    border: none;
 }
 
 .card:hover {
     transform: scale(1.05);
+    border: none;
 }
 
 a.card-link {
@@ -163,7 +165,8 @@ a.card-link {
 }
 
 .card-info {
-    padding: 20px;
+    padding: 10px;
+    margin-bottom: 0px;
 }
 
 
@@ -175,7 +178,6 @@ a.card-link {
 
 .card-info .card-plot {
     font-size: 14px;
-    margin-top: 10px;
 }
 
 .card-title,
@@ -219,4 +221,10 @@ a.card-link {
     color: white;
     text-align: center;
     padding: 20px 0;
+}
+
+.star-rating {
+    width: 1em;
+    height: 1em;
+    margin-right: 5px;
 }

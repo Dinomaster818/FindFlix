@@ -161,7 +161,6 @@ async function createCard(item, type, link) {
 
 
             const imdbRating = Ratings.find(rating => rating.Source === "Internet Movie Database")?.Value || 'N/A';
-            const movieDescription = Plot ? Plot.split(' ').slice(0, 10).join(' ') + '...' : 'No description available.';
             const movieLink = `${link}?movie-title=${encodeURIComponent(Title)}&ratings=${encodeURIComponent(imdbRating)}&runtime=${encodeURIComponent(Runtime)}&release=${encodeURIComponent(Released)}&tags=${encodeURIComponent(Genre)}&description=${encodeURIComponent(Plot)}&actors=Actors: ${encodeURIComponent(Actors)}&director=Director(s): ${encodeURIComponent(Director)}&poster=${encodeURIComponent(posterUrl)}`;
 
             return `
@@ -170,6 +169,7 @@ async function createCard(item, type, link) {
                         <img src="${posterUrl}" alt="Movie Poster" class="card-poster" />
                         <div class="card-info">
                             <h2 class="card-title">${Title}</h2>
+                            <p class="card-rating">Rating: ${imdbRating}</p>
                             <p class="card-plot">${Released}</p>
                         </div>
                     </div>
@@ -205,7 +205,6 @@ async function createCard(item, type, link) {
                         <img src="${bookInfo.imageLinks?.thumbnail || ''}" alt="Book Cover" class="card-poster" />
                         <div class="card-info">
                             <h2 class="card-title">${bookInfo.title}</h2>
-                            <p class="card-plot">Author: ${bookInfo.authors?.join(', ') || 'Unknown author'}</p>
                             <p class="card-plot">${bookInfo.publishedDate || 'Unknown date'}</p>
                         </div>
                     </div>
