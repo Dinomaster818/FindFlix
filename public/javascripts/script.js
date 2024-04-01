@@ -158,8 +158,6 @@ async function createCard(item, type, link) {
         if (movieDetails) {
             const { Title = 'N/A', Ratings = [], Runtime = 'N/A', Released = 'N/A', Genre = 'N/A', Plot = 'N/A', Actors = 'N/A', Director = 'N/A' } = movieDetails;
             const posterUrl = (movieDetails.Poster && movieDetails.Poster.includes("N%2FA")) ? null : movieDetails.Poster || 'images/placeholder.svg';
-
-
             const imdbRating = Ratings.find(rating => rating.Source === "Internet Movie Database")?.Value || 'N/A';
             const movieLink = `${link}?movie-title=${encodeURIComponent(Title)}&ratings=${encodeURIComponent(imdbRating)}&runtime=${encodeURIComponent(Runtime)}&release=${encodeURIComponent(Released)}&tags=${encodeURIComponent(Genre)}&description=${encodeURIComponent(Plot)}&actors=Actors: ${encodeURIComponent(Actors)}&director=Director(s): ${encodeURIComponent(Director)}&poster=${encodeURIComponent(posterUrl)}`;
 
