@@ -32,16 +32,14 @@ function createAccount(username, password, fullName, callback) {
     });
 }
 
-function addBookToWishlist(user_id, title, authors, publisher, publishedDate, description, 
-    pageCount, printType, mainCategory, averageRating, ratingsCount, 
-    smallThumbnail, thumbnail, language, infoLink, canonicalVolumeLink, 
-    country, saleability, isEbook, buyLink, callback) {
+function addBookToWishlist(user_id, title, ratings, pageCount, publishedDate, genre, 
+    description, format, author, isbn, publisher, 
+    language, cover, buylink, callback) {
 const sql = `INSERT INTO user_wishlist 
-(user_id, title, authors, publisher, publishedDate, description, 
-pageCount, printType, mainCategory, averageRating, ratingsCount, 
-smallThumbnail, thumbnail, language, infoLink, canonicalVolumeLink, 
-country, saleability, isEbook, buyLink) 
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+(user_id, title, ratings, pageCount, publishedDate, genre, 
+    description, format, author, isbn, publisher, 
+    language, cover, buylink) 
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
 const values = [user_id, title, authors, publisher, publishedDate, description, 
 pageCount, printType, mainCategory, averageRating, ratingsCount, 
@@ -58,12 +56,12 @@ callback(null, this.lastID);
 });
 }
 
-function addMovieToWishlist(user_id, title, year, imdb_id, poster_url, genre, director, 
-    plot, runtime, language, country, imdb_rating, imdb_votes, callback) {
+function addMovieToWishlist(user_id, title, year, ratings, runtime, release, genre, 
+    description, actors, director, poster, callback) {
 const sql = `INSERT INTO user_wishlist 
-(user_id, title, year, imdb_id, poster_url, genre, director, 
-plot, runtime, language, country, imdb_rating, imdb_votes) 
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+(user_id, title, year, ratings, runtime, release, genre, 
+    description, actors, director, poster) 
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
 const values = [user_id, title, year, imdb_id, poster_url, genre, director, 
 plot, runtime, language, country, imdb_rating, imdb_votes];
