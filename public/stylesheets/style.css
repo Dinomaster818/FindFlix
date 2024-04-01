@@ -34,7 +34,7 @@ html {
 }
 
 .category-btn {
-    background-color: #5356FF;
+    background-color: #0766AD;
     border-radius: 20px;
     border-style: none;
 }
@@ -42,6 +42,7 @@ html {
 .category-btn:hover {
     background-position: right center;
     letter-spacing: 0.5cap;
+    color: #333;
 }
 
 
@@ -101,7 +102,6 @@ html {
 .search-bar {
     padding: 20px;
     margin: 0px 22% 20px;
-    
 }
 
 .d-flex{
@@ -122,6 +122,7 @@ html {
     width: 30%;
     letter-spacing: 0.2cap;
     transition: 0.7s;
+    background-color: #0766AD;
 }
 
 .d-flex .btn:hover {
@@ -139,23 +140,23 @@ html {
 }
 
 .card {
-    width: 100%;
-    max-width: 200px; 
-    height: auto; 
-    background-color: #fff;
+    min-width: 200px;
+    min-height: 500px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     overflow: hidden;
     transition: transform 0.2s;
+    border: none;
 }
 
 .card:hover {
     transform: scale(1.05);
+    border: none;
 }
 
 a.card-link {
-    text-decoration: none; /* Remove underline */
-    color: inherit; /* Use the default text color */
+    text-decoration: none;
+
 }
 
 .card img.card-poster {
@@ -164,24 +165,25 @@ a.card-link {
 }
 
 .card-info {
-    padding: 20px;
+    padding: 10px;
+    margin-bottom: 0px;
 }
 
-.card-title {
-    margin: 0;
+
+.card-info .card-title{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.card-info .card-plot {
     font-size: 14px;
-    color: #333;
-}
-
-.card-plot {
-    font-size: 12px;
-    color: #333;
-    margin-top: 10px;
 }
 
 .card-title,
 .card-plot {
     font-size: calc(12px + 0.5vw);
+    color: #333;
 }
 
 @media (max-width: 768px) {
@@ -219,4 +221,10 @@ a.card-link {
     color: white;
     text-align: center;
     padding: 20px 0;
+}
+
+.star-rating {
+    width: 1em;
+    height: 1em;
+    margin-right: 5px;
 }
