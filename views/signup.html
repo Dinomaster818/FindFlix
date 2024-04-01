@@ -37,19 +37,23 @@
             <h4 class="text-center">Sign up</h4>
             <div class="mb-3">
                 <label for="exampleInputFirstName" class="form-label">Forename</label>
-                <input type="text" class="form-control" id="exampleInputFirstName" aria-describedby="firstNameHelp">
+                <input type="text" class="form-control" id="exampleInputFirstName" aria-describedby="firstNameHelp" placeholder="Enter first name" required>
+
             </div>
             <div class="mb-3">
                 <label for="exampleInputLastName" class="form-label">Surename</label>
-                <input type="text" class="form-control" id="exampleInputLastName" aria-describedby="lastNameHelp">
+                <input type="text" class="form-control" id="exampleInputLastName" aria-describedby="lastNameHelp" placeholder="Enter last name" required>
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
             </div>
             <div class="mb-3 mt-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <input type="password" class="form-control" id="exampleInputPassword1" aria-describedby="passwordHelp" placeholder="Enter password" required>
+                <small id="passwordHelp" class="form-text text-muted">
+                    Your password: 8-20 characters long, contain at least one digit, and one special character. No spaces, or emoji.
+                  </small>
             </div>
            
             <button type="submit" class="btn btn-primary mt-5">Sign up</button>
