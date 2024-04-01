@@ -4,6 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const sqlite3 = require('sqlite3');
+
+var dbController = require('./db_controller.js');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -22,10 +26,70 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
-// Serve movie.html from the 'views' directory
-app.get('/movie.html', function (req, res) {
-  res.sendFile(path.join(__dirname, 'views/movie.html'));
+app.get('/:page.html', function (req, res) {
+  const page = req.params.page;
+  res.sendFile(path.join(__dirname, 'views', `${page}.html`));
 });
+
+app.post('/login', function(req, res) {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).send('Email and password are required');
+  }
+
+  dbController.login(email, password, (err, user) => {
+    if (err) {
+      console.error('Error during login:', err.message);
+      return res.status(500).send('Error during login');
+    }
+    if (user) {
+      console.log('Login successful:', user.username);
+      return res.status(200).send('Login successful');
+    } else {
+      console.log('Invalid email or password.');
+      return res.status(401).send('Invalid email or password');
+    }
+  });
+});
+
+
+
+
+app.post('/signup', function(req, res, next) {
+  const { firstName, lastName, email, password } = req.body;
+
+  if (!firstName || !lastName || !email || !password) {
+      return res.status(400).send('All fields are required');
+  }
+
+  if (!/^[a-zA-Z]+$/.test(firstName)) {
+      return res.status(400).send('Please enter a valid first name');
+  }
+
+  if (!/^[a-zA-Z]+$/.test(lastName)) {
+      return res.status(400).send('Please enter a valid last name');
+  }
+
+  if (!/\S+@\S+\.\S+/.test(email)) {
+      return res.status(400).send('Please enter a valid email address');
+  }
+
+  if (!/^(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,20}$/.test(password)) {
+      return res.status(400).send('Password must be 8-20 characters long and include at least one digit and one special character');
+  }
+
+  dbController.createAccount(email, password, `${firstName} ${lastName}`, (err, userId) => {
+    if (err) {
+      console.error('Error creating account:', err.message);
+      return res.status(500).send('Error creating account');
+    }
+    console.log('Account created successfully. User ID:', userId);
+    res.sendStatus(200); // Send success response
+  });
+});
+
+
 
 // Routes
 app.use('/', indexRouter);

@@ -1,16 +1,16 @@
-const sqlite3 = require('sqlite3').verbose();
+const sqlite3 = require('sqlite3');
 
 const db = new sqlite3.Database('usersdb.db');
 
-function login(username, password, callback) {
-    const sql = 'SELECT * FROM users WHERE username = ? AND password = ?';
-    db.get(sql, [username, password], (err, row) => {
+ function login(email, password, callback) {
+    const sql = 'SELECT * FROM user WHERE email = ? AND password = ?';
+    db.get(sql, [email, password], (err, row) => {
         if (err) {
             console.error('Error during login:', err.message);
             return callback(err);
         }
         if (row) {
-            console.log('Login successful:', row.username);
+            console.log('Login successful:', row.email);
             callback(null, row); 
         } else {
             console.log('Invalid username or password.');
@@ -20,9 +20,9 @@ function login(username, password, callback) {
 }
 
 
-function createAccount(username, password, fullName, callback) {
-    const sql = 'INSERT INTO users (username, password, full_name) VALUES (?, ?, ?)';
-    db.run(sql, [username, password, fullName], function(err) {
+function createAccount(email, password, fullName, callback) {
+    const sql = 'INSERT INTO user (email, password, fullname) VALUES (?, ?, ?)';
+    db.run(sql, [email, password, fullName], function(err) {
         if (err) {
             console.error('Error creating account:', err.message);
             return callback(err);
@@ -32,10 +32,22 @@ function createAccount(username, password, fullName, callback) {
     });
 }
 
+function checkUserExists(email, callback) {
+    const sql = 'SELECT * FROM user WHERE email = ?';
+    db.get(sql, [email], (err, row) => {
+        if (err) {
+            console.error('Error checking user:', err.message);
+            return callback(err);
+        }
+        callback(null, row); 
+    });
+}
+
+
 function addBookToWishlist(user_id, title, ratings, pageCount, publishedDate, genre, 
     description, format, author, isbn, publisher, 
     language, cover, buylink, callback) {
-const sql = `INSERT INTO user_wishlist 
+const sql = `INSERT INTO user_books 
 (user_id, title, ratings, pageCount, publishedDate, genre, 
     description, format, author, isbn, publisher, 
     language, cover, buylink) 
@@ -59,7 +71,7 @@ callback(null, this.lastID);
 
 function addMovieToWishlist(user_id, title, year, ratings, runtime, release, genre, 
     description, actors, director, poster, callback) {
-const sql = `INSERT INTO user_wishlist 
+const sql = `INSERT INTO user_movies
 (user_id, title, year, ratings, runtime, release, genre, 
     description, actors, director, poster) 
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -138,6 +150,7 @@ module.exports = {
     removeBookFromWishlist,
     removeMovieFromWishlist,
     getBooksByUserId,
-    getMoviesByUserId
+    getMoviesByUserId,
+    checkUserExists
 
 };
