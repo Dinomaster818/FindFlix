@@ -1,0 +1,15 @@
+body,
+html {
+    background-color: #151515;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
