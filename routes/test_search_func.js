@@ -69,6 +69,7 @@ async function searchBook() {
             
             if (bookData) {
                 bookData.forEach(book => {
+                    console.log(`id: ${book.id}`);
                     console.log(`Title: ${book.title}`);
                     console.log(`Authors: ${book.authors}`);
                     console.log(`Publisher: ${book.publisher}`);

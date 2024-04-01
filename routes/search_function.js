@@ -101,6 +101,7 @@ async function formatMovieDetails(movieDataArray) {
 
 async function formatGoogleBooksData(items) {
     return items.map(item => ({
+        id: item.id,
         title: item.volumeInfo.title,
         authors: item.volumeInfo.authors ? item.volumeInfo.authors.join(', ') : 'N/A',
         publisher: item.volumeInfo.publisher || 'N/A',
@@ -133,6 +134,7 @@ async function fetchGoogleBooksData(bookTitle) {
     try {
         const response = await fetch(googleBooksUrl);
         const { items } = await response.json();
+        console.log(items);
 
         const formattedItems = await formatGoogleBooksData(items);
 

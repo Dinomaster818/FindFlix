@@ -1,0 +1,22 @@
+
+body {
+    background-color: #151515;
+  }
+ 
+.technical-details p:not(:last-child)::after{
+    content: "•";
+    margin-left: 5px;
+    
+}
+
+
+
+.star-rating {
+    width: 1em; 
+    height:1em; 
+    margin-right: 5px; /* Adjust margin as needed */
+
+
+}
+
+

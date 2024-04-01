@@ -1,5 +1,6 @@
 body,
 html {
+    background-color: #151515;
     height: 100%;
     /* Make sure the html and body are full-height */
     margin: 0;
@@ -32,23 +33,24 @@ html {
     letter-spacing: 0.2cap;
     max-width: 30%;
     color: rgb(0, 0, 0);
-    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0 20px #cacaca;
+    
+
 
 }
 
 .category-btn {
-    background: radial-gradient(at center top, rgba(150, 90, 229, 1.0), rgba(127, 103, 188, 1.0));
+    background-color: rgb(122, 44, 195);
     border-radius: 20px;
     border-style: none;
+    
 }
 
 
 .category-btn:hover {
-    color: #cacaca;
-    background-color: rgb(220, 197, 249) ;
     background-position: right center;
     letter-spacing: 0.5cap;
+    outline: 4px solid #ffffff;
+    
 }
 
 
@@ -122,9 +124,9 @@ html {
 }
 
 .d-flex .btn{
-    background: radial-gradient(at center top, rgba(150, 90, 229, 1.0), rgba(127, 103, 188, 1.0));
+    background-color: blueviolet;
     border: none;
-    color: rgb(0, 0, 0);
+    color: white;
     border-radius: 20px;
     width: 30%;
     letter-spacing: 0.2cap;
@@ -132,10 +134,9 @@ html {
 }
 
 .d-flex .btn:hover {
-    color: #cacaca;
-    background-color: rgb(220, 197, 249);
     background-position: right center;
     letter-spacing: 0.5cap;
+    outline: 4px solid #ffffff;
 }
 
 
@@ -160,6 +161,11 @@ html {
 
 .card:hover {
     transform: scale(1.05);
+}
+
+a.card-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Use the default text color */
 }
 
 .card img.card-poster {
