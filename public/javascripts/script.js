@@ -99,14 +99,8 @@ async function displayResults(results, type, targetId) {
     } else if (type === 'book') {
         link = 'book.html'; // Link for books
     }
-
-    // Create an array to store promises
     const promises = results.map(item => createCard(item, type, link));
-
-    // Wait for all promises to resolve
     const cardsHtml = await Promise.all(promises);
-
-    // Append the HTML content to the target element
     cardsHtml.forEach(html => {
         cardsContainer.innerHTML += html;
     });
