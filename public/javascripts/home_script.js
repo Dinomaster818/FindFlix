@@ -27,14 +27,14 @@ var swiper = new Swiper(".mySwiper", {
 
 // Check if the clicked button is already active
 function changeBackgroundColor(event) {
-    if (event.target.style.backgroundColor === 'red') {
+    if (event.target.style.backgroundColor === 'blue') {
         event.target.style.backgroundColor = '';
     } else {
         var buttons = document.querySelectorAll('.category-btn');
         buttons.forEach(function (button) {
             button.style.backgroundColor = '';
         });
-        event.target.style.backgroundColor = 'red';
+        event.target.style.backgroundColor = 'blue';
     }
 }
 
