@@ -11,6 +11,18 @@ html {
     flex: 1;
 }
 
+.navbar-brand{
+    letter-spacing: 0.1cap;
+    transition: 0.7s;
+}
+
+
+.navbar-brand:hover{
+    letter-spacing: 0.2cap;
+    transition: 0.7s;
+}
+
+
 .category-selection {
     display: flex;
     justify-content: center;
@@ -26,7 +38,7 @@ html {
     padding: 15px;
     text-align: center;
     text-transform: uppercase;
-    transition: 0.7s;
+    transition: 0.5s;
     font-weight: bold;
     letter-spacing: 0.2cap;
     max-width: 28%;
@@ -42,7 +54,7 @@ html {
 .category-btn:hover {
     background-position: right center;
     letter-spacing: 0.5cap;
-    color: #333;
+    color: #000000;
 }
 
 
