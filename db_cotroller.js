@@ -127,7 +127,7 @@ function getMoviesByUserId(user_id, callback) {
 
 
 
-module.exports = {
+export default {
     login,
     createAccount,
     addBookToWishlist,
