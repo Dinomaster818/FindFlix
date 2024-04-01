@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3');
 
 const db = new sqlite3.Database('usersdb.db');
 
-function login(email, password, callback) {
+ function login(email, password, callback) {
     const sql = 'SELECT * FROM users WHERE email = ? AND password = ?';
     db.get(sql, [email, password], (err, row) => {
         if (err) {

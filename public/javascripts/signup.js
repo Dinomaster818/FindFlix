@@ -1,5 +1,3 @@
-import dbController from '/db_controller.js';
-
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('signupForm');
   const firstNameInput = document.getElementById('exampleInputFirstName');
@@ -7,7 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const emailInput = document.getElementById('exampleInputEmail1');
   const passwordInput = document.getElementById('exampleInputPassword1');
 
-  form.addEventListener('submit', async function(event) {
+  if (!form || !firstNameInput || !lastNameInput || !emailInput || !passwordInput) {
+    console.error('One or more elements not found.');
+    return;
+  }
+
+  form.addEventListener('submit', function(event) {
     event.preventDefault();
     console.log("Form submitted.");
     if (!validateFirstName(firstNameInput.value)) {
@@ -30,32 +33,9 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
     console.log("Password validated.");
-    
-    // Create user account
-    try {
-      const response = await fetch('/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          firstName: firstNameInput.value,
-          lastName: lastNameInput.value,
-          email: emailInput.value,
-          password: passwordInput.value
-        })
-      });
-      
-      if (response.ok) {
-        alert('Sign up successful!');
-      } else {
-        const errorMessage = await response.text();
-        throw new Error(errorMessage);
-      }
-    } catch (error) {
-      console.error('Error creating account:', error.message);
-      alert('Failed to create account. Please try again later.');
-    }
+
+    // Here you can submit the form if all inputs are valid
+    alert('Sign up successful!');
   });
 
   function validateFirstName(firstName) {
