@@ -22,6 +22,14 @@ html {
     transition: 0.7s;
 }
 
+.navbar-nav{
+    gap: 1em;
+}
+
+#searchInput{
+    padding-left: 20px;
+}
+
 
 .category-selection {
     display: flex;
