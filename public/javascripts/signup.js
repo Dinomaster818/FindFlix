@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     passwordInput.classList.remove('is-invalid');
 
-    // Proceed with form submission if all inputs are valid
     fetch('/signup', {
       method: 'POST',
       headers: {
