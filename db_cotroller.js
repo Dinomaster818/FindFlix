@@ -41,10 +41,9 @@ const sql = `INSERT INTO user_wishlist
     language, cover, buylink) 
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-const values = [user_id, title, authors, publisher, publishedDate, description, 
-pageCount, printType, mainCategory, averageRating, ratingsCount, 
-smallThumbnail, thumbnail, language, infoLink, canonicalVolumeLink, 
-country, saleability, isEbook, buyLink];
+const values = [user_id, title, ratings, pageCount, publishedDate, genre, 
+    description, format, author, isbn, publisher, 
+    language, cover, buylink];
 
 db.run(sql, values, function(err) {
 if (err) {
@@ -63,8 +62,8 @@ const sql = `INSERT INTO user_wishlist
     description, actors, director, poster) 
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-const values = [user_id, title, year, imdb_id, poster_url, genre, director, 
-plot, runtime, language, country, imdb_rating, imdb_votes];
+const values = [user_id, title, year, ratings, runtime, release, genre, 
+    description, actors, director, poster];
 
 db.run(sql, values, function(err) {
 if (err) {
@@ -100,6 +99,31 @@ function removeMovieFromWishlist(movie_id, callback) {
     });
 }
 
+function getBooksByUserId(user_id, callback) {
+    const sql = 'SELECT * FROM user_wishlist WHERE user_id = ?';
+    db.all(sql, [user_id], (err, rows) => {
+        if (err) {
+            console.error('Error retrieving books:', err.message);
+            return callback(err);
+        }
+        console.log('Books retrieved successfully for user:', user_id);
+        callback(null, rows);
+    });
+}
+
+function getMoviesByUserId(user_id, callback) {
+    const sql = 'SELECT * FROM user_wishlist WHERE user_id = ?';
+    db.all(sql, [user_id], (err, rows) => {
+        if (err) {
+            console.error('Error retrieving movies:', err.message);
+            return callback(err);
+        }
+        console.log('Movies retrieved successfully for user:', user_id);
+        callback(null, rows);
+    });
+}
+
+
 
 
 
@@ -109,6 +133,8 @@ module.exports = {
     addBookToWishlist,
     addMovieToWishlist,
     removeBookFromWishlist,
-    removeMovieFromWishlist
+    removeMovieFromWishlist,
+    getBooksByUserId,
+    getMoviesByUserId
 
 };
