@@ -1,71 +1,46 @@
-const readline = require('readline');
-const dbController = require('db_cotroller.js');
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('loginForm');
+  const emailInput = document.getElementById('exampleInputEmail1');
+  const passwordInput = document.getElementById('exampleInputPassword1');
 
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    event.stopPropagation();
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-function login() {
-  rl.question('Enter your username: ', (username) => {
-    rl.question('Enter your password: ', (password) => {
-      dbController.login(username, password, (err, user) => {
-        if (err) {
-          console.error('Login failed:', err.message);
-        } else {
-          console.log('Login successful. Welcome back,', user.full_name);
-          // Here you can implement further logic after successful login
-        }
-        rl.close();
-      });
-    });
-  });
-}
-
-function createAccount() {
-  rl.question('Enter your username: ', (username) => {
-    rl.question('Enter your password: ', (password) => {
-      rl.question('Enter your full name: ', (fullName) => {
-        dbController.createAccount(username, password, fullName, (err, userId) => {
-          if (err) {
-            console.error('Account creation failed:', err.message);
-          } else {
-            console.log('Account created successfully. Your user ID is:', userId);
-            // Here you can implement further logic after successful account creation
-          }
-          rl.close();
-        });
-      });
-    });
-  });
-}
-
-function showMenu() {
-  console.log('1. Login');
-  console.log('2. Create Account');
-  console.log('3. Exit');
-}
-
-function main() {
-  showMenu();
-  rl.question('Enter your choice: ', (choice) => {
-    switch (choice) {
-      case '1':
-        login();
-        break;
-      case '2':
-        createAccount();
-        break;
-      case '3':
-        console.log('Exiting...');
-        rl.close();
-        break;
-      default:
-        console.log('Invalid choice. Please try again.');
-        main();
+    if (form.checkValidity() === false) {
+      form.classList.add('was-validated');
+      return;
     }
-  });
-}
 
-main();
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: emailInput.value,
+        password: passwordInput.value
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text();
+    })
+    .then(data => {
+      // Check if data contains error message
+      if (data.includes('Invalid')) {
+        alert(data); // Display error message
+      } else {
+        alert('Login successful!');
+        
+      }
+    })
+    .catch(error => {
+      console.error('There was an error with the fetch operation:', error);
+      alert('Login failed. Please try again later.');
+      form.reset();
+    });
+  });
+});

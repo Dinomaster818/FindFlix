@@ -31,6 +31,29 @@ app.get('/:page.html', function (req, res) {
   res.sendFile(path.join(__dirname, 'views', `${page}.html`));
 });
 
+app.post('/login', function(req, res) {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).send('Email and password are required');
+  }
+
+  dbController.login(email, password, (err, user) => {
+    if (err) {
+      console.error('Error during login:', err.message);
+      return res.status(500).send('Error during login');
+    }
+    if (user) {
+      console.log('Login successful:', user.username);
+      return res.status(200).send('Login successful');
+    } else {
+      console.log('Invalid email or password.');
+      return res.status(401).send('Invalid email or password');
+    }
+  });
+});
+
+
 
 app.post('/signup', function(req, res, next) {
   const { firstName, lastName, email, password } = req.body;
@@ -62,7 +85,6 @@ app.post('/signup', function(req, res, next) {
     }
     console.log('Account created successfully. User ID:', userId);
     res.sendStatus(200); // Send success response
-    res.redirect('/views/index.html');
   });
 });
 
