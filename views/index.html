@@ -13,6 +13,7 @@
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
         <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="stylesheet" href="/stylesheets/backgrund.css">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
 
@@ -35,40 +36,74 @@
             </div>
         </nav>
 
-
+        <!-- Header-->
+        <header class="header-section">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="https://images3.alphacoders.com/118/1188630.png" alt=""></div>
+                    <div class="swiper-slide"><img src="https://images4.alphacoders.com/132/1323605.jpeg" alt=""></div>
+                    <div class="swiper-slide"><img
+                            src="https://images.lifestyleasia.com/wp-content/uploads/sites/6/2022/12/05003911/new-movies-2023-john-wick-chapter-4-1600x900.jpeg"
+                            alt=""></div>
+                    <div class="swiper-slide"><img
+                            src="https://images.hdqwalls.com/wallpapers/kamala-khan-the-marvels-kf.jpg" alt=""></div>
+                    <div class="swiper-slide"><img
+                            src="https://images.hdqwalls.com/wallpapers/2022-the-batman-film-4k-rl.jpg" alt=""></div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+                <div class="autoplay-progress">
+                    <svg viewBox="0 0 48 48">
+                        <circle cx="24" cy="24" r="20"></circle>
+                    </svg>
+                    <span></span>
+                </div>
+            </div>
+        </header>
 
         <main class="main">
             <div class="category-selection">
-                <button type="button" class="category-btn btn btn-primary  active" role="button" aria-pressed="true" data-category="movies">Movies</button>
-                <button type="button" class="category-btn btn btn-primary  active" role="button" aria-pressed="true" data-category="books">Books</button>
+                <button class="category-btn" data-category="movies">Movies</button>
+                <button class="category-btn" data-category="books">Books</button>
             </div>
 
             <div class="search-bar">
                 <form class="d-flex" role="search">
                     <input id="searchInput" class="form-control me-2" type="search" placeholder="Search"
                         aria-label="Search">
-                    <button id="searchBtn" class="btn btn-primary  active" role="button" aria-pressed="true" type="button">Search</button>
+                    <button id="searchBtn" class="btn btn-primary" type="button">Search</button>
                 </form>
             </div>
+
             <section id="primaryResults"></section>
-            
-
             <section id="similarResults"></section>
-
-            
         </main>
 
         
 
 
         <!-- Footer-->
-        <footer class="py-4 bg-dark bg-transparent">
+        <footer class="py-4 bg-dark">
             <div class="container px-4">
                 <p class="m-0 text-center text-white">Copyright &copy; FindFlix 2024</p>
             </div>
         </footer>
         
-
+        <div>
+            <ul class="background">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
         
         <!-- Bootstrap core JS (included already) -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -78,8 +113,6 @@
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="/javascripts/home_script.js"></script>
         <script src="/javascripts/script.js"></script>
-
-        
     </body>
 
 </html>
