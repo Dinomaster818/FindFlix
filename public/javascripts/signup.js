@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => {
       console.error('There was an error with the fetch operation:', error);
       alert('Sign up failed. Please try again later.');
+      form.reset();
     });
   });
 
