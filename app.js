@@ -69,7 +69,7 @@ app.post('/signup', function(req, res, next) {
       if (err) {
           return res.status(500).send('Error creating account');
       }
-      res.redirect('/signup-success'); // Redirect to a success page
+      res.redirect('/views/index.html'); // Redirect to a success page
   });
 });
 

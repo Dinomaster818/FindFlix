@@ -1,10 +1,10 @@
-import sqlite3 from 'sqlite3';
+const sqlite3 = require('sqlite3');
 
 const db = new sqlite3.Database('usersdb.db');
 
-function login(username, password, callback) {
-    const sql = 'SELECT * FROM users WHERE username = ? AND password = ?';
-    db.get(sql, [username, password], (err, row) => {
+function login(email, password, callback) {
+    const sql = 'SELECT * FROM users WHERE email = ? AND password = ?';
+    db.get(sql, [email, password], (err, row) => {
         if (err) {
             console.error('Error during login:', err.message);
             return callback(err);
@@ -20,9 +20,9 @@ function login(username, password, callback) {
 }
 
 
-function createAccount(username, password, fullName, callback) {
-    const sql = 'INSERT INTO users (username, password, full_name) VALUES (?, ?, ?)';
-    db.run(sql, [username, password, fullName], function(err) {
+function createAccount(email, password, fullName, callback) {
+    const sql = 'INSERT INTO users (email, password, full_name) VALUES (?, ?, ?)';
+    db.run(sql, [email, password, fullName], function(err) {
         if (err) {
             console.error('Error creating account:', err.message);
             return callback(err);
@@ -127,7 +127,7 @@ function getMoviesByUserId(user_id, callback) {
 
 
 
-export default {
+module.exports = {
     login,
     createAccount,
     addBookToWishlist,
