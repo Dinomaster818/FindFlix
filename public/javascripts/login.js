@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         alert(data); // Display error message
       } else {
         alert('Login successful!');
+        form.reset();
         
       }
     })
