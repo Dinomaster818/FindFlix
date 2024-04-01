@@ -43,7 +43,6 @@ app.get('/signup.html', function (req, res) {
 app.post('/signup', function(req, res, next) {
   const { firstName, lastName, email, password } = req.body;
 
-  // Perform form validation
   if (!firstName || !lastName || !email || !password) {
       return res.status(400).send('All fields are required');
   }
@@ -64,14 +63,17 @@ app.post('/signup', function(req, res, next) {
       return res.status(400).send('Password must be 8-20 characters long and include at least one digit and one special character');
   }
 
-  // Call createAccount function to add user to the database
-  dbController.createAccount(email, password, `${firstName} ${lastName}`, function(err, userId) {
-      if (err) {
-          return res.status(500).send('Error creating account');
-      }
-      res.redirect('/views/index.html'); // Redirect to a success page
+  dbController.createAccount(email, password, `${firstName} ${lastName}`, (err, userId) => {
+    if (err) {
+      console.error('Error creating account:', err.message);
+      return res.status(500).send('Error creating account');
+    }
+    console.log('Account created successfully. User ID:', userId);
+    res.sendStatus(200); // Send success response
   });
 });
+
+
 
 // Routes
 app.use('/', indexRouter);
