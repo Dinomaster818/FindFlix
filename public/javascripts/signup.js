@@ -1,11 +1,12 @@
-document.addEventListener('DOMContentLoaded', function() {
+
+document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('signupForm');
   const firstNameInput = document.getElementById('exampleInputFirstName');
   const lastNameInput = document.getElementById('exampleInputLastName');
   const emailInput = document.getElementById('exampleInputEmail1');
   const passwordInput = document.getElementById('exampleInputPassword1');
 
-  form.addEventListener('submit', function(event) {
+  form.addEventListener('submit', function (event) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -50,27 +51,30 @@ document.addEventListener('DOMContentLoaded', function() {
         password: passwordInput.value
       })
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.text();
-    })
-    .then(data => {
-      // Check if data contains error message
-      if (data.includes('already exists')) {
-        alert(data); // Display error message
-      } else {
-        alert('Sign up successful!');
-        form.reset(); // Clear form inputs after successful signup
-      }
-    })
-    .catch(error => {
-      console.error('There was an error with the fetch operation:', error);
-      alert('Sign up failed. Please try again later.');
-      form.reset();
-    });
+      .then(response => {
+        if (!response.ok) {
+          return response.text().then(text => Promise.reject(text));
+        }
+        return response.text(); // For successful responses
+      })
+      .then(data => {
+        // Handle success
+        Swal.fire({
+          icon: 'success',
+          title: 'Sign up successful!',
+          showConfirmButton: false,
+        });
+        form.reset();
+      })
+      .catch(errorText => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: "Sign up failed. Please try again later.", 
+        });
+      });
   });
+  
 
   function validateFirstName(firstName) {
     console.log("Validating first name: ", firstName);

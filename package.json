@@ -18,5 +18,18 @@
     "node-fetch": "^3.3.2",
     "pug": "^3.0.2",
     "sqlite3": "^5.1.7"
-  }
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dinomaster818/FindFlix.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dinomaster818/FindFlix/issues"
+  },
+  "homepage": "https://github.com/Dinomaster818/FindFlix#readme",
+  "description": ""
 }

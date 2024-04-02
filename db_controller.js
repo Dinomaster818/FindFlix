@@ -138,6 +138,25 @@ function getMoviesByUserId(user_id, callback) {
     });
 }
 
+function getUserInfoByEmail(email, callback) {
+    const sql = 'SELECT email, fullname FROM user WHERE email = ?';
+    db.get(sql, [email], (err, row) => {
+        if (err) {
+            console.error('Error fetching user information:', err.message);
+            return callback(err);
+        }
+        if (row) {
+            console.log('User information retrieved successfully:', row);
+            callback(null, row);
+        } else {
+            console.log('No user found with the specified email.');
+            callback(new Error('No user found.'));
+        }
+    });
+}
+
+
+
 
 
 
@@ -151,6 +170,6 @@ module.exports = {
     removeMovieFromWishlist,
     getBooksByUserId,
     getMoviesByUserId,
-    checkUserExists
-
+    checkUserExists,
+    getUserInfoByEmail
 };

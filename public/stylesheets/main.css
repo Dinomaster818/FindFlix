@@ -43,3 +43,22 @@ html {
 .container-fluid a{
     color: rgb(255, 255, 255);
 }
+
+
+/* Login and SignUp*/
+.form-container {
+    background-color: rgb(179, 179, 179);
+    margin:auto;
+    padding: 50px;
+    min-width: 40%;
+    max-width: 50%;
+    border-radius: 20px;
+}
+
+.form-container form{
+    margin: 0px;
+}
+
+.form-container .text-center{
+    text-transform:uppercase;
+}
