@@ -173,7 +173,7 @@ function renderMovies(movies) {
             const movieElement = document.createElement('div');
             movieElement.classList.add('movie-item');
             const moviehtml = './movie_user.html';
-            const movieLink = `${moviehtml}?movie-title=${encodeURIComponent(movie.title)}&ratings=${encodeURIComponent(movie.ratings)}&runtime=${encodeURIComponent(movie.runtime)}&release=${encodeURIComponent(movie.release)}&tags=${encodeURIComponent(movie.tags)}&description=${encodeURIComponent(movie.description)}&actors=Actors: ${encodeURIComponent(movie.actors)}&director=Director(s): ${encodeURIComponent(movie.director)}&poster=${encodeURIComponent(movie.poster)}`;
+            const movieLink = `${moviehtml}?movieid=${encodeURIComponent(movie.id)}&movie-title=${encodeURIComponent(movie.title)}&ratings=${encodeURIComponent(movie.ratings)}&runtime=${encodeURIComponent(movie.runtime)}&release=${encodeURIComponent(movie.release)}&tags=${encodeURIComponent(movie.genre)}&description=${encodeURIComponent(movie.description)}&actors=Actors: ${encodeURIComponent(movie.actors)}&director=Director(s): ${encodeURIComponent(movie.director)}&poster=${encodeURIComponent(movie.poster)}`;
             movieElement.innerHTML = `
             <a href="${movieLink}" class="card-link">
                 <div class="card">

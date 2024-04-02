@@ -38,9 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
  
           const movieData = JSON.parse(localStorage.getItem('movieData') || '{}');
-          const movieDataString = JSON.stringify(movieData, null, 2);
           
-          alert(movieDataString);
           const redirectUrl = `wishlist.html?email=${encodeURIComponent(data.email)}&fullname=${encodeURIComponent(data.fullname)}&movie-title=${encodeURIComponent(movieData.title)}&ratings=${encodeURIComponent(movieData.ratings)}&runtime=${encodeURIComponent(movieData.runtime)}&release=${encodeURIComponent(movieData.release)}&tags=${encodeURIComponent(movieData.tags)}&description=${encodeURIComponent(movieData.description)}&actors=${encodeURIComponent(movieData.actors)}&director=${encodeURIComponent(movieData.director)}&poster=${encodeURIComponent(movieData.poster)}`;
           window.location.href = redirectUrl;
         }

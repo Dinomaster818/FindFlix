@@ -120,6 +120,21 @@ app.delete('/delete-account', function (req, res) {
   });
 });
 
+app.delete('/remove-movie/:id', function(req, res) {
+  const movieId = req.params.id;
+
+  dbController.removeMovieFromWishlist(movieId, function(err) {
+      if (err) {
+          console.error('Error removing movie from wishlist:', err.message);
+          return res.status(500).json({ error: 'Error removing movie from wishlist' });
+      }
+      // Movie removed successfully
+      return res.status(200).json({ message: 'Movie removed from wishlist successfully' });
+  });
+});
+
+
+
 
 
 // Wishlist routes
