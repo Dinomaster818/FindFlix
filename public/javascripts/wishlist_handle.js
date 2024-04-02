@@ -3,9 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (deleteAccountLink) {
         deleteAccountLink.addEventListener('click', function (event) {
-            event.preventDefault(); // Prevent the default behavior of the link
+            event.preventDefault(); 
 
-            // Ask for confirmation before deleting the account
             Swal.fire({
                 title: 'Are you sure?',
                 text: 'Once deleted, you will not be able to recover your account!',
@@ -26,37 +25,33 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function deleteAccount() {
-    // Send a request to delete the account
+    // Send a request
     fetch('/delete-account', {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            email: localStorage.getItem('userEmail') // Send the user's email for identification
+            email: localStorage.getItem('userEmail') 
         })
     })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to delete account');
             }
-            // Account deleted successfully
             return response.json();
         })
         .then(data => {
-            // Show success message and logout
             Swal.fire({
                 title: 'Account Deleted',
                 text: data.message,
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then(() => {
-                // Redirect to the login page after account deletion
                 window.location.href = 'login.html';
             });
         })
         .catch(error => {
-            // Show error message
             Swal.fire({
                 title: 'Error',
                 text: error.message,
