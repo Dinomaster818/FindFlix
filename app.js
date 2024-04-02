@@ -133,14 +133,13 @@ app.post('/add-movie', (req, res) => {
       console.error('Error fetching user ID:', err);
       return res.status(500).json({ error: 'Error fetching user ID or user not found' });
     }
-
     // Now that we have the userId, proceed to add the movie to the wishlist
     dbController.addMovieToWishlist(userId, title, ratings, runtime, release, tags, description, actors, director, poster, (err, wishlistId) => {
       if (err) {
         console.error('Error adding movie to wishlist:', err);
         return res.status(500).json({ error: 'Error adding movie to wishlist' });
       }
-      res.status(200).json({ message: 'Movie added to wishlist successfully', wishlistId });
+      res.status(200).json({ message: 'Movie added to wishlist successfully',  tags });
     });
   });
 });
