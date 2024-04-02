@@ -1,0 +1,105 @@
+body,
+html {
+    background-color: #151515;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.navbar-brand {
+    letter-spacing: 0.1cap;
+    transition: 0.7s;
+}
+
+
+.navbar-brand:hover {
+    letter-spacing: 0.2cap;
+    transition: 0.7s;
+}
+
+.navbar-nav {
+    gap: 1em;
+}
+
+.container-fluid {
+    color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 500px;
+    background-color: #333;
+    padding: 50px;
+    border-radius: 20px;
+}
+
+.container-fluid a {
+    color: rgb(255, 255, 255);
+}
+
+
+/* Login and SignUp*/
+.form-container {
+    background-color: rgb(179, 179, 179);
+    margin: auto;
+    padding: 50px;
+    min-width: 40%;
+    max-width: 50%;
+    border-radius: 20px;
+}
+
+.form-container form {
+    margin: 0px;
+}
+
+.form-container .text-center {
+    text-transform: uppercase;
+}
+
+.wishlist-title {
+    padding-top: 20px !important;
+    letter-spacing: 0.2cap;
+}
+
+.Welcome-wishlist,
+.wishlist-title {
+    text-align: center;
+    color: aliceblue;
+    padding: 5px;
+}
+
+.Welcome-wishlist {
+    font-size: 18px;
+}
+
+
+#wishlist-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3em;
+    justify-content: center;
+    padding: 20px;
+}
+
+.card{
+    background-color: rgb(247, 251, 255);
+    min-width: 200px;
+    min-height: auto !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.2s;
+    border: none;
+}
+
+.card-info{
+    padding: 20px;
+}

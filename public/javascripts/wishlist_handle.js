@@ -122,22 +122,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //Display the wishlist
 document.addEventListener('DOMContentLoaded', function () {
-    const userEmail = localStorage.getItem('userEmail'); 
+    // Extract email and fullname from the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const userEmail = urlParams.get('email');
+    const userFullname = urlParams.get('fullname');
 
-    fetch(`/user-movies?email=${encodeURIComponent(userEmail)}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(movies => {
-            renderMovies(movies);
-        })
-        .catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
-        });
+    // Check if email and fullname are present
+    if (userEmail && userFullname) {
+        // Proceed with fetching the wishlist
+        fetch(`/user-movies?email=${encodeURIComponent(userEmail)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(movies => {
+                renderMovies(movies);
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
+    } else {
+        console.error('Email or fullname not found in URL parameters');
+    }
 });
+
 
 function renderMovies(movies) {
     const wishlistContainer = document.getElementById('wishlist-container');
@@ -149,7 +159,7 @@ function renderMovies(movies) {
             const movieElement = document.createElement('div');
             movieElement.classList.add('movie-item');
             movieElement.innerHTML = `
-            <div class="card">
+            <div href="${null}" class="card">
                 <img src="${movie.poster}" alt="Poster for ${movie.title}" class="movie-poster">
                 <div class="card-info">
                     <h3>${movie.title}</h3>

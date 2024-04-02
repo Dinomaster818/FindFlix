@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
           title: 'Sign up successful!',
           showConfirmButton: false,
         });
+        window.location.href = 'wishlist.html';
         form.reset();
       })
       .catch(errorText => {

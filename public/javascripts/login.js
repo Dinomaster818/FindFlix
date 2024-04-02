@@ -36,11 +36,9 @@ document.addEventListener('DOMContentLoaded', function () {
           throw new Error(data.error);
 
         } else {
-          localStorage.setItem('isLoggedIn', 'true');
-          localStorage.setItem('authToken', data.token);
-          localStorage.setItem('userEmail', data.email);
-          localStorage.setItem('userFullname', data.fullname);
-          window.location.href = 'wishlist.html';
+ 
+          const redirectUrl = `wishlist.html?email=${encodeURIComponent(data.email)}&fullname=${encodeURIComponent(data.fullname)}`;
+          window.location.href = redirectUrl;
         }
       })
       .catch(error => {
