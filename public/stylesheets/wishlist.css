@@ -103,3 +103,14 @@ html {
 .card-info{
     padding: 20px;
 }
+
+.card-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color */
+    outline: none; /* Remove outline */
+}
+
+.card-link:focus,
+.card-link:hover {
+    outline: none; /* Remove outline on focus/hover */
+}

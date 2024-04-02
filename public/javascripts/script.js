@@ -184,7 +184,7 @@ async function createCard(item, type, link) {
             const bookInfo = item.volumeInfo;
             const bookDetails = await fetchBookDetailsById(item.id);
             
-            console.log(bookDetails);
+
             const bookTitle = bookInfo.title || 'N/A';
             const averageRating = bookInfo.averageRating + '/5' || 'N/A';
             const pageCount = bookInfo.pageCount || 'N/A';

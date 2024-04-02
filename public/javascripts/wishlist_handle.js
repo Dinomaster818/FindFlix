@@ -66,57 +66,67 @@ function deleteAccount() {
 
 
 
-//Add movie to wishlist
+
 document.addEventListener('DOMContentLoaded', function () {
-    const addMovieToWishlistBtn = document.getElementById('addMovieToWishlist');
 
-    addMovieToWishlistBtn.addEventListener('click', function (event) {
-        event.preventDefault(); // Prevent the default action of the link
+    if (!localStorage.getItem('movieData')) {
+        console.error('localStorage is empty. Movie data cannot be added to the wishlist.');
+        return;
+    }
 
-        if (localStorage.getItem('isLoggedIn') !== 'true') {
-            // If not logged in, redirect to the login page
-            window.location.href = 'login.html';
-        } else {
-            // If logged in, gather movie details from the page
-            const userEmail = localStorage.getItem('userEmail'); // Retrieve the user's email from localStorage
-            const movieData = {
-                email: userEmail, // Include the email in the request body
-                title: document.getElementById('movie-title').textContent,
-                ratings: document.getElementById('ratings').textContent,
-                runtime: document.getElementById('runtime').textContent,
-                release: document.getElementById('release').textContent,
-                tags: document.getElementById('tags').textContent,
-                description: document.getElementById('description').textContent,
-                actors: document.getElementById('actors').textContent,
-                director: document.getElementById('director').textContent,
-                poster: document.getElementById('poster').src // Assuming poster is an image src
-            };
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
 
-            // Send a request to the server to add the movie to the wishlist
-            fetch('/add-movie', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(movieData)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error adding movie to wishlist');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Movie added to wishlist successfully', data);
-                    // Optionally, update the UI here to reflect the addition
-                })
-                .catch(error => {
-                    console.error('Error adding movie to wishlist:', error);
-                    // Optionally, inform the user that the addition failed
-                });
+    // Check if any of the required parameters are missing
+    if (!urlParams.has('email') || !urlParams.has('fullname') || !urlParams.has('movie-title')) {
+        console.error('Missing required parameters. Movie data cannot be added to the wishlist.');
+        return;
+    }
+
+    
+
+    // Retrieve movie data from the URL parameters
+    const movieData = {
+        email: urlParams.get('email'), // Retrieve email from URL
+        fullname: urlParams.get('fullname'), // Retrieve fullname from URL
+        title: urlParams.get('movie-title') || 'N/A',
+        ratings: urlParams.get('ratings') || 'N/A',
+        runtime: urlParams.get('runtime') || 'N/A',
+        release: urlParams.get('release') || 'N/A',
+        tags: urlParams.get('tags') || 'N/A',
+        description: urlParams.get('description') || 'N/A',
+        actors: urlParams.get('actors') || 'N/A',
+        director: urlParams.get('director') || 'N/A',
+        poster: urlParams.get('poster') || 'N/A'
+    };
+
+    // Send a request to add the movie to the wishlist
+    fetch('/add-movie', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(movieData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error adding movie to wishlist');
         }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Movie added to wishlist successfully', data);
+        // Optionally, update the UI here to reflect the addition
+    })
+    .catch(error => {
+        console.error('Error adding movie to wishlist:', error);
+        // Optionally, inform the user that the addition failed
     });
+
+    localStorage.removeItem('movieData');
 });
+
+
 
 
 
@@ -149,24 +159,32 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
 function renderMovies(movies) {
     const wishlistContainer = document.getElementById('wishlist-container');
     wishlistContainer.innerHTML = '';
     if (movies.length === 0) {
         wishlistContainer.innerHTML = '<p>No movies found in your wishlist.</p>';
     } else {
+
+        
+        
         movies.forEach(movie => {
             const movieElement = document.createElement('div');
             movieElement.classList.add('movie-item');
+            const moviehtml = './movie_user.html';
+            const movieLink = `${moviehtml}?movie-title=${encodeURIComponent(movie.title)}&ratings=${encodeURIComponent(movie.ratings)}&runtime=${encodeURIComponent(movie.runtime)}&release=${encodeURIComponent(movie.released)}&tags=${encodeURIComponent(movie.tags)}&description=${encodeURIComponent(movie.description)}&actors=Actors: ${encodeURIComponent(movie.actors)}&director=Director(s): ${encodeURIComponent(movie.director)}&poster=${encodeURIComponent(movie.poster)}`;
             movieElement.innerHTML = `
-            <div href="${null}" class="card">
-                <img src="${movie.poster}" alt="Poster for ${movie.title}" class="movie-poster">
-                <div class="card-info">
-                    <h3>${movie.title}</h3>
-                    <p>Ratings: ${movie.ratings}</p>
-                    <p>Runtime: ${movie.runtime}</p>
-                <div>
-            </div>
+            <a href="${movieLink}" class="card-link">
+                <div class="card">
+                        <img src="${movie.poster}" alt="Poster for ${movie.title}" class="movie-poster">
+                        <div class="card-info">
+                            <h3>${movie.title}</h3>
+                            <p>Ratings: ${movie.ratings}</p>
+                            <p>Runtime: ${movie.runtime}</p>  
+                        <div>
+                </div>
+            </a>
             `;
             wishlistContainer.appendChild(movieElement);
         });
