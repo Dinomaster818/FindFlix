@@ -155,6 +155,17 @@ function getUserInfoByEmail(email, callback) {
     });
 }
 
+function deleteAccount(email, callback) {
+    const sql = 'DELETE FROM user WHERE email = ?';
+    db.run(sql, [email], function (err) {
+        if (err) {
+            console.error('Error deleting user account:', err.message);
+            return callback(err);
+        }
+        console.log(`User account with email ${email} deleted successfully.`);
+        callback(null);
+    });
+}
 
 
 
@@ -170,5 +181,6 @@ module.exports = {
     getBooksByUserId,
     getMoviesByUserId,
     checkUserExists,
-    getUserInfoByEmail
+    getUserInfoByEmail,
+    deleteAccount
 };

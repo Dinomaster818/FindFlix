@@ -36,7 +36,6 @@ app.post('/login', function (req, res) {
   if (!email || !password) {
     return res.status(400).send('Email and password are required');
   }
-
   dbController.login(email, password, (err, user) => {
     if (err) {
       console.error('Error during login:', err.message);
@@ -52,8 +51,8 @@ app.post('/login', function (req, res) {
         if (userInfo) {
           return res.json({
             message: 'Login successful',
-            email: user.email, 
-            fullname: userInfo.fullname, 
+            email: user.email,
+            fullname: userInfo.fullname,
           });
         } else {
           console.error('User is authenticated but additional info cannot be retrieved.');
@@ -68,7 +67,7 @@ app.post('/login', function (req, res) {
 });
 
 
-
+//Post sign up
 app.post('/signup', function (req, res, next) {
   const { firstName, lastName, email, password } = req.body;
 
@@ -101,6 +100,26 @@ app.post('/signup', function (req, res, next) {
     res.sendStatus(200); // Send success response
   });
 });
+
+//Delete account
+// POST /delete-account
+app.delete('/delete-account', function (req, res) {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).send('Email is required');
+  }
+
+  dbController.deleteAccount(email, (err, result) => {
+    if (err) {
+      console.error('Error deleting account:', err.message);
+      return res.status(500).json({ error: 'Error deleting account' });
+    }
+    console.log('Account deleted successfully:', email);
+    return res.json({ message: 'Account deleted successfully' });
+  });
+});
+
 
 
 // Routes
