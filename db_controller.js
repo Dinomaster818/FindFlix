@@ -68,15 +68,33 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     });
 }
 
+//get user id by email
+function getUserIdByEmail(email, callback) {
+    const sql = 'SELECT user_id FROM user WHERE email = ?';
+    db.get(sql, [email], (err, row) => {
+        if (err) {
+            console.error('Error fetching user ID by email:', err.message);
+            return callback(err);
+        }
+        if (row) {
+            console.log('User ID retrieved successfully:', row.user_id);
+            callback(null, row.user_id);
+        } else {
+            console.log('No user found with the specified email.');
+            callback(new Error('No user found.'));
+        }
+    });
+}
 
-function addMovieToWishlist(user_id, title, year, ratings, runtime, release, genre,
+
+// Direct use of userId instead of fetching it by email
+function addMovieToWishlist(userId, title, ratings, runtime, release, genre,
     description, actors, director, poster, callback) {
     const sql = `INSERT INTO user_movies
-(user_id, title, year, ratings, runtime, release, genre, 
-    description, actors, director, poster) 
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
-    const values = [user_id, title, year, ratings, runtime, release, genre,
+        (user_id, title, ratings, runtime, release, genre, 
+        description, actors, director, poster) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = [userId, title, ratings, runtime, release, genre,
         description, actors, director, poster];
 
     db.run(sql, values, function (err) {
@@ -85,7 +103,7 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
             return callback(err);
         }
         console.log('Movie added to wishlist successfully. Wishlist ID:', this.lastID);
-        callback(null, this.lastID);
+        callback(null, this.lastID); // Success
     });
 }
 
@@ -114,6 +132,20 @@ function removeMovieFromWishlist(movie_id, callback) {
     });
 }
 
+
+//Get all movies in wishlist
+function getMoviesByUserId(userId, callback) {
+    const sql = 'SELECT * FROM user_movies WHERE user_id = ?';
+    db.all(sql, [userId], (err, movies) => {
+        if (err) {
+            console.error('Error retrieving movies for user:', err.message);
+            return callback(err);
+        }
+        callback(null, movies);
+    });
+}
+
+// get books by user id 
 function getBooksByUserId(user_id, callback) {
     const sql = 'SELECT * FROM user_wishlist WHERE user_id = ?';
     db.all(sql, [user_id], (err, rows) => {
@@ -126,17 +158,6 @@ function getBooksByUserId(user_id, callback) {
     });
 }
 
-function getMoviesByUserId(user_id, callback) {
-    const sql = 'SELECT * FROM user_wishlist WHERE user_id = ?';
-    db.all(sql, [user_id], (err, rows) => {
-        if (err) {
-            console.error('Error retrieving movies:', err.message);
-            return callback(err);
-        }
-        console.log('Movies retrieved successfully for user:', user_id);
-        callback(null, rows);
-    });
-}
 
 function getUserInfoByEmail(email, callback) {
     const sql = 'SELECT email, fullname FROM user WHERE email = ?';
@@ -155,6 +176,7 @@ function getUserInfoByEmail(email, callback) {
     });
 }
 
+//Delete user account
 function deleteAccount(email, callback) {
     const sql = 'DELETE FROM user WHERE email = ?';
     db.run(sql, [email], function (err) {
@@ -169,8 +191,6 @@ function deleteAccount(email, callback) {
 
 
 
-
-
 module.exports = {
     login,
     createAccount,
@@ -182,5 +202,6 @@ module.exports = {
     getMoviesByUserId,
     checkUserExists,
     getUserInfoByEmail,
-    deleteAccount
+    deleteAccount,
+    getUserIdByEmail
 };
