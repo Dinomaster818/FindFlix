@@ -87,8 +87,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Retrieve movie data from the URL parameters
     const movieData = {
-        email: urlParams.get('email'), // Retrieve email from URL
-        fullname: urlParams.get('fullname'), // Retrieve fullname from URL
+        email: urlParams.get('email'), 
+        fullname: urlParams.get('fullname'), 
         title: urlParams.get('movie-title') || 'N/A',
         ratings: urlParams.get('ratings') || 'N/A',
         runtime: urlParams.get('runtime') || 'N/A',
@@ -173,7 +173,7 @@ function renderMovies(movies) {
             const movieElement = document.createElement('div');
             movieElement.classList.add('movie-item');
             const moviehtml = './movie_user.html';
-            const movieLink = `${moviehtml}?movie-title=${encodeURIComponent(movie.title)}&ratings=${encodeURIComponent(movie.ratings)}&runtime=${encodeURIComponent(movie.runtime)}&release=${encodeURIComponent(movie.released)}&tags=${encodeURIComponent(movie.tags)}&description=${encodeURIComponent(movie.description)}&actors=Actors: ${encodeURIComponent(movie.actors)}&director=Director(s): ${encodeURIComponent(movie.director)}&poster=${encodeURIComponent(movie.poster)}`;
+            const movieLink = `${moviehtml}?movie-title=${encodeURIComponent(movie.title)}&ratings=${encodeURIComponent(movie.ratings)}&runtime=${encodeURIComponent(movie.runtime)}&release=${encodeURIComponent(movie.release)}&tags=${encodeURIComponent(movie.tags)}&description=${encodeURIComponent(movie.description)}&actors=Actors: ${encodeURIComponent(movie.actors)}&director=Director(s): ${encodeURIComponent(movie.director)}&poster=${encodeURIComponent(movie.poster)}`;
             movieElement.innerHTML = `
             <a href="${movieLink}" class="card-link">
                 <div class="card">

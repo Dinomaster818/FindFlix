@@ -24,14 +24,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         const movieData = {
-            title: document.getElementById('movie-title').textContent || 'N/A',
-            ratings: document.getElementById('ratings').textContent || 'N/A',
-            runtime: document.getElementById('runtime').textContent || 'N/A',
-            release: document.getElementById('release').textContent || 'N/A',
-            tags: document.getElementById('tags').textContent || 'N/A',
-            description: document.getElementById('description').textContent || 'N/A',
-            actors: document.getElementById('actors').textContent || 'N/A',
-            director: document.getElementById('director').textContent || 'N/A',
+            title: document.getElementById('movie-title').innerText || 'N/A',
+            ratings: document.getElementById('ratings').innerText || 'N/A',
+            runtime: document.getElementById('runtime').innerText || 'N/A',
+            release: document.getElementById('release').innerText || 'N/A',
+            tags: document.getElementById('tags').innerText || 'N/A',
+            description: document.getElementById('description').innerText || 'N/A',
+            actors: document.getElementById('actors').innerText || 'N/A',
+            director: document.getElementById('director').innerText || 'N/A',
             poster: document.getElementById('poster').src || 'N/A'
         };
         

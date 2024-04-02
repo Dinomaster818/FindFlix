@@ -125,7 +125,7 @@ app.delete('/delete-account', function (req, res) {
 // Wishlist routes
 app.post('/add-movie', (req, res) => {
   const userEmail = req.body.email; // Assuming email is sent in the request body
-  const { title, ratings, runtime, release, genre, description, actors, director, poster } = req.body;
+  const { title, ratings, runtime, release, tags, description, actors, director, poster } = req.body;
 
   // First, fetch the user's ID using their email
   dbController.getUserIdByEmail(userEmail, (err, userId) => {
@@ -135,7 +135,7 @@ app.post('/add-movie', (req, res) => {
     }
 
     // Now that we have the userId, proceed to add the movie to the wishlist
-    dbController.addMovieToWishlist(userId, title, ratings, runtime, release, genre, description, actors, director, poster, (err, wishlistId) => {
+    dbController.addMovieToWishlist(userId, title, ratings, runtime, release, tags, description, actors, director, poster, (err, wishlistId) => {
       if (err) {
         console.error('Error adding movie to wishlist:', err);
         return res.status(500).json({ error: 'Error adding movie to wishlist' });
