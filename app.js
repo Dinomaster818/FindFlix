@@ -29,8 +29,7 @@ app.get('/:page.html', function (req, res) {
 });
 
 
-
-//POST 
+// POST /login
 app.post('/login', function (req, res) {
   const { email, password } = req.body;
 
@@ -45,20 +44,18 @@ app.post('/login', function (req, res) {
     }
     if (user) {
       console.log('Login successful:', user.email);
-      // After successful login, fetch additional user information like fullname
       dbController.getUserInfoByEmail(email, (err, userInfo) => {
         if (err) {
           console.error('Error fetching user information:', err.message);
           return res.status(500).json({ error: 'Error fetching user information' });
         }
         if (userInfo) {
-          // Return the additional user information in the login response
           return res.json({
             message: 'Login successful',
-            fullname: userInfo.fullname,
+            email: user.email, 
+            fullname: userInfo.fullname, 
           });
         } else {
-          // Handle the case where the user is authenticated but additional info can't be retrieved
           console.error('User is authenticated but additional info cannot be retrieved.');
           return res.status(500).json({ error: 'Error retrieving additional user information' });
         }

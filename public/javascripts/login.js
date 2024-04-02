@@ -34,10 +34,12 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(data)
         if (data.error) {
           throw new Error(data.error);
+
         } else {
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('authToken', data.token);
-          localStorage.setItem('userEmail', emailInput.value);
+          localStorage.setItem('userEmail', data.email);
+          localStorage.setItem('userFullname', data.fullname);
           window.location.href = 'wishlist.html';
         }
       })
