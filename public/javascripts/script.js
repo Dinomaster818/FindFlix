@@ -128,7 +128,7 @@ async function fetchMovieDetailsById(imdbId) {
 }
 
 async function fetchBookDetailsById(volumeId) {
-    const googleBooksUrl = `https://www.googleapis.com/books/v1/volumes/${encodeURIComponent(volumeId)}?key=${API_KEY_GOOGLE_BOOKS}`;
+    const googleBooksUrl = `https://www.googleapis.com/books/v1/volumes/${encodeURIComponent(volumeId)}?key=${API_KEY_OMDB}`;
 
     try {
         const response = await fetch(googleBooksUrl);
@@ -182,19 +182,20 @@ async function createCard(item, type, link) {
             const bookInfo = item.volumeInfo;
             const bookDetails = await fetchBookDetailsById(bookInfo.id);
             
-            const bookTitle = bookDetails.title || 'N/A';
-            const averageRating = bookDetails.averageRating + '/5' || 'N/A';
-            const pageCount = bookDetails.pageCount || 'N/A';
-            const releaseDate = bookDetails.publishedDate || 'N/A';
-            const genre = bookDetails.categories ? bookInfo.categories.join(', ') : 'N/A';
-            const description = bbookDetails.description || 'N/A';
-            const format = bookDetails.printType || 'N/A';
-            const authors = bookDetails.authors ? bookInfo.authors.join(', ') : 'N/A';
-            const isbn = bookDetails.industryIdentifiers ? bookInfo.industryIdentifiers[0].identifier  : 'N/A';
-            const publisher = bookDetails.publisher || 'N/A';
-            const language = bookDetails.language || 'N/A';
-            const cover = bookDetails.imageLinks?.thumbnail || 'N/A';
-            const buyLink = bookDetails.buyLink || 'N/A';
+            const bookTitle = bookDetails.volumeInfo.title || 'N/A';
+            const averageRating = (bookDetails.volumeInfo.averageRating ? bookDetails.volumeInfo.averageRating + '/5' : 'N/A');
+            const pageCount = bookDetails.volumeInfo.pageCount || 'N/A';
+            const releaseDate = bookDetails.volumeInfo.publishedDate || 'N/A';
+            const genre = (bookDetails.volumeInfo.categories ? bookDetails.volumeInfo.categories.join(', ') : 'N/A');
+            const description = bookDetails.volumeInfo.description || 'N/A';
+            const format = bookDetails.volumeInfo.printType || 'N/A';
+            const authors = (bookDetails.volumeInfo.authors ? bookDetails.volumeInfo.authors.join(', ') : 'N/A');
+            const isbn = (bookDetails.volumeInfo.industryIdentifiers && bookDetails.volumeInfo.industryIdentifiers.length > 0) ? bookDetails.volumeInfo.industryIdentifiers[0].identifier : 'N/A';
+            const publisher = bookDetails.volumeInfo.publisher || 'N/A';
+            const language = bookDetails.volumeInfo.language || 'N/A';
+            const cover = bookDetails.volumeInfo.imageLinks?.thumbnail || 'N/A';
+            const buyLink = bookDetails.volumeInfo.buyLink || 'N/A';
+            
             //const bookDescription = bookInfo.description ? bookInfo.description.split(' ').slice(0, 10).join(' ') + '...' : 'No description available.';
             const bookLink = `${link}?book-title=${bookTitle}&ratings=${averageRating}&pages=${pageCount} pages&release=${releaseDate}&genre=${genre}&description=${description}&format=Format: ${format}&author=Author(s): ${authors}&isbn=ISBN: ${isbn}&publisher=Publisher: ${publisher}&language=Language(s): ${language}&cover=${encodeURIComponent(cover)}&buylink=${buyLink}`;
             return `
