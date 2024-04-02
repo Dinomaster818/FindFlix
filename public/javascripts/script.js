@@ -128,7 +128,7 @@ async function fetchMovieDetailsById(imdbId) {
 }
 
 async function fetchBookDetailsById(volumeId) {
-    const googleBooksUrl = `https://www.googleapis.com/books/v1/volumes/${encodeURIComponent(volumeId)}?key=${API_KEY_OMDB}`;
+    const googleBooksUrl = `https://www.googleapis.com/books/v1/volumes/${encodeURIComponent(volumeId)}?key=${API_KEY_GOOGLE_BOOKS}`;
 
     try {
         const response = await fetch(googleBooksUrl);
@@ -180,31 +180,31 @@ async function createCard(item, type, link) {
 
         } else if (type === 'book') {
             const bookInfo = item.volumeInfo;
-            const bookDetails = await fetchBookDetailsById(bookInfo.id);
+            const bookDetails = await fetchBookDetailsById(item.id);
             
-            const bookTitle = bookDetails.volumeInfo.title || 'N/A';
-            const averageRating = (bookDetails.volumeInfo.averageRating ? bookDetails.volumeInfo.averageRating + '/5' : 'N/A');
-            const pageCount = bookDetails.volumeInfo.pageCount || 'N/A';
-            const releaseDate = bookDetails.volumeInfo.publishedDate || 'N/A';
-            const genre = (bookDetails.volumeInfo.categories ? bookDetails.volumeInfo.categories.join(', ') : 'N/A');
-            const description = bookDetails.volumeInfo.description || 'N/A';
-            const format = bookDetails.volumeInfo.printType || 'N/A';
-            const authors = (bookDetails.volumeInfo.authors ? bookDetails.volumeInfo.authors.join(', ') : 'N/A');
-            const isbn = (bookDetails.volumeInfo.industryIdentifiers && bookDetails.volumeInfo.industryIdentifiers.length > 0) ? bookDetails.volumeInfo.industryIdentifiers[0].identifier : 'N/A';
-            const publisher = bookDetails.volumeInfo.publisher || 'N/A';
-            const language = bookDetails.volumeInfo.language || 'N/A';
-            const cover = bookDetails.volumeInfo.imageLinks?.thumbnail || 'N/A';
-            const buyLink = bookDetails.volumeInfo.buyLink || 'N/A';
-            
+            console.log(bookDetails);
+            const bookTitle = bookInfo.title || 'N/A';
+            const averageRating = bookInfo.averageRating + '/5' || 'N/A';
+            const pageCount = bookInfo.pageCount || 'N/A';
+            const releaseDate = bookInfo.publishedDate || 'N/A';
+            const genre = bookInfo.categories ? bookInfo.categories.join(', ') : 'N/A';
+            const description = bookInfo.description || 'N/A';
+            const format = bookInfo.printType || 'N/A';
+            const authors = bookInfo.authors ? bookInfo.authors.join(', ') : 'N/A';
+            const isbn = bookInfo.industryIdentifiers ? bookInfo.industryIdentifiers[0].identifier  : 'N/A';
+            const publisher = bookInfo.publisher || 'N/A';
+            const language = bookInfo.language || 'N/A';
+            const cover = bookInfo.imageLinks?.thumbnail || 'N/A';
+            const buyLink = bookInfo.buyLink || 'N/A';
             //const bookDescription = bookInfo.description ? bookInfo.description.split(' ').slice(0, 10).join(' ') + '...' : 'No description available.';
             const bookLink = `${link}?book-title=${bookTitle}&ratings=${averageRating}&pages=${pageCount} pages&release=${releaseDate}&genre=${genre}&description=${description}&format=Format: ${format}&author=Author(s): ${authors}&isbn=ISBN: ${isbn}&publisher=Publisher: ${publisher}&language=Language(s): ${language}&cover=${encodeURIComponent(cover)}&buylink=${buyLink}`;
             return `
                 <a href="${bookLink}" class="card-link">
                     <div class="card">
-                        <img src="${bookInfo.imageLinks?.thumbnail || ''}" alt="Book Cover" class="card-poster" />
+                        <img src="${cover || ''}" alt="Book Cover" class="card-poster" />
                         <div class="card-info">
-                            <h2 class="card-title">${bookInfo.title}</h2>
-                            <p class="card-plot">${bookInfo.publishedDate || 'Unknown date'}</p>
+                            <h2 class="card-title">${bookTitle}</h2>
+                            <p class="card-plot">${releaseDate || 'Unknown date'}</p>
                         </div>
                     </div>
                 </a>

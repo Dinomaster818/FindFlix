@@ -52,7 +52,6 @@
                                 <p id="language" class="lead fw-normal text-white-50 mb-4">Publisher</p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                                     <a id="watchlistbtn" class="btn btn-primary btn-lg px-4 me-sm-3" href="#watchlist">Add to watchlist</a>
-                                    <a id="buylink" class="btn btn-outline-light btn-lg px-4" href="#!">Buy now</a>
                                 </div>
                             </div>
                         </div>
@@ -64,37 +63,14 @@
                 </div>
             </div>
 
-            <script>
-                const queryString = window.location.search;
-                const urlParams = new URLSearchParams(queryString);
-        
-                document.getElementById('book-title').innerText = urlParams.get('book-title') || 'N/A';
-                document.getElementById('ratings').innerText = urlParams.get('ratings') || 'N/A';
-                document.getElementById('pages').innerText = urlParams.get('pages') || 'N/A';
-                document.getElementById('release').innerText = urlParams.get('release') || 'N/A';
-                document.getElementById('genre').innerText = urlParams.get('genre') || 'N/A';
-                document.getElementById('description').innerText = urlParams.get('description') || 'N/A';
-                document.getElementById('format').innerText = urlParams.get('format') || 'N/A';
-                document.getElementById('author').innerText = urlParams.get('author') || 'N/A';
-                document.getElementById('isbn').innerText = urlParams.get('isbn') || 'N/A';
-                document.getElementById('publisher').innerText = urlParams.get('publisher') || 'N/A';
-                document.getElementById('language').innerText = urlParams.get('language') || 'N/A';
-        
-                const coverSrc = urlParams.get('cover');
-                if (coverSrc) {
-                    const encodedCoverSrc = encodeURIComponent(coverSrc);
-                    document.getElementById('cover').src = encodedCoverSrc;
-                }
-        
-                const watchlistBtn = document.getElementById('watchlistbtn');
-                const buyLink = document.getElementById('buylink');
-            </script>
 
         <footer class="py-4 bg-dark bg-transparent">
             <div class="container px-4">
                 <p class="m-0 text-center text-white">Copyright &copy; FindFlix 2024</p>
             </div>
         </footer>
+
+        <script src="/javascripts/book.js"></script>
 </body>
 
 </html>
