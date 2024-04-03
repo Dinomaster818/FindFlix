@@ -199,7 +199,7 @@ app.post('/add-book', (req, res) => {
 
 
 
-//Display the movie from the wishlist
+
 app.get('/user-movies', (req, res) => {
   const userEmail = req.query.email;
   if (!userEmail) {
