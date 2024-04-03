@@ -130,17 +130,17 @@ document.addEventListener('DOMContentLoaded', function () {
             email: urlParams.get('email'), 
             fullname: urlParams.get('fullname'), 
             title: urlParams.get('book-title') || 'N/A',
-            ratings: urlParams.get('ratings') || 'N/A',
-            pageCount: urlParams.get('pages') || 'N/A',
-            release: urlParams.get('release') || 'N/A',
-            genre: urlParams.get('genre') || 'N/A',
-            description: urlParams.get('description') || 'N/A',
-            format: urlParams.get('format') || 'N/A',
-            author: urlParams.get('author') || 'N/A',
-            isbn: urlParams.get('isbn') || 'N/A',
-            publisher: urlParams.get('publisher') || 'N/A',
-            language: urlParams.get('language') || 'N/A',
-            cover: urlParams.get('cover') || null
+            ratings: urlParams.get('book-ratings') || 'N/A',
+            pageCount: urlParams.get('book-pages') || 'N/A',
+            release: urlParams.get('book-release') || 'N/A',
+            genre: urlParams.get('book-genre') || 'N/A',
+            description: urlParams.get('book-description') || 'N/A',
+            format: urlParams.get('book-format') || 'N/A',
+            author: urlParams.get('book-author') || 'N/A',
+            isbn: urlParams.get('book-isbn') || 'N/A',
+            publisher: urlParams.get('book-publisher') || 'N/A',
+            language: urlParams.get('book-language') || 'N/A',
+            cover: urlParams.get('book-cover') || null
         };
 
         // Send a request to add the book to the wishlist
