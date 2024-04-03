@@ -8,7 +8,7 @@ const searchBar = document.querySelector('.search-bar');
 let currentCategory = '';
 
 const API_KEY_OMDB = 'cacfeca0'; // OMDb API key
-const API_KEY_GOOGLE_BOOKS = 'AIzaSyBDOY1VMSEjrmxbaz0dsKESUIm7xhLMBJE'; // Google Books API key
+const API_KEY_GOOGLE_BOOKS = 'AIzaSyBQBqr1xa8CMSY7hkic0JC9Zc6GcTWhpa0'; // Google Books API key
 
 
 

@@ -133,7 +133,7 @@ function removeMovieFromWishlist(movie_id, callback) {
 }
 
 
-//Get all movies in wishlist
+
 function getMoviesByUserId(userId, callback) {
     const sql = 'SELECT * FROM user_movies WHERE user_id = ?';
     db.all(sql, [userId], (err, movies) => {
@@ -145,9 +145,9 @@ function getMoviesByUserId(userId, callback) {
     });
 }
 
-// get books by user id 
+
 function getBooksByUserId(user_id, callback) {
-    const sql = 'SELECT * FROM user_wishlist WHERE user_id = ?';
+    const sql = 'SELECT * FROM user_books WHERE user_id = ?';
     db.all(sql, [user_id], (err, rows) => {
         if (err) {
             console.error('Error retrieving books:', err.message);

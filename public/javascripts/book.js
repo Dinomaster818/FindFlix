@@ -19,7 +19,7 @@ if (coverSrc) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    const addBookToWishlistBtn = document.getElementById('addBookToWishlist');
+    const addBookToWishlistBtn = document.getElementById('watchlistbtn');
 
     addBookToWishlistBtn.addEventListener('click', function (event) {
         event.preventDefault(); 
