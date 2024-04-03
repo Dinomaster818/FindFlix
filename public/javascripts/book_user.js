@@ -51,7 +51,7 @@ document.getElementById('book-isbn').innerText = urlParams.get('book-isbn') || '
 document.getElementById('book-publisher').innerText = urlParams.get('book-publisher') || 'N/A';
 document.getElementById('book-language').innerText = urlParams.get('book-language') || 'N/A';
 
-const coverSrc = urlParams.get('cover');
+const coverSrc = urlParams.get('book-cover');
 if (coverSrc) {
     document.getElementById('book-cover').src = coverSrc;
 }

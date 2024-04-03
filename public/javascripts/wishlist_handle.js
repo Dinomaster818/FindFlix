@@ -276,7 +276,7 @@ function renderBooks(books) {
             const bookElement = document.createElement('div');
             bookElement.classList.add('book-item');
             const bookHtml = './book_user.html';
-            const bookLink = `${bookHtml}?bookid=${encodeURIComponent(book.id)}&book-title=${encodeURIComponent(book.title)}&ratings=${encodeURIComponent(book.ratings)}&pages=${encodeURIComponent(book.pageCount)}&release=${encodeURIComponent(book.publishedDate)}&genre=${encodeURIComponent(book.genre)}&description=${encodeURIComponent(book.description)}&format=${encodeURIComponent(book.format)}&author=${encodeURIComponent(book.author)}&isbn=${encodeURIComponent(book.isbn)}&publisher=${encodeURIComponent(book.publisher)}&language=${encodeURIComponent(book.language)}&cover=${encodeURIComponent(book.cover)}&buylink=${encodeURIComponent(book.buylink)}`;
+            const bookLink = `${bookHtml}?bookid=${encodeURIComponent(book.id)}&book-title=${encodeURIComponent(book.title)}&book-ratings=${encodeURIComponent(book.ratings)}&book-pages=${encodeURIComponent(book.pageCount)}&book-release=${encodeURIComponent(book.publishedDate)}&book-genre=${encodeURIComponent(book.genre)}&book-description=${encodeURIComponent(book.description)}&book-format=${encodeURIComponent(book.format)}&book-author=${encodeURIComponent(book.author)}&book-isbn=${encodeURIComponent(book.isbn)}&book-publisher=${encodeURIComponent(book.publisher)}&book-language=${encodeURIComponent(book.language)}&book-cover=${encodeURIComponent(book.cover)}&book-buylink=${encodeURIComponent(book.buylink)}`;
             bookElement.innerHTML = `
             <a href="${bookLink}" class="card-link">
                 <div class="card">
