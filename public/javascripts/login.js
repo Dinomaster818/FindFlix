@@ -36,12 +36,13 @@ document.addEventListener('DOMContentLoaded', function () {
           throw new Error(data.error);
 
         } else {
- 
           const movieData = JSON.parse(localStorage.getItem('movieData') || '{}');
+          const bookData = JSON.parse(localStorage.getItem('bookData') || '{}');
           
-          const redirectUrl = `wishlist.html?email=${encodeURIComponent(data.email)}&fullname=${encodeURIComponent(data.fullname)}&movie-title=${encodeURIComponent(movieData.title)}&ratings=${encodeURIComponent(movieData.ratings)}&runtime=${encodeURIComponent(movieData.runtime)}&release=${encodeURIComponent(movieData.release)}&tags=${encodeURIComponent(movieData.tags)}&description=${encodeURIComponent(movieData.description)}&actors=${encodeURIComponent(movieData.actors)}&director=${encodeURIComponent(movieData.director)}&poster=${encodeURIComponent(movieData.poster)}`;
+          const redirectUrl = `wishlist.html?email=${encodeURIComponent(data.email)}&fullname=${encodeURIComponent(data.fullname)}&movie-title=${encodeURIComponent(movieData.title)}&ratings=${encodeURIComponent(movieData.ratings)}&runtime=${encodeURIComponent(movieData.runtime)}&release=${encodeURIComponent(movieData.release)}&tags=${encodeURIComponent(movieData.tags)}&description=${encodeURIComponent(movieData.description)}&actors=${encodeURIComponent(movieData.actors)}&director=${encodeURIComponent(movieData.director)}&poster=${encodeURIComponent(movieData.poster)}&book-title=${encodeURIComponent(bookData.title)}&pages=${encodeURIComponent(bookData.pages)}&genre=${encodeURIComponent(bookData.genre)}&format=${encodeURIComponent(bookData.format)}&author=${encodeURIComponent(bookData.author)}&isbn=${encodeURIComponent(bookData.isbn)}&publisher=${encodeURIComponent(bookData.publisher)}&language=${encodeURIComponent(bookData.language)}&cover=${encodeURIComponent(bookData.cover)}`;
           window.location.href = redirectUrl;
-        }
+      }
+      
       })
       .catch(error => {
         console.error('There was an error with the fetch operation:', error);

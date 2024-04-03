@@ -15,8 +15,34 @@ document.getElementById('language').innerText = urlParams.get('language') || 'N/
 
 const coverSrc = urlParams.get('cover');
 if (coverSrc) {
-
     document.getElementById('cover').src = coverSrc;
 }
 
-const watchlistBtn = document.getElementById('watchlistbtn');
+document.addEventListener('DOMContentLoaded', function () {
+    const addBookToWishlistBtn = document.getElementById('addBookToWishlist');
+
+    addBookToWishlistBtn.addEventListener('click', function (event) {
+        event.preventDefault(); 
+
+        const bookData = {
+            title: document.getElementById('book-title').innerText || 'N/A',
+            ratings: document.getElementById('ratings').innerText || 'N/A',
+            pages: document.getElementById('pages').innerText || 'N/A',
+            release: document.getElementById('release').innerText || 'N/A',
+            genre: document.getElementById('genre').innerText || 'N/A',
+            description: document.getElementById('description').innerText || 'N/A',
+            format: document.getElementById('format').innerText || 'N/A',
+            author: document.getElementById('author').innerText || 'N/A',
+            isbn: document.getElementById('isbn').innerText || 'N/A',
+            publisher: document.getElementById('publisher').innerText || 'N/A',
+            language: document.getElementById('language').innerText || 'N/A',
+            cover: document.getElementById('cover').src || 'N/A'
+        };
+        
+        // Store book data in localStorage
+        localStorage.setItem('bookData', JSON.stringify(bookData));
+
+        // Redirect the user to login.html
+        window.location.href = 'login.html';
+    });
+});

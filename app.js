@@ -222,6 +222,29 @@ app.get('/user-movies', (req, res) => {
   });
 });
 
+app.get('/user-books', (req, res) => {
+  const userEmail = req.query.email;
+  if (!userEmail) {
+      return res.status(400).json({ error: 'User email is required' });
+  }
+
+  dbController.getUserIdByEmail(userEmail, (err, userId) => {
+      if (err || userId === undefined) {
+          console.error('Error fetching user ID:', err);
+          return res.status(500).json({ error: 'Error fetching user ID or user not found' });
+      }
+
+      dbController.getBooksByUserId(userId, (err, books) => {
+          if (err) {
+              console.error('Error retrieving books:', err);
+              return res.status(500).json({ error: 'Error retrieving books' });
+          }
+          res.status(200).json(books);
+      });
+  });
+});
+
+
 
 
 

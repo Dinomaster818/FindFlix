@@ -126,6 +126,73 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.removeItem('movieData');
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+
+    if (!localStorage.getItem('bookData')) {
+        console.error('localStorage is empty. Book data cannot be added to the wishlist.');
+        return;
+    }
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+
+    if (!urlParams.has('email') || !urlParams.has('fullname') || !urlParams.has('book-title')) {
+        console.error('Missing required parameters. Book data cannot be added to the wishlist.');
+        return;
+    }
+
+    
+    const bookData = {
+        email: urlParams.get('email'), 
+        fullname: urlParams.get('fullname'), 
+        title: urlParams.get('book-title') || 'N/A',
+        ratings: urlParams.get('ratings') || 'N/A',
+        pageCount: urlParams.get('pages') || 'N/A',
+        release: urlParams.get('release') || 'N/A',
+        genre: urlParams.get('genre') || 'N/A',
+        description: urlParams.get('description') || 'N/A',
+        format: urlParams.get('format') || 'N/A',
+        author: urlParams.get('author') || 'N/A',
+        isbn: urlParams.get('isbn') || 'N/A',
+        publisher: urlParams.get('publisher') || 'N/A',
+        language: urlParams.get('language') || 'N/A',
+        cover: urlParams.get('cover') || null, 
+    };
+
+    // Set cover image source if available
+    const coverSrc = urlParams.get('cover');
+    if (coverSrc) {
+        document.getElementById('cover').src = coverSrc;
+    }
+
+    // Send a request to add the book to the wishlist
+    fetch('/add-book', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(bookData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error adding book to wishlist');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Book added to wishlist successfully', data);
+        // Optionally, update the UI here to reflect the addition
+    })
+    .catch(error => {
+        console.error('Error adding book to wishlist:', error);
+        // Optionally, inform the user that the addition failed
+    });
+
+    localStorage.removeItem('bookData');
+});
+
+
 
 
 
@@ -157,6 +224,34 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Email or fullname not found in URL parameters');
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Extract email and fullname from the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const userEmail = urlParams.get('email');
+    const userFullname = urlParams.get('fullname');
+
+    // Check if email and fullname are present
+    if (userEmail && userFullname) {
+        // Proceed with fetching the wishlist
+        fetch(`/user-books?email=${encodeURIComponent(userEmail)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(books => {
+                renderBooks(books);
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
+    } else {
+        console.error('Email or fullname not found in URL parameters');
+    }
+});
+
 
 
 
@@ -190,3 +285,32 @@ function renderMovies(movies) {
         });
     }
 }
+
+function renderBooks(books) {
+    const wishlistContainer = document.getElementById('wishlist-container');
+    wishlistContainer.innerHTML = '';
+    if (books.length === 0) {
+        wishlistContainer.innerHTML = '<p>No books found in your wishlist.</p>';
+    } else {
+        books.forEach(book => {
+            const bookElement = document.createElement('div');
+            bookElement.classList.add('book-item');
+            const bookHtml = './book_user.html';
+            const bookLink = `${bookHtml}?bookid=${encodeURIComponent(book.id)}&book-title=${encodeURIComponent(book.title)}&ratings=${encodeURIComponent(book.ratings)}&pages=${encodeURIComponent(book.pageCount)}&release=${encodeURIComponent(book.publishedDate)}&genre=${encodeURIComponent(book.genre)}&description=${encodeURIComponent(book.description)}&format=${encodeURIComponent(book.format)}&author=${encodeURIComponent(book.author)}&isbn=${encodeURIComponent(book.isbn)}&publisher=${encodeURIComponent(book.publisher)}&language=${encodeURIComponent(book.language)}&cover=${encodeURIComponent(book.cover)}&buylink=${encodeURIComponent(book.buylink)}`;
+            bookElement.innerHTML = `
+            <a href="${bookLink}" class="card-link">
+                <div class="card">
+                    <img src="${book.cover}" alt="Cover for ${book.title}" class="book-cover">
+                    <div class="card-info">
+                        <h3>${book.title}</h3>
+                        <p>Ratings: ${book.ratings}</p>
+                        <p>Pages: ${book.pageCount}</p>
+                    </div>
+                </div>
+            </a>
+            `;
+            wishlistContainer.appendChild(bookElement);
+        });
+    }
+}
+
