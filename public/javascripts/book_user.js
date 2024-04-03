@@ -5,13 +5,13 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault(); 
         event.stopPropagation();
         
-        // Extract the book ID from the URL
+ 
         const urlParams = new URLSearchParams(window.location.search);
         const bookId = urlParams.get('bookid');
          
 
         
-        // Send a DELETE request to remove the book
+
         fetch(`/remove-book/${bookId}`, {
             method: 'DELETE',
             headers: {
@@ -26,11 +26,11 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             console.log('Book removed from wishlist successfully', data);
-            window.location.href = 'login.html'; // Redirect to login.html after successful removal
+            window.location.href = 'login.html'; 
         })
         .catch(error => {
             console.error('Error removing book from wishlist:', error.message);
-            // Handle error appropriately
+            
         });
     });
 });
