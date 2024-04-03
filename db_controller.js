@@ -46,12 +46,12 @@ function checkUserExists(email, callback) {
 
 function addBookToWishlist(user_id, title, ratings, pageCount, publishedDate, genre,
     description, format, author, isbn, publisher,
-    language, cover, buylink, callback) {
+    language, cover, callback) {
     const sql = `INSERT INTO user_books 
 (user_id, title, ratings, pageCount, publishedDate, genre, 
     description, format, author, isbn, publisher, 
     language, cover, buylink) 
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     const values = [user_id, title, ratings, pageCount, publishedDate, genre,
         description, format, author, isbn, publisher,
