@@ -178,7 +178,7 @@ app.post('/add-movie', (req, res) => {
 // Route to add a book to the wishlist
 app.post('/add-book', (req, res) => {
   const userEmail = req.body.email; 
-  const { title, ratings, pageCount, release, genre, description, format, author, isbn, publisher, language, cover, buylink } = req.body;
+  const { title, ratings, pageCount, release, genre, description, format, author, isbn, publisher, language, cover } = req.body;
 
   
   dbController.getUserIdByEmail(userEmail, (err, userId) => {
@@ -187,7 +187,7 @@ app.post('/add-book', (req, res) => {
           return res.status(500).json({ error: 'Error fetching user ID or user not found' });
       }
      
-      dbController.addBookToWishlist(userId, title, ratings, pageCount, release, genre, description, format, author, isbn, publisher, language, cover, buylink, (err, wishlistId) => {
+      dbController.addBookToWishlist(userId, title, ratings, pageCount, release, genre, description, format, author, isbn, publisher, language, cover, (err, wishlistId) => {
           if (err) {
               console.error('Error adding book to wishlist:', err);
               return res.status(500).json({ error: 'Error adding book to wishlist' });

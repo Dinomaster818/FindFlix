@@ -50,12 +50,12 @@ function addBookToWishlist(user_id, title, ratings, pageCount, publishedDate, ge
     const sql = `INSERT INTO user_books 
 (user_id, title, ratings, pageCount, publishedDate, genre, 
     description, format, author, isbn, publisher, 
-    language, cover, buylink) 
+    language, cover) 
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     const values = [user_id, title, ratings, pageCount, publishedDate, genre,
         description, format, author, isbn, publisher,
-        language, cover, buylink];
+        language, cover];
 
 
     db.run(sql, values, function (err) {
