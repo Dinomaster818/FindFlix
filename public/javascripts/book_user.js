@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
-document.getElementById('book-book-title').innerText = urlParams.get('book-title') || 'N/A';
+document.getElementById('book-title').innerText = urlParams.get('book-title') || 'N/A';
 document.getElementById('book-ratings').innerText = urlParams.get('book-ratings') || 'N/A';
 document.getElementById('book-pages').innerText = urlParams.get('book-pages') || 'N/A';
 document.getElementById('book-release').innerText = urlParams.get('book-release') || 'N/A';
@@ -53,5 +53,5 @@ document.getElementById('book-language').innerText = urlParams.get('book-languag
 
 const coverSrc = urlParams.get('cover');
 if (coverSrc) {
-    document.getElementById('cover').src = coverSrc;
+    document.getElementById('book-cover').src = coverSrc;
 }
