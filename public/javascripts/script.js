@@ -199,7 +199,7 @@ async function createCard(item, type, link) {
             const cover = bookInfo.imageLinks?.thumbnail || 'N/A';
             const buyLink = bookInfo.buyLink || 'N/A';
             //const bookDescription = bookInfo.description ? bookInfo.description.split(' ').slice(0, 10).join(' ') + '...' : 'No description available.';
-            const bookLink = `${link}?book-title=${bookTitle}&ratings=${averageRating}&pages=${pageCount} pages&release=${releaseDate}&genre=${genre}&description=${description}&format=Format: ${format}&author=Author(s): ${authors}&isbn=ISBN: ${isbn}&publisher=Publisher: ${publisher}&language=Language(s): ${language}&cover=${encodeURIComponent(cover)}&buylink=${buyLink}`;
+            const bookLink = `${link}?book-title=${bookTitle}&book-ratings=${averageRating}&book-pages=${pageCount} pages&book-release=${releaseDate}&book-genre=${genre}&book-description=${description}&book-format=Format: ${format}&book-author=Author(s): ${authors}&book-isbn=ISBN: ${isbn}&book-publisher=Publisher: ${publisher}&book-language=Language(s): ${language}&book-cover=${encodeURIComponent(cover)}&book-buylink=${buyLink}`;
             return `
                 <a href="${bookLink}" class="card-link">
                     <div class="card">

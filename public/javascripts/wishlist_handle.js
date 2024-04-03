@@ -68,129 +68,109 @@ function deleteAccount() {
 
 
 document.addEventListener('DOMContentLoaded', function () {
+    const movieData = localStorage.getItem('movieData');
+    const bookData = localStorage.getItem('bookData');
 
-    if (!localStorage.getItem('movieData')) {
-        console.error('localStorage is empty. Movie data cannot be added to the wishlist.');
+    if (!movieData && !bookData) {
+        console.error('localStorage is empty. Movie or book data cannot be added to the wishlist.');
         return;
     }
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
-    // Check if any of the required parameters are missing
-    if (!urlParams.has('email') || !urlParams.has('fullname') || !urlParams.has('movie-title')) {
-        console.error('Missing required parameters. Movie data cannot be added to the wishlist.');
+    // Check if any of the required parameters are missing for both movie and book data
+    if ((!urlParams.has('email') || !urlParams.has('fullname')) && (!urlParams.has('movie-title') || !urlParams.has('book-title'))) {
+        console.error('Missing required parameters. Movie or book data cannot be added to the wishlist.');
         return;
     }
 
-    
+    // Determine if movie data or book data is present
+    if (movieData) {
+        const postData = {
+            email: urlParams.get('email'), 
+            fullname: urlParams.get('fullname'), 
+            title: urlParams.get('movie-title') || 'N/A',
+            ratings: urlParams.get('ratings') || 'N/A',
+            runtime: urlParams.get('runtime') || 'N/A',
+            release: urlParams.get('release') || 'N/A',
+            tags: urlParams.get('tags') || 'N/A',
+            description: urlParams.get('description') || 'N/A',
+            actors: urlParams.get('actors') || 'N/A',
+            director: urlParams.get('director') || 'N/A',
+            poster: urlParams.get('poster') || 'N/A'
+        };
 
-    // Retrieve movie data from the URL parameters
-    const movieData = {
-        email: urlParams.get('email'), 
-        fullname: urlParams.get('fullname'), 
-        title: urlParams.get('movie-title') || 'N/A',
-        ratings: urlParams.get('ratings') || 'N/A',
-        runtime: urlParams.get('runtime') || 'N/A',
-        release: urlParams.get('release') || 'N/A',
-        tags: urlParams.get('tags') || 'N/A',
-        description: urlParams.get('description') || 'N/A',
-        actors: urlParams.get('actors') || 'N/A',
-        director: urlParams.get('director') || 'N/A',
-        poster: urlParams.get('poster') || 'N/A'
-    };
+        // Send a request to add the movie to the wishlist
+        fetch('/add-movie', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error adding movie to wishlist');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Movie added to wishlist successfully', data);
+            // Optionally, update the UI here to reflect the addition
+        })
+        .catch(error => {
+            console.error('Error adding movie to wishlist:', error);
+            // Optionally, inform the user that the addition failed
+        });
 
-    // Send a request to add the movie to the wishlist
-    fetch('/add-movie', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(movieData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Error adding movie to wishlist');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Movie added to wishlist successfully', data);
-        // Optionally, update the UI here to reflect the addition
-    })
-    .catch(error => {
-        console.error('Error adding movie to wishlist:', error);
-        // Optionally, inform the user that the addition failed
-    });
+        localStorage.removeItem('movieData');
+    } else if (bookData) {
+        const postData = {
+            email: urlParams.get('email'), 
+            fullname: urlParams.get('fullname'), 
+            title: urlParams.get('book-title') || 'N/A',
+            ratings: urlParams.get('ratings') || 'N/A',
+            pageCount: urlParams.get('pages') || 'N/A',
+            release: urlParams.get('release') || 'N/A',
+            genre: urlParams.get('genre') || 'N/A',
+            description: urlParams.get('description') || 'N/A',
+            format: urlParams.get('format') || 'N/A',
+            author: urlParams.get('author') || 'N/A',
+            isbn: urlParams.get('isbn') || 'N/A',
+            publisher: urlParams.get('publisher') || 'N/A',
+            language: urlParams.get('language') || 'N/A',
+            cover: urlParams.get('cover') || null
+        };
 
-    localStorage.removeItem('movieData');
+        // Send a request to add the book to the wishlist
+        fetch('/add-book', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error adding book to wishlist');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Book added to wishlist successfully', data);
+            // Optionally, update the UI here to reflect the addition
+        })
+        .catch(error => {
+            console.error('Error adding book to wishlist:', error);
+            // Optionally, inform the user that the addition failed
+        });
+
+        localStorage.removeItem('bookData');
+    }
 });
 
-document.addEventListener('DOMContentLoaded', function () {
 
-    if (!localStorage.getItem('bookData')) {
-        console.error('localStorage is empty. Book data cannot be added to the wishlist.');
-        return;
-    }
-
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-
-
-    if (!urlParams.has('email') || !urlParams.has('fullname') || !urlParams.has('book-title')) {
-        console.error('Missing required parameters. Book data cannot be added to the wishlist.');
-        return;
-    }
-
-    
-    const bookData = {
-        email: urlParams.get('email'), 
-        fullname: urlParams.get('fullname'), 
-        title: urlParams.get('book-title') || 'N/A',
-        ratings: urlParams.get('ratings') || 'N/A',
-        pageCount: urlParams.get('pages') || 'N/A',
-        release: urlParams.get('release') || 'N/A',
-        genre: urlParams.get('genre') || 'N/A',
-        description: urlParams.get('description') || 'N/A',
-        format: urlParams.get('format') || 'N/A',
-        author: urlParams.get('author') || 'N/A',
-        isbn: urlParams.get('isbn') || 'N/A',
-        publisher: urlParams.get('publisher') || 'N/A',
-        language: urlParams.get('language') || 'N/A',
-        cover: urlParams.get('cover') || null, 
-    };
-
-    // Set cover image source if available
-    const coverSrc = urlParams.get('cover');
-    if (coverSrc) {
-        document.getElementById('cover').src = coverSrc;
-    }
-
-    // Send a request to add the book to the wishlist
-    fetch('/add-book', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(bookData)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Error adding book to wishlist');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Book added to wishlist successfully', data);
-        // Optionally, update the UI here to reflect the addition
-    })
-    .catch(error => {
-        console.error('Error adding book to wishlist:', error);
-        // Optionally, inform the user that the addition failed
-    });
-
-    localStorage.removeItem('bookData');
-});
 
 
 
@@ -287,10 +267,10 @@ function renderMovies(movies) {
 }
 
 function renderBooks(books) {
-    const wishlistContainer = document.getElementById('wishlist-container');
-    wishlistContainer.innerHTML = '';
+    const booksContainer = document.getElementById('books-container');
+    booksContainer.innerHTML = '';
     if (books.length === 0) {
-        wishlistContainer.innerHTML = '<p>No books found in your wishlist.</p>';
+        booksContainer.innerHTML = '<p>No books found in your wishlist.</p>';
     } else {
         books.forEach(book => {
             const bookElement = document.createElement('div');
@@ -309,7 +289,7 @@ function renderBooks(books) {
                 </div>
             </a>
             `;
-            wishlistContainer.appendChild(bookElement);
+            booksContainer.appendChild(bookElement);
         });
     }
 }
