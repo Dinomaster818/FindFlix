@@ -23,11 +23,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     removeMovieButton.addEventListener('click', function (event) {
         event.preventDefault(); 
+        event.stopPropagation();
         
         // Extract the movie ID from the URL
         const urlParams = new URLSearchParams(window.location.search);
         const movieId = urlParams.get('movieid');
          
+
         
         // Send a DELETE request to remove the movie
         fetch(`/remove-movie/${movieId}`, {
@@ -44,12 +46,11 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             console.log('Movie removed from wishlist successfully', data);
-            // Redirect to login.html or handle success
             window.location.href = 'login.html';
         })
         .catch(error => {
             console.error('Error removing movie from wishlist:', error.message);
-            // Handle error appropriately
+
         });
     });
 });

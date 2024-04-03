@@ -133,6 +133,22 @@ app.delete('/remove-movie/:id', function(req, res) {
   });
 });
 
+// Route to remove a book from the wishlist
+app.delete('/remove-book/:id', function(req, res) {
+  const bookId = req.params.id;
+
+
+  dbController.removeBookFromWishlist(bookId, function(err) {
+      if (err) {
+          console.error('Error removing book from wishlist:', err.message);
+          return res.status(500).json({ error: 'Error removing book from wishlist' });
+      }
+
+      return res.status(200).json({ message: 'Book removed from wishlist successfully' });
+  });
+});
+
+
 
 
 
@@ -158,6 +174,29 @@ app.post('/add-movie', (req, res) => {
     });
   });
 });
+
+// Route to add a book to the wishlist
+app.post('/add-book', (req, res) => {
+  const userEmail = req.body.email; 
+  const { title, ratings, pageCount, publishedDate, genre, description, format, author, isbn, publisher, language, cover, buylink } = req.body;
+
+  
+  dbController.getUserIdByEmail(userEmail, (err, userId) => {
+      if (err || userId === undefined) {
+          console.error('Error fetching user ID:', err);
+          return res.status(500).json({ error: 'Error fetching user ID or user not found' });
+      }
+     
+      dbController.addBookToWishlist(userId, title, ratings, pageCount, publishedDate, genre, description, format, author, isbn, publisher, language, cover, buylink, (err, wishlistId) => {
+          if (err) {
+              console.error('Error adding book to wishlist:', err);
+              return res.status(500).json({ error: 'Error adding book to wishlist' });
+          }
+          res.status(200).json({ message: 'Book added to wishlist successfully' });
+      });
+  });
+});
+
 
 
 //Display the movie from the wishlist
