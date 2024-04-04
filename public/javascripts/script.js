@@ -48,7 +48,7 @@ async function searchMovies(query, isRecommended = false) {
         if (data.Search) {
             displayResults(data.Search, 'movie', isRecommended ? 'similarResults' : 'primaryResults');
             if (!isRecommended && currentCategory === 'movies') {
-                searchBooks(query, true); 
+                searchBooks(query, true);
             }
         } else {
             displayMessage('No movies found.', isRecommended ? 'similarResults' : 'primaryResults');
