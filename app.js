@@ -8,6 +8,7 @@ var dbController = require('./db_controller.js');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+
 var app = express();
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -120,31 +121,31 @@ app.delete('/delete-account', function (req, res) {
   });
 });
 
-app.delete('/remove-movie/:id', function(req, res) {
+app.delete('/remove-movie/:id', function (req, res) {
   const movieId = req.params.id;
 
-  dbController.removeMovieFromWishlist(movieId, function(err) {
-      if (err) {
-          console.error('Error removing movie from wishlist:', err.message);
-          return res.status(500).json({ error: 'Error removing movie from wishlist' });
-      }
-      // Movie removed successfully
-      return res.status(200).json({ message: 'Movie removed from wishlist successfully' });
+  dbController.removeMovieFromWishlist(movieId, function (err) {
+    if (err) {
+      console.error('Error removing movie from wishlist:', err.message);
+      return res.status(500).json({ error: 'Error removing movie from wishlist' });
+    }
+    // Movie removed successfully
+    return res.status(200).json({ message: 'Movie removed from wishlist successfully' });
   });
 });
 
 // Route to remove a book from the wishlist
-app.delete('/remove-book/:id', function(req, res) {
+app.delete('/remove-book/:id', function (req, res) {
   const bookId = req.params.id;
 
 
-  dbController.removeBookFromWishlist(bookId, function(err) {
-      if (err) {
-          console.error('Error removing book from wishlist:', err.message);
-          return res.status(500).json({ error: 'Error removing book from wishlist' });
-      }
+  dbController.removeBookFromWishlist(bookId, function (err) {
+    if (err) {
+      console.error('Error removing book from wishlist:', err.message);
+      return res.status(500).json({ error: 'Error removing book from wishlist' });
+    }
 
-      return res.status(200).json({ message: 'Book removed from wishlist successfully' });
+    return res.status(200).json({ message: 'Book removed from wishlist successfully' });
   });
 });
 
@@ -155,45 +156,44 @@ app.delete('/remove-book/:id', function(req, res) {
 
 // Wishlist routes
 app.post('/add-movie', (req, res) => {
-  const userEmail = req.body.email; // Assuming email is sent in the request body
+  const userEmail = req.body.email;
   const { title, ratings, runtime, release, tags, description, actors, director, poster } = req.body;
 
-  // First, fetch the user's ID using their email
   dbController.getUserIdByEmail(userEmail, (err, userId) => {
     if (err || userId === undefined) {
       console.error('Error fetching user ID:', err);
       return res.status(500).json({ error: 'Error fetching user ID or user not found' });
     }
-    // Now that we have the userId, proceed to add the movie to the wishlist
     dbController.addMovieToWishlist(userId, title, ratings, runtime, release, tags, description, actors, director, poster, (err, wishlistId) => {
       if (err) {
         console.error('Error adding movie to wishlist:', err);
         return res.status(500).json({ error: 'Error adding movie to wishlist' });
       }
-      res.status(200).json({ message: 'Movie added to wishlist successfully',  tags });
+      res.status(200).json({ message: 'Movie added to wishlist successfully', tags });
     });
   });
 });
 
+
 // Route to add a book to the wishlist
 app.post('/add-book', (req, res) => {
-  const userEmail = req.body.email; 
+  const userEmail = req.body.email;
   const { title, ratings, pageCount, release, genre, description, format, author, isbn, publisher, language, cover } = req.body;
 
-  
+
   dbController.getUserIdByEmail(userEmail, (err, userId) => {
-      if (err || userId === undefined) {
-          console.error('Error fetching user ID:', err);
-          return res.status(500).json({ error: 'Error fetching user ID or user not found' });
+    if (err || userId === undefined) {
+      console.error('Error fetching user ID:', err);
+      return res.status(500).json({ error: 'Error fetching user ID or user not found' });
+    }
+
+    dbController.addBookToWishlist(userId, title, ratings, pageCount, release, genre, description, format, author, isbn, publisher, language, cover, (err, wishlistId) => {
+      if (err) {
+        console.error('Error adding book to wishlist:', err);
+        return res.status(500).json({ error: 'Error adding book to wishlist' });
       }
-     
-      dbController.addBookToWishlist(userId, title, ratings, pageCount, release, genre, description, format, author, isbn, publisher, language, cover, (err, wishlistId) => {
-          if (err) {
-              console.error('Error adding book to wishlist:', err);
-              return res.status(500).json({ error: 'Error adding book to wishlist' });
-          }
-          res.status(200).json({ message: 'Book added to wishlist successfully' });
-      });
+      res.status(200).json({ message: 'Book added to wishlist successfully' });
+    });
   });
 });
 
@@ -205,7 +205,7 @@ app.get('/user-movies', (req, res) => {
   if (!userEmail) {
     return res.status(400).json({ error: 'User email is required' });
   }
-  
+
   dbController.getUserIdByEmail(userEmail, (err, userId) => {
     if (err || userId === undefined) {
       console.error('Error fetching user ID:', err);
@@ -222,25 +222,27 @@ app.get('/user-movies', (req, res) => {
   });
 });
 
+
+
 app.get('/user-books', (req, res) => {
   const userEmail = req.query.email;
   if (!userEmail) {
-      return res.status(400).json({ error: 'User email is required' });
+    return res.status(400).json({ error: 'User email is required' });
   }
 
   dbController.getUserIdByEmail(userEmail, (err, userId) => {
-      if (err || userId === undefined) {
-          console.error('Error fetching user ID:', err);
-          return res.status(500).json({ error: 'Error fetching user ID or user not found' });
-      }
+    if (err || userId === undefined) {
+      console.error('Error fetching user ID:', err);
+      return res.status(500).json({ error: 'Error fetching user ID or user not found' });
+    }
 
-      dbController.getBooksByUserId(userId, (err, books) => {
-          if (err) {
-              console.error('Error retrieving books:', err);
-              return res.status(500).json({ error: 'Error retrieving books' });
-          }
-          res.status(200).json(books);
-      });
+    dbController.getBooksByUserId(userId, (err, books) => {
+      if (err) {
+        console.error('Error retrieving books:', err);
+        return res.status(500).json({ error: 'Error retrieving books' });
+      }
+      res.status(200).json(books);
+    });
   });
 });
 
@@ -262,7 +264,6 @@ app.use(function (req, res, next) {
 
 // Error handler
 app.use(function (err, req, res, next) {
-  // Set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

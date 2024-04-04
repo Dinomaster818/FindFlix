@@ -15,43 +15,39 @@ if (posterSrc) {
     document.getElementById('poster').src = posterSrc;
 }
 
-    
-    
-    
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const removeMovieButton = document.getElementById('removeMovieFromWishlist');
 
     removeMovieButton.addEventListener('click', function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
         event.stopPropagation();
-        
-        // Extract the movie ID from the URL
+
         const urlParams = new URLSearchParams(window.location.search);
         const movieId = urlParams.get('movieid');
-         
 
-        
-        // Send a DELETE request to remove the movie
         fetch(`/remove-movie/${movieId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             },
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error removing movie from wishlist');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Movie removed from wishlist successfully', data);
-            window.location.href = 'login.html';
-        })
-        .catch(error => {
-            console.error('Error removing movie from wishlist:', error.message);
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error removing movie from wishlist');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Movie removed from wishlist successfully', data);
+                window.location.href = 'login.html';
+            })
+            .catch(error => {
+                console.error('Error removing movie from wishlist:', error.message);
 
-        });
+            });
     });
 });
 

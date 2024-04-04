@@ -39,10 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cover: document.getElementById('book-cover').src || 'N/A'
         };
         
-        // Store book data in localStorage
         localStorage.setItem('bookData', JSON.stringify(bookData));
-
-        // Redirect the user to login.html
         window.location.href = 'login.html';
     });
 });

@@ -1,72 +1,4 @@
-//EventListener for deleting the account
-document.addEventListener('DOMContentLoaded', function () {
-    const deleteAccountLink = document.getElementById('delete-account');
-
-    if (deleteAccountLink) {
-        deleteAccountLink.addEventListener('click', function (event) {
-            event.preventDefault();
-
-            Swal.fire({
-                title: 'Are you sure?',
-                text: 'Once deleted, you will not be able to recover your account!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // If the user confirms, proceed with account deletion
-                    deleteAccount();
-                }
-            });
-        });
-    } else {
-        console.error('Delete account link not found');
-    }
-});
-
-//Delete account functionality
-function deleteAccount() {
-    // Send a request
-    fetch('/delete-account', {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: localStorage.getItem('userEmail')
-        })
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to delete account');
-            }
-            return response.json();
-        })
-        .then(data => {
-            Swal.fire({
-                title: 'Account Deleted',
-                text: data.message,
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                window.location.href = 'login.html';
-            });
-        })
-        .catch(error => {
-            Swal.fire({
-                title: 'Error',
-                text: error.message,
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        });
-}
-
-
-
-
-
+// Even listeners
 document.addEventListener('DOMContentLoaded', function () {
     const movieData = localStorage.getItem('movieData');
     const bookData = localStorage.getItem('bookData');
@@ -79,13 +11,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
-    // Check if any of the required parameters are missing for both movie and book data
+    // Check if any of the required parameters are missing
     if ((!urlParams.has('email') || !urlParams.has('fullname')) && (!urlParams.has('movie-title') || !urlParams.has('book-title'))) {
         console.error('Missing required parameters. Movie or book data cannot be added to the wishlist.');
         return;
     }
-
-    // Determine if movie data or book data is present
+    // if movie or book data is present
     if (movieData) {
         const postData = {
             email: urlParams.get('email'),
@@ -101,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
             poster: urlParams.get('poster') || 'N/A'
         };
 
-        // Send a request to add the movie to the wishlist
+        // Send a request
         fetch('/add-movie', {
             method: 'POST',
             headers: {
@@ -123,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
         localStorage.removeItem('movieData');
+
     } else if (bookData) {
         const postData = {
             email: urlParams.get('email'),
@@ -141,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cover: urlParams.get('book-cover') || null
         };
 
-        // Send a request to add the book to the wishlist
+        // Send a request 
         fetch('/add-book', {
             method: 'POST',
             headers: {
@@ -157,11 +89,11 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(data => {
                 console.log('Book added to wishlist successfully', data);
-                // Optionally, update the UI here to reflect the addition
+
             })
             .catch(error => {
                 console.error('Error adding book to wishlist:', error);
-                // Optionally, inform the user that the addition failed
+
             });
 
         localStorage.removeItem('bookData');
@@ -177,14 +109,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //Display the wishlist
 document.addEventListener('DOMContentLoaded', function () {
-    // Extract email and fullname from the URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const userEmail = urlParams.get('email');
     const userFullname = urlParams.get('fullname');
 
-    // Check if email and fullname are present
     if (userEmail && userFullname) {
-        // Proceed with fetching the wishlist
         fetch(`/user-movies?email=${encodeURIComponent(userEmail)}`)
             .then(response => {
                 if (!response.ok) {
@@ -203,15 +132,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+
 document.addEventListener('DOMContentLoaded', function () {
-    // Extract email and fullname from the URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const userEmail = urlParams.get('email');
     const userFullname = urlParams.get('fullname');
 
-    // Check if email and fullname are present
     if (userEmail && userFullname) {
-        // Proceed with fetching the wishlist
         fetch(`/user-books?email=${encodeURIComponent(userEmail)}`)
             .then(response => {
                 if (!response.ok) {
@@ -231,14 +158,17 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
+//Display the movies wishlist
 function renderMovies(movies) {
     const moviesSection = document.getElementById('movies-section');
-    // Ensure the title is always at the top
     moviesSection.innerHTML = '';
 
     if (movies.length === 0) {
-        moviesSection.innerHTML += '<p>No movies found in your wishlist.</p>';
+        const noMoviesMsg = document.createElement('p');
+        noMoviesMsg.textContent = 'No movies found in your wishlist.';
+        noMoviesMsg.className = 'centered-message';
+        moviesSection.appendChild(noMoviesMsg);
+
     } else {
         movies.forEach(movie => {
             const movieElement = document.createElement('div');
@@ -261,13 +191,18 @@ function renderMovies(movies) {
     }
 }
 
+
+//Display the movie wishlist
 function renderBooks(books) {
     const booksSection = document.getElementById('books-section');
-    // Ensure the title is always at the top
     booksSection.innerHTML = '';
 
     if (books.length === 0) {
-        booksSection.innerHTML += '<p>No books found in your wishlist.</p>';
+        const noBooksMsg = document.createElement('p');
+        noBooksMsg.textContent = 'No books found in your wishlist.';
+        noBooksMsg.className = 'centered-message';
+        booksSection.appendChild(noBooksMsg);
+
     } else {
         books.forEach(book => {
             const bookElement = document.createElement('div');
@@ -289,72 +224,3 @@ function renderBooks(books) {
         });
     }
 }
-
-
-
-
-/*
-I want to create a div that shows the title of catagories "movies" and "Books"
-div id="wishlist-container"></div>
-        <div id="books-container"></div>
-
-
-function renderMovies(movies) {
-    const wishlistContainer = document.getElementById('wishlist-container');
-    wishlistContainer.innerHTML = '';
-    if (movies.length === 0) {
-        wishlistContainer.innerHTML = '<p>No movies found in your wishlist.</p>';
-    } else {
-
-        
-        
-        movies.forEach(movie => {
-            const movieElement = document.createElement('div');
-            movieElement.classList.add('movie-item');
-            const moviehtml = './movie_user.html';
-            const movieLink = `${moviehtml}?movieid=${encodeURIComponent(movie.id)}&movie-title=${encodeURIComponent(movie.title)}&ratings=${encodeURIComponent(movie.ratings)}&runtime=${encodeURIComponent(movie.runtime)}&release=${encodeURIComponent(movie.release)}&tags=${encodeURIComponent(movie.genre)}&description=${encodeURIComponent(movie.description)}&actors=Actors: ${encodeURIComponent(movie.actors)}&director=Director(s): ${encodeURIComponent(movie.director)}&poster=${encodeURIComponent(movie.poster)}`;
-            movieElement.innerHTML = `
-            <a href="${movieLink}" class="card-link">
-                <div class="card">
-                        <img src="${movie.poster}" alt="Poster for ${movie.title}" class="movie-poster">
-                        <div class="card-info">
-                            <h3>${movie.title}</h3>
-                            <p>Ratings: ${movie.ratings}</p>
-                            <p>Runtime: ${movie.runtime}</p>  
-                        <div>
-                </div>
-            </a>
-            `;
-            wishlistContainer.appendChild(movieElement);
-        });
-    }
-}
-
-function renderBooks(books) {
-    const booksContainer = document.getElementById('books-container');
-    booksContainer.innerHTML = '';
-    if (books.length === 0) {
-        booksContainer.innerHTML = '<p>No books found in your wishlist.</p>';
-    } else {
-        books.forEach(book => {
-            const bookElement = document.createElement('div');
-            bookElement.classList.add('book-item');
-            const bookHtml = './book_user.html';
-            const bookLink = `${bookHtml}?bookid=${encodeURIComponent(book.id)}&book-title=${encodeURIComponent(book.title)}&book-ratings=${encodeURIComponent(book.ratings)}&book-pages=${encodeURIComponent(book.pageCount)}&book-release=${encodeURIComponent(book.publishedDate)}&book-genre=${encodeURIComponent(book.genre)}&book-description=${encodeURIComponent(book.description)}&book-format=${encodeURIComponent(book.format)}&book-author=${encodeURIComponent(book.author)}&book-isbn=${encodeURIComponent(book.isbn)}&book-publisher=${encodeURIComponent(book.publisher)}&book-language=${encodeURIComponent(book.language)}&book-cover=${encodeURIComponent(book.cover)}`;
-            bookElement.innerHTML = `
-            <a href="${bookLink}" class="card-link">
-                <div class="card">
-                    <img src="${book.cover}" alt="Cover for ${book.title}" class="book-cover">
-                    <div class="card-info">
-                        <h3>${book.title}</h3>
-                        <p>Ratings: ${book.ratings}</p>
-                        <p>Pages: ${book.pageCount}</p>
-                    </div>
-                </div>
-            </a>
-            `;
-            booksContainer.appendChild(bookElement);
-        });
-    }
-}
-*/

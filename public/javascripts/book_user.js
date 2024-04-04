@@ -1,3 +1,4 @@
+// Event listeners for remove books from the wishlist
 document.addEventListener('DOMContentLoaded', function () {
     const removeBookButton = document.getElementById('removeBookFromWishlist');
 
@@ -8,9 +9,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const urlParams = new URLSearchParams(window.location.search);
         const bookId = urlParams.get('bookid');
-
-
-
 
         fetch(`/remove-book/${bookId}`, {
             method: 'DELETE',

@@ -7,7 +7,7 @@ const similarResults = document.getElementById('similarResults');
 const searchBar = document.querySelector('.search-bar'); 
 let currentCategory = '';
 
-const API_KEY_OMDB = 'cacfeca0'; // OMDb API key
+const API_KEY_OMDB = 'cacfeca0'; 
 const API_KEY_GOOGLE_BOOKS = 'AIzaSyBQBqr1xa8CMSY7hkic0JC9Zc6GcTWhpa0'; // Google Books API key
 
 
@@ -17,7 +17,6 @@ document.querySelectorAll('.category-btn').forEach(btn => {
         currentCategory = this.getAttribute('data-category');
         searchBar.style.display = 'block';
         searchInput.placeholder = `Search for ${currentCategory}`;
-        // Clear previous results
         primaryResults.innerHTML = '';
         similarResults.innerHTML = '';
     });
@@ -33,7 +32,6 @@ searchBtn.addEventListener('click', function () {
         });
         return;
     }
-    // Depending on the selected category, search for movies or books
     if (currentCategory === 'movies') {
         searchMovies(query);
     } else if (currentCategory === 'books') {
@@ -52,7 +50,7 @@ async function searchMovies(query, isRecommended = false) {
         if (data.Search) {
             displayResults(data.Search, 'movie', isRecommended ? 'similarResults' : 'primaryResults');
             if (!isRecommended && currentCategory === 'movies') {
-                searchBooks(query, true); // Trigger recommended books search
+                searchBooks(query, true); 
             }
         } else {
             displayMessage('No movies found.', isRecommended ? 'similarResults' : 'primaryResults');
@@ -73,7 +71,7 @@ async function searchBooks(query, isRecommended = false) {
         if (data.items) {
             displayResults(data.items, 'book', isRecommended ? 'similarResults' : 'primaryResults');
             if (!isRecommended && currentCategory === 'books') {
-                searchMovies(query, true); // Trigger recommended movies search
+                searchMovies(query, true); 
             }
         } else {
             displayMessage('No books found.', isRecommended ? 'similarResults' : 'primaryResults');
@@ -97,9 +95,9 @@ async function displayResults(results, type, targetId) {
 
     let link;
     if (type === 'movie') {
-        link = 'movie.html'; // Link for movies
+        link = 'movie.html'; 
     } else if (type === 'book') {
-        link = 'book.html'; // Link for books
+        link = 'book.html';
     }
     const promises = results.map(item => createCard(item, type, link));
     const cardsHtml = await Promise.all(promises);
@@ -118,7 +116,7 @@ async function fetchMovieDetailsById(imdbId) {
         const movieData = await response.json();
 
         if (movieData.Response === 'True') {
-            return movieData; // Return the movie data
+            return movieData;
         } else {
             console.error("Movie not found.");
             return null;

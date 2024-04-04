@@ -1,4 +1,4 @@
-
+//Swiper on home page
 const progressCircle = document.querySelector(".autoplay-progress svg");
 const progressContent = document.querySelector(".autoplay-progress span");
 var swiper = new Swiper(".mySwiper", {
@@ -24,22 +24,3 @@ var swiper = new Swiper(".mySwiper", {
     }
 });
 
-
-// Check if the clicked button is already active
-function changeBackgroundColor(event) {
-    if (event.target.style.backgroundColor === 'silver') {
-        event.target.style.backgroundColor = '';
-    } else {
-        var buttons = document.querySelectorAll('.category-btn');
-        buttons.forEach(function (button) {
-            button.style.backgroundColor = '';
-        });
-        event.target.style.backgroundColor = 'silver';
-    }
-}
-
-var buttons = document.querySelectorAll('.category-btn');
-
-buttons.forEach(function (button) {
-    button.addEventListener('click', changeBackgroundColor);
-});

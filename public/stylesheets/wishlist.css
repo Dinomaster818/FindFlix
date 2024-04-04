@@ -79,6 +79,8 @@ footer {
     font-size: 18px;
 }
 
+
+
 /*Wishlist*/
 #wishlistContainer {
     display: flex;
@@ -90,12 +92,12 @@ footer {
 }
 
 #wishlistContainer>h2 {
-    padding-top:20px ;
+    padding-top: 20px;
     text-align: center;
     padding-left: 20px;
     margin-bottom: 1rem;
     color: #ffffff;
-    font-size: 24px;
+    font-size: 34px;
     letter-spacing: 0.2cap;
 }
 
@@ -110,14 +112,13 @@ footer {
 
 
 .card {
-    min-width: 200px;
-    min-height: 500px;
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
     transition: transform 0.2s;
+    height: auto;
     border: none;
 
 }
@@ -147,12 +148,30 @@ footer {
     flex-grow: 1;
 }
 
-.card h3,
 .card p {
     margin: 10px 0;
+    text-align: left;
+    color: #000000;
 }
 
-/* Responsive adjustments */
+
+.card h3 {
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.centered-message {
+    text-align: center;
+    color: white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    grid-column: 1 / -1;
+}
+
 @media (max-width: 767px) {
     .card {
         width: 100%;
