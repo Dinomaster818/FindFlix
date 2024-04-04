@@ -29,12 +29,15 @@
             </div>
         </nav>
 
-        <div class="wishlist-title"><h2>Wishlist</h2></div>
-        <div class="Welcome-wishlist">Welcome <span id="userFullname"></span></div>
-        
-        <div id="wishlist-container">Movies</div>
-        <div id="books-container"></div>
+        <div class="wishlist-title">
+            <h2>Wishlist</h2>
+        </div>
+        <!-- <div class="Welcome-wishlist">Welcome <span id="userFullname"></span></div> -->
 
+        <div id="wishlistContainer">
+            <div id="moviesSection"></div>
+            <div id="booksSection"></div>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -44,7 +47,7 @@
         <script src="/javascripts/wishlist.js"></script>
 
         <footer class="py-4 bg-dark bg-transparent">
-            <div class="container px-4">
+            <div id="footer" class="container px-4">
                 <p class="m-0 text-center text-white">Copyright &copy; FindFlix 2024</p>
             </div>
         </footer>

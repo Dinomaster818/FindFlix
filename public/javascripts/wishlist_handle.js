@@ -117,11 +117,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             console.log('Movie added to wishlist successfully', data);
-            // Optionally, update the UI here to reflect the addition
         })
         .catch(error => {
             console.error('Error adding movie to wishlist:', error);
-            // Optionally, inform the user that the addition failed
         });
 
         localStorage.removeItem('movieData');
@@ -236,14 +234,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function renderMovies(movies) {
-    const wishlistContainer = document.getElementById('wishlist-container');
-    wishlistContainer.innerHTML = '';
+    const moviesSection = document.getElementById('moviesSection');
+    moviesSection.innerHTML = '';
+    const moviesTitle = document.createElement('h2');
+    moviesTitle.textContent = 'Movies';
+    moviesSection.appendChild(moviesTitle);
+
+    const wishlistContainer = document.createElement('div');
+    wishlistContainer.id = 'wishlist-container'; 
+    moviesSection.appendChild(wishlistContainer);
+
     if (movies.length === 0) {
-        wishlistContainer.innerHTML = '<p>No movies found in your wishlist.</p>';
+        moviesSection.innerHTML = '<p>No movies found in your wishlist.</p>';
     } else {
 
-        
-        
         movies.forEach(movie => {
             const movieElement = document.createElement('div');
             movieElement.classList.add('movie-item');
@@ -261,17 +265,26 @@ function renderMovies(movies) {
                 </div>
             </a>
             `;
-            wishlistContainer.appendChild(movieElement);
+            moviesSection.appendChild(movieElement);
         });
     }
 }
 
 function renderBooks(books) {
-    const booksContainer = document.getElementById('books-container');
-    booksContainer.innerHTML = '';
+    const booksSection = document.getElementById('booksSection');
+    booksSection.innerHTML = '';
+    const booksTitle = document.createElement('h2');
+    booksTitle.textContent = 'Books';
+    booksSection.appendChild(booksTitle);
+
+    const booksContainer = document.createElement('div');
+    booksContainer.id = 'books-container'; 
+    booksSection.appendChild(booksContainer);
+    
     if (books.length === 0) {
-        booksContainer.innerHTML = '<p>No books found in your wishlist.</p>';
+        booksSection.innerHTML = '<p>No books found in your wishlist.</p>';
     } else {
+
         books.forEach(book => {
             const bookElement = document.createElement('div');
             bookElement.classList.add('book-item');
@@ -289,7 +302,7 @@ function renderBooks(books) {
                 </div>
             </a>
             `;
-            booksContainer.appendChild(bookElement);
+            booksSection.appendChild(bookElement);
         });
     }
 }

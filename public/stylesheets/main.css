@@ -103,3 +103,15 @@ html {
 .card-info{
     padding: 20px;
 }
+
+.technical-details p:not(:last-child)::after {
+    content: "•";
+    margin-left: 5px;
+
+}
+
+.star-rating {
+    width: 1em;
+    height: 1em;
+    margin-right: 5px;
+}

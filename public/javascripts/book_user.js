@@ -2,15 +2,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const removeBookButton = document.getElementById('removeBookFromWishlist');
 
     removeBookButton.addEventListener('click', function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
         event.stopPropagation();
-        
- 
+
+
         const urlParams = new URLSearchParams(window.location.search);
         const bookId = urlParams.get('bookid');
-         
 
-        
+
+
 
         fetch(`/remove-book/${bookId}`, {
             method: 'DELETE',
@@ -18,20 +18,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Content-Type': 'application/json'
             },
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error removing book from wishlist');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Book removed from wishlist successfully', data);
-            window.location.href = 'login.html'; 
-        })
-        .catch(error => {
-            console.error('Error removing book from wishlist:', error.message);
-            
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error removing book from wishlist');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Book removed from wishlist successfully', data);
+                window.location.href = 'login.html';
+            })
+            .catch(error => {
+                console.error('Error removing book from wishlist:', error.message);
+
+            });
     });
 });
 

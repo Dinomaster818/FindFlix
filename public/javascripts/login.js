@@ -38,10 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
           const movieData = JSON.parse(localStorage.getItem('movieData') || '{}');
           const bookData = JSON.parse(localStorage.getItem('bookData') || '{}');
-
-          //const movieDataString = JSON.stringify(bookData, null, 2);
-          //alert(movieDataString);
-          
           const redirectUrl = `wishlist.html?email=${encodeURIComponent(data.email)}&fullname=${encodeURIComponent(data.fullname)}&movie-title=${encodeURIComponent(movieData.title)}&ratings=${encodeURIComponent(movieData.ratings)}&runtime=${encodeURIComponent(movieData.runtime)}&release=${encodeURIComponent(movieData.release)}&tags=${encodeURIComponent(movieData.tags)}&description=${encodeURIComponent(movieData.description)}&actors=${encodeURIComponent(movieData.actors)}&director=${encodeURIComponent(movieData.director)}&poster=${encodeURIComponent(movieData.poster)}&book-title=${encodeURIComponent(bookData.title)}&book-ratings=${encodeURIComponent(bookData.ratings)}&book-pages=${encodeURIComponent(bookData.pages)}&book-release=${encodeURIComponent(bookData.release)}&book-genre=${encodeURIComponent(bookData.genre)}&book-description=${encodeURIComponent(bookData.description)}&book-format=${encodeURIComponent(bookData.format)}&book-author=${encodeURIComponent(bookData.author)}&book-isbn=${encodeURIComponent(bookData.isbn)}&book-publisher=${encodeURIComponent(bookData.publisher)}&book-language=${encodeURIComponent(bookData.language)}&book-cover=${encodeURIComponent(bookData.cover)}`;
 
           window.location.href = redirectUrl;

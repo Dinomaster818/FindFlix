@@ -7,11 +7,11 @@ html {
     flex-direction: column;
 }
 
-.footer {
-    background: #333;
-    color: white;
+footer {
+    background: #151515;
+    color: rgb(255, 255, 255);
     text-align: center;
-    padding: 20px 0;
+    padding: 20px;
 }
 
 .navbar-brand {
@@ -80,37 +80,76 @@ html {
 }
 
 
-#wishlist-container {
+#wishlistContainer {
     display: flex;
-    flex-direction: row;
+    justify-content: space-around;
     flex-wrap: wrap;
-    gap: 3em;
-    justify-content: center;
     padding: 20px;
 }
 
-.card{
-    background-color: rgb(247, 251, 255);
+#moviesSection,
+#booksSection {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+
+
+.card {
     min-width: 200px;
-    min-height: auto !important;
+    min-height: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     overflow: hidden;
     transition: transform 0.2s;
     border: none;
+    display: flex;
+    flex-direction: column;
 }
 
-.card-info{
+
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.card-info {
     padding: 20px;
+    flex-grow: 1;
 }
 
 .card-link {
-    text-decoration: none; /* Remove underline */
-    color: inherit; /* Inherit text color */
-    outline: none; /* Remove outline */
+    text-decoration: none;
+    color: inherit;
+    outline: none;
 }
 
-.card-link:focus,
-.card-link:hover {
-    outline: none; /* Remove outline on focus/hover */
+.card-info h3,
+.card-info p {
+    margin: 0;
+    padding: 10px 0;
+}
+
+#moviesSection p,
+#booksSection p {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+}
+
+#moviesSection h2,
+#booksSection h2 {
+    color: aliceblue;
+    text-align: center;
 }
