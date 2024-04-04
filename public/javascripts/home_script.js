@@ -24,3 +24,21 @@ var swiper = new Swiper(".mySwiper", {
     }
 });
 
+
+function changeBackgroundColor(event) {
+    if (event.target.style.backgroundColor === 'silver') {
+        event.target.style.backgroundColor = '';
+    } else {
+        var buttons = document.querySelectorAll('.category-btn');
+        buttons.forEach(function (button) {
+            button.style.backgroundColor = '';
+        });
+        event.target.style.backgroundColor = 'silver';
+    }
+}
+
+var buttons = document.querySelectorAll('.category-btn');
+
+buttons.forEach(function (button) {
+    button.addEventListener('click', changeBackgroundColor);
+});
