@@ -10,8 +10,6 @@ let currentCategory = '';
 const API_KEY_OMDB = 'cacfeca0'; 
 const API_KEY_GOOGLE_BOOKS = 'AIzaSyBQBqr1xa8CMSY7hkic0JC9Zc6GcTWhpa0'; // Google Books API key
 
-
-
 document.querySelectorAll('.category-btn').forEach(btn => {
     btn.addEventListener('click', function () {
         currentCategory = this.getAttribute('data-category');

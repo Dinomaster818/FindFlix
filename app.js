@@ -5,9 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const sqlite3 = require('sqlite3');
 var dbController = require('./db_controller.js');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
 
 var app = express();
 // Serve static files from the 'public' directory
@@ -253,8 +250,6 @@ app.get('/user-books', (req, res) => {
 
 
 // Routes
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use(express.static('views'));
 
 // Catch 404 and forward to error handler
