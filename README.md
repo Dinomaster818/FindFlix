@@ -15,11 +15,11 @@ Projektet är en webbapplikation som gör det enkelt för dig att hitta nya film
 * Öppna din webbläsare och navigera till http://localhost:3000/ för att visa projektet lokalt.
   ![localhost](https://github.com/Dinomaster818/FindFlix/assets/61086008/c4d66cfb-e626-45cd-96ac-8ed5509055bf)
 
-#Observera
+# Observera
 * Ha NodeJS installerat på din dator innan du fortsätter följa installationsguiden
 * Ha Sqlite3 nedladdat på din dator
 
-#Troubleshooting
+# Troubleshooting
 Om du har problem med att starta programmet testa dessa steg:
 * Skriv i terminalen npm audit fix --force
 * skriv i terminalen npm install sqlite3
