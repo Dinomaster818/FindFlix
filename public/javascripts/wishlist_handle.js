@@ -88,8 +88,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Determine if movie data or book data is present
     if (movieData) {
         const postData = {
-            email: urlParams.get('email'), 
-            fullname: urlParams.get('fullname'), 
+            email: urlParams.get('email'),
+            fullname: urlParams.get('fullname'),
             title: urlParams.get('movie-title') || 'N/A',
             ratings: urlParams.get('ratings') || 'N/A',
             runtime: urlParams.get('runtime') || 'N/A',
@@ -109,24 +109,24 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify(postData)
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error adding movie to wishlist');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Movie added to wishlist successfully', data);
-        })
-        .catch(error => {
-            console.error('Error adding movie to wishlist:', error);
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error adding movie to wishlist');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Movie added to wishlist successfully', data);
+            })
+            .catch(error => {
+                console.error('Error adding movie to wishlist:', error);
+            });
 
         localStorage.removeItem('movieData');
     } else if (bookData) {
         const postData = {
-            email: urlParams.get('email'), 
-            fullname: urlParams.get('fullname'), 
+            email: urlParams.get('email'),
+            fullname: urlParams.get('fullname'),
             title: urlParams.get('book-title') || 'N/A',
             ratings: urlParams.get('book-ratings') || 'N/A',
             pageCount: urlParams.get('book-pages') || 'N/A',
@@ -149,20 +149,20 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify(postData)
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error adding book to wishlist');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Book added to wishlist successfully', data);
-            // Optionally, update the UI here to reflect the addition
-        })
-        .catch(error => {
-            console.error('Error adding book to wishlist:', error);
-            // Optionally, inform the user that the addition failed
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error adding book to wishlist');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Book added to wishlist successfully', data);
+                // Optionally, update the UI here to reflect the addition
+            })
+            .catch(error => {
+                console.error('Error adding book to wishlist:', error);
+                // Optionally, inform the user that the addition failed
+            });
 
         localStorage.removeItem('bookData');
     }
@@ -232,22 +232,82 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
 function renderMovies(movies) {
-    const moviesSection = document.getElementById('moviesSection');
+    const moviesSection = document.getElementById('movies-section');
+    // Ensure the title is always at the top
     moviesSection.innerHTML = '';
-    const moviesTitle = document.createElement('h2');
-    moviesTitle.textContent = 'Movies';
-    moviesSection.appendChild(moviesTitle);
-
-    const wishlistContainer = document.createElement('div');
-    wishlistContainer.id = 'wishlist-container'; 
-    moviesSection.appendChild(wishlistContainer);
 
     if (movies.length === 0) {
-        moviesSection.innerHTML = '<p>No movies found in your wishlist.</p>';
+        moviesSection.innerHTML += '<p>No movies found in your wishlist.</p>';
+    } else {
+        movies.forEach(movie => {
+            const movieElement = document.createElement('div');
+            movieElement.classList.add('movie-item');
+            const movieLink = `./movie_user.html?movieid=${encodeURIComponent(movie.id)}&movie-title=${encodeURIComponent(movie.title)}&ratings=${encodeURIComponent(movie.ratings)}&runtime=${encodeURIComponent(movie.runtime)}&release=${encodeURIComponent(movie.release)}&tags=${encodeURIComponent(movie.genre)}&description=${encodeURIComponent(movie.description)}&actors=${encodeURIComponent(movie.actors)}&director=${encodeURIComponent(movie.director)}&poster=${encodeURIComponent(movie.poster)}`;
+            movieElement.innerHTML = `
+                <a href="${movieLink}" class="card-link">
+                    <div class="card">
+                        <img src="${movie.poster}" alt="Poster for ${movie.title}" class="movie-poster">
+                        <div class="card-info">
+                            <h3>${movie.title}</h3>
+                            <p>Ratings: ${movie.ratings}</p>
+                            <p>Runtime: ${movie.runtime}</p>
+                        </div>
+                    </div>
+                </a>
+            `;
+            moviesSection.appendChild(movieElement);
+        });
+    }
+}
+
+function renderBooks(books) {
+    const booksSection = document.getElementById('books-section');
+    // Ensure the title is always at the top
+    booksSection.innerHTML = '';
+
+    if (books.length === 0) {
+        booksSection.innerHTML += '<p>No books found in your wishlist.</p>';
+    } else {
+        books.forEach(book => {
+            const bookElement = document.createElement('div');
+            bookElement.classList.add('book-item');
+            const bookLink = `./book_user.html?bookid=${encodeURIComponent(book.id)}&book-title=${encodeURIComponent(book.title)}&book-ratings=${encodeURIComponent(book.ratings)}&book-pages=${encodeURIComponent(book.pageCount)}&book-release=${encodeURIComponent(book.publishedDate)}&book-genre=${encodeURIComponent(book.genre)}&book-description=${encodeURIComponent(book.description)}&book-format=${encodeURIComponent(book.format)}&book-author=${encodeURIComponent(book.author)}&book-isbn=${encodeURIComponent(book.isbn)}&book-publisher=${encodeURIComponent(book.publisher)}&book-language=${encodeURIComponent(book.language)}&book-cover=${encodeURIComponent(book.cover)}`;
+            bookElement.innerHTML = `
+                <a href="${bookLink}" class="card-link">
+                    <div class="card">
+                        <img src="${book.cover}" alt="Cover for ${book.title}" class="book-cover">
+                        <div class="card-info">
+                            <h3>${book.title}</h3>
+                            <p>Ratings: ${book.ratings}</p>
+                            <p>Pages: ${book.pageCount}</p>
+                        </div>
+                    </div>
+                </a>
+            `;
+            booksSection.appendChild(bookElement);
+        });
+    }
+}
+
+
+
+
+/*
+I want to create a div that shows the title of catagories "movies" and "Books"
+div id="wishlist-container"></div>
+        <div id="books-container"></div>
+
+
+function renderMovies(movies) {
+    const wishlistContainer = document.getElementById('wishlist-container');
+    wishlistContainer.innerHTML = '';
+    if (movies.length === 0) {
+        wishlistContainer.innerHTML = '<p>No movies found in your wishlist.</p>';
     } else {
 
+        
+        
         movies.forEach(movie => {
             const movieElement = document.createElement('div');
             movieElement.classList.add('movie-item');
@@ -265,26 +325,17 @@ function renderMovies(movies) {
                 </div>
             </a>
             `;
-            moviesSection.appendChild(movieElement);
+            wishlistContainer.appendChild(movieElement);
         });
     }
 }
 
 function renderBooks(books) {
-    const booksSection = document.getElementById('booksSection');
-    booksSection.innerHTML = '';
-    const booksTitle = document.createElement('h2');
-    booksTitle.textContent = 'Books';
-    booksSection.appendChild(booksTitle);
-
-    const booksContainer = document.createElement('div');
-    booksContainer.id = 'books-container'; 
-    booksSection.appendChild(booksContainer);
-    
+    const booksContainer = document.getElementById('books-container');
+    booksContainer.innerHTML = '';
     if (books.length === 0) {
-        booksSection.innerHTML = '<p>No books found in your wishlist.</p>';
+        booksContainer.innerHTML = '<p>No books found in your wishlist.</p>';
     } else {
-
         books.forEach(book => {
             const bookElement = document.createElement('div');
             bookElement.classList.add('book-item');
@@ -302,8 +353,8 @@ function renderBooks(books) {
                 </div>
             </a>
             `;
-            booksSection.appendChild(bookElement);
+            booksContainer.appendChild(bookElement);
         });
     }
 }
-
+*/

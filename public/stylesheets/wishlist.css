@@ -79,54 +79,51 @@ footer {
     font-size: 18px;
 }
 
-
+/*Wishlist*/
 #wishlistContainer {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding: 20px;
-}
-
-#moviesSection,
-#booksSection {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
     padding: 20px;
     width: 100%;
-    max-width: 600px;
 }
 
+#wishlistContainer>h2 {
+    padding-top:20px ;
+    text-align: center;
+    padding-left: 20px;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    font-size: 24px;
+    letter-spacing: 0.2cap;
+}
+
+
+#movies-section,
+#books-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
 
 
 .card {
     min-width: 200px;
-    min-height: auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
     border-radius: 20px;
-    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
     border: none;
-    display: flex;
-    flex-direction: column;
+
 }
-
-
 
 .card:hover {
     transform: scale(1.05);
-}
-
-.card img {
-    width: 100%;
-    height: auto;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-}
-
-.card-info {
-    padding: 20px;
-    flex-grow: 1;
 }
 
 .card-link {
@@ -135,21 +132,36 @@ footer {
     outline: none;
 }
 
-.card-info h3,
-.card-info p {
-    margin: 0;
-    padding: 10px 0;
-}
-
-#moviesSection p,
-#booksSection p {
+.movie-poster,
+.book-cover {
     width: 100%;
-    text-align: center;
-    font-size: 16px;
+    height: auto;
+    object-fit: cover;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
-#moviesSection h2,
-#booksSection h2 {
-    color: aliceblue;
+.card-info {
+    padding: 1rem;
     text-align: center;
+    flex-grow: 1;
+}
+
+.card h3,
+.card p {
+    margin: 10px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .card {
+        width: 100%;
+        margin: auto;
+
+    }
+
+    #wishlistContainer>h2 {
+        text-align: center;
+        padding-left: 0;
+    }
 }
