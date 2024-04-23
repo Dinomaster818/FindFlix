@@ -17,7 +17,7 @@ Projektet är en webbapplikation som gör det enkelt för dig att hitta nya film
 
 # Observera
 * Ha NodeJS installerat på din dator innan du fortsätter följa installationsguiden
-* Ha Sqlite3 nedladdat på din dator
+* Ha Sqlite3 nedladdat på din dator. Detta kan du göra genom att skriva i terminalen i VS Code npm install sqlite3.
 
 # Troubleshooting
 Om du har problem med att starta programmet testa dessa steg:
