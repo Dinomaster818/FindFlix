@@ -12,6 +12,7 @@ Du kan skapa ett personligt konto för att hantera favoriter och önskelistor me
 
 # Installationsguide
 * Ladda ner och installera Visual Studio Code (VS Code).
+* Ladda ner Node.js https://nodejs.org/en/download/current
 
 * Klona projektets repository till din dator eller ladda ner projektet till din dator.
 * Öppna projektmappen i VS Code.
