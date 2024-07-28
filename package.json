@@ -32,5 +32,12 @@
     "url": "https://github.com/Dinomaster818/FindFlix/issues"
   },
   "homepage": "https://github.com/Dinomaster818/FindFlix#readme",
-  "description": ""
+  "description": "",
+  "pkg": {
+    "targets": [
+      "node18-linux-x64",
+      "node18-macos-x64",
+      "node18-win-x64"
+    ]
+  }
 }
