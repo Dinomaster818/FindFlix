@@ -2,6 +2,7 @@
   "name": "findflix",
   "version": "1.0.0",
   "private": false,
+  "bin": "app.js",
   "scripts": {
     "start": "node ./bin/www"
   },
