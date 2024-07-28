@@ -14,6 +14,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+console.log('Application is now running on PORT 3000');
 
 
 // Define the root route to serve the 'index.html' file
