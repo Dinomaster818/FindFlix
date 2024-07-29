@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3');
 
-const db = new sqlite3.Database('usersdb.db');
+const db = new sqlite3.Database('./data/usersdb.db');
 
 function login(email, password, callback) {
     const sql = 'SELECT * FROM user WHERE email = ? AND password = ?';
