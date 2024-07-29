@@ -4,7 +4,8 @@
   "private": false,
   "bin": "app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "build": "pkg . --out-path dist && cpx ./data/usersdb.db dist/data/"
   },
   "dependencies": {
     "axios": "^1.7.2",
@@ -33,21 +34,25 @@
   },
   "homepage": "https://github.com/Dinomaster818/FindFlix#readme",
   "description": "",
-"pkg": {
-  "scripts": "javascripts/**/*", "start": "node ./bin/www",
-  "assets": [
-    "public/**/*",
-    "stylesheets/**/*",
-    "views/**/*",
-    "md-img/**/*",
-    "data/**/*"
-  ],
-  "targets": [
-    "node20-linux-x64",
-    "node20-win-x64",
-    "node20-macos-x64"
-  ],
-  "outputPath": "dist"
-}
-
+  "pkg": {
+    "scripts": "javascripts/**/*",
+    "start": "node ./bin/www",
+    "assets": [
+      "public/**/*",
+      "stylesheets/**/*",
+      "views/**/*",
+      "md-img/**/*",
+      "db_controller.js",
+      "data/**/*"
+    ],
+    "targets": [
+      "node20-linux-x64",
+      "node20-win-x64",
+      "node20-macos-x64"
+    ],
+    "outputPath": "dist"
+  },
+  "devDependencies": {
+    "cpx": "^1.2.1"
+  }
 }

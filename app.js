@@ -14,7 +14,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-console.log('Application is now running on PORT 3000');
 
 
 // Define the root route to serve the 'index.html' file
@@ -28,7 +27,8 @@ app.get('/:page.html', function (req, res) {
 });
 
 app.listen(3000, () =>{
-  console.log('listening to port 3000');
+  console.log('Server is now listening on port 3000');
+  console.log('Press any key to continue!');
 })
 
 // POST /login
