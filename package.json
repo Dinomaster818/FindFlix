@@ -43,7 +43,8 @@
       "views/**/*",
       "md-img/**/*",
       "db_controller.js",
-      "data/**/*"
+      "data/**/*",
+      "bin/**/*"
     ],
     "targets": [
       "node20-linux-x64",
