@@ -27,8 +27,8 @@ app.get('/:page.html', function (req, res) {
 });
 
 app.listen(3000, () =>{
+  console.log('Server is now running!');
   console.log('Server is now listening on port 3000');
-  console.log('Press any key to continue!');
 })
 
 // POST /login
