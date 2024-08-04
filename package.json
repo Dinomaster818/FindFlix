@@ -45,7 +45,8 @@
       "db_controller.js",
       "data/**/*",
       "bin/**/*",
-      "node_modules/**/*"
+      "node_modules/**/*",
+      "node_modules/sqlite3/**/*"
     ],
     "targets": [
       "node20-linux-x64",
