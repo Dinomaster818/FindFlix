@@ -36,14 +36,12 @@ Baserat på ditt operativsystem, kör motsvarande fil:
 För dig som använder macOS eller Linux krävs det att du kör filen genom terminalen, annars kommer det inte att fungera. Följ dessa steg:
 
 #### Öppna terminalen:
-- **macOS**: Öppna Terminal-appen och skriv in 'chmod +x findflix-macos' och efteråt './findflix-macos'.
-- **Linux**: Öppna din terminalapplikation från systemets applikationsmeny och skriv in 'chmod +x findflix-linux' och efteråt '.findflix-linux.
+- **macOS**: Öppna Terminal-appen och skriv in `chmod +x findflix-macos` och efteråt `./findflix-macos`.
+- **Linux**: Öppna din terminalapplikation från systemets applikationsmeny och skriv in `chmod +x findflix-linux` och efteråt `.findflix-linux`.
 
 * Öppna din webbläsare och navigera till http://localhost:3000/ för att visa projektet lokalt.
   ![localhost](https://github.com/Dinomaster818/FindFlix/assets/61086008/c4d66cfb-e626-45cd-96ac-8ed5509055bf)
 
 
 # Troubleshooting
-Om du har problem med att starta programmet testa dessa steg:
-* Skriv i terminalen npm audit fix --force om du får några errors eller critical vurnabilities i terminalen.
-* Om du inte öppnade projektet i root så får du skriva i terminalen cd "filsökningsvägen till rooten till projektet alltså där FindFlix mappen startar". Därefter skriver du i terminalen npm start. Glöm inte bort att ta bort " " när skriver den första kommandot.
+
