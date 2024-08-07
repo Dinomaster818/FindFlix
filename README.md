@@ -10,16 +10,34 @@ Du kan skapa ett personligt konto för att hantera favoriter och önskelistor me
 
 
 
-# Installationsguide
-* Ladda ner och installera Visual Studio Code (VS Code).
-* Ladda ner Node.js https://nodejs.org/en/download/current
+# FindFlix Installation Guide
 
-* Klona projektets repository till din dator eller ladda ner projektet till din dator.
-* Öppna projektmappen i VS Code.
-* Skriv i terminalen npm install node. Om du använder Linux, ladda ner npm först innan du installerar node. Det gör du genom att skriva sudo apt install npm i terminalen i VS Code.
-* Skriv i terminalen npm install sqlite3
-* Starta sedan applikationen genom att skriva npm start i terminalen.
-  ![terminal](https://github.com/Dinomaster818/FindFlix/assets/61086008/e523b69a-f621-4055-be42-53768d941df9)
+## Alternativ 1: Extrahera zip-filen
+Extrahera den nedladdade FindFlix-zip-filen till din dator.
+
+## Alternativ 2: Ladda ner/klona från Github
+Navigera till vår repository och ladda ner den därifrån eller klona projektet.
+
+Om du ska ladda ner genom Github, följ instruktionen under punkten a.
+
+## Navigera till rotkatalogen
+Se till att du är i projektets rotkatalog där mappen FindFlix finns. Detta är den översta nivån i projektet.
+
+## Navigera till distributionsmappen
+Navigera till mappen `dist`.
+
+## Kör den fil som passar ditt operativsystem
+Baserat på ditt operativsystem, kör motsvarande fil:
+- **Windows**: `findflix-win.exe`
+- **Linux**: `findflix-linux`
+- **macOS**: `findflix-macos`
+
+### OBS! Viktig information för att köra FindFlix på macOS och Linux
+För dig som använder macOS eller Linux krävs det att du kör filen genom terminalen, annars kommer det inte att fungera. Följ dessa steg:
+
+#### Öppna terminalen:
+- **macOS**: Öppna Terminal-appen och skriv in 'chmod +x findflix-macos' och efteråt './findflix-macos'.
+- **Linux**: Öppna din terminalapplikation från systemets applikationsmeny och skriv in 'chmod +x findflix-linux' och efteråt '.findflix-linux.
 
 * Öppna din webbläsare och navigera till http://localhost:3000/ för att visa projektet lokalt.
   ![localhost](https://github.com/Dinomaster818/FindFlix/assets/61086008/c4d66cfb-e626-45cd-96ac-8ed5509055bf)
