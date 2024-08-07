@@ -26,6 +26,16 @@ app.get('/:page.html', function (req, res) {
   res.sendFile(path.join(__dirname, 'views', `${page}.html`));
 });
 
+app.listen(3000, () => {
+  console.log(`
+  ========================================
+        *** Server is now running! ***
+  ========================================
+      Access it at: http://localhost:3000
+  ========================================
+  `);
+});
+
 
 // POST /login
 app.post('/login', function (req, res) {
